@@ -28,6 +28,13 @@ class khachhang extends Authenticatable
     public function dathang(){
         return $this->hasMany(dathang::class,'id','khachhang_id');
     }
+    public function scopeSearch($query){
+        if($tukhoa=request()->tukhoa){
+          $query=$query->where('hovaten','like','%'.$tukhoa.'%');
+        }
+        return $query;
+  
+    }
 
     /**
      * The attributes that should be hidden for serialization.

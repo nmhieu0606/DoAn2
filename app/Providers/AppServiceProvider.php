@@ -35,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
         view()->composer('*',function($view){
             $view->with([
-                'danhmuc'=>danhmuc::all(),
+                'danhmuc'=>danhmuc::search()->paginate(10),
                 'giohang'=>new giohang(),
                 'sp'=>sanpham::search()->paginate(11),
                 

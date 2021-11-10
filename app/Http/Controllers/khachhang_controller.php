@@ -14,7 +14,7 @@ class khachhang_controller extends Controller
      */
     public function index()
     {
-        $data=khachhang::all();
+        $data=khachhang::search()->paginate(10);
         return view('admin.khachhang.index',compact('data'));
         
     }

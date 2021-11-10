@@ -21,7 +21,7 @@ class nhanvien_controller extends Controller
      */
     public function index()
     {
-        $data=nhanvien::all();
+        $data=nhanvien::search()->paginate(10);
         return view('admin.nhanvien.index',compact('data'));    
     }
 

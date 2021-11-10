@@ -29,6 +29,14 @@ class nhanvien extends Authenticatable
         return $this->hasOne(chucvu::class,'id','chucvu_id');
     }
 
+    public function scopeSearch($query){
+        if($tukhoa=request()->tukhoa){
+          $query=$query->where('hovaten','like','%'.$tukhoa.'%');
+        }
+        return $query;
+  
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

@@ -8,6 +8,9 @@
 </form>
 
 <a href="{{route('danhmuc.create')}}"  class="btn btn-primary mt-1">Thêm</a> 
+@if (session('status'))
+        <div class="alert alert-info">{{session('status')}}</div>
+@endif
 <div class="card" >
  
     <div class="card-body">

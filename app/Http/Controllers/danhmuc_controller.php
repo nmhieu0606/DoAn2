@@ -40,8 +40,9 @@ class danhmuc_controller extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'tendanhmuc'=>['required','max:100','unique:danhmuc']
+        $request->validate([
+            'tendanhmuc'=>'required|max:100|unique:danhmuc',
+            'parent_id'=>'required|numeric'
         ]);
 
         $data=new danhmuc;
@@ -50,6 +51,7 @@ class danhmuc_controller extends Controller
         $data->slug=Str::slug($data->tendanhmuc);
         if($data->save()){
             $data=danhmuc::all();
+            
             return view('admin.danhmuc.index',compact('data'));
         }
         

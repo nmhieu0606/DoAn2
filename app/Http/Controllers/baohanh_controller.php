@@ -16,6 +16,7 @@ class baohanh_controller extends Controller
     {
         $data=baohanh::all();
         return view('admin.baohanh.index',compact('data'));
+
     }
 
     /**
@@ -36,10 +37,15 @@ class baohanh_controller extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'thoigianbaohanh' => ['required', 'max:255', 'unique:baohanh'],
+        ]);
+           
         $data=new baohanh;
         $data->thoigianbaohanh=$request->thoigianbaohanh;
         if($data->save()){
             return redirect('admin/baohanh');
+
         }
     }
 

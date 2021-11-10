@@ -15,9 +15,14 @@
             @csrf
             <div class="mb-3">
               <label for="thoigianbaohanh" class="form-label">Nhập tên thời gian bảo hành</label>
-              <input type="text" class="form-control" name="thoigianbaohanh" id="exampleInputEmail1" >
+              <input @error('thoigianbaohanh') is-invalid @enderror type="text" class="form-control" name="thoigianbaohanh" id="exampleInputEmail1" >
+              @error('thoigianbaohanh')
+              <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+              @enderror
+
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
+
           </form>
     </div>
 </div>

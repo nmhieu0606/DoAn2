@@ -40,7 +40,10 @@ class danhmuc_controller extends Controller
      */
     public function store(Request $request)
     {
-        
+        $this->validate($request,[
+            'tendanhmuc'=>['required','max:100','unique:danhmuc']
+        ]);
+
         $data=new danhmuc;
         $data->tendanhmuc=$request->tendanhmuc;
         $data->parent_id=$request->parent_id;

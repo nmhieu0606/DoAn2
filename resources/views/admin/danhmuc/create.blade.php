@@ -14,12 +14,15 @@
         <form action="{{route('danhmuc.store')}}" method="POST">
             @csrf
             <div class="mb-3">
-              <label for="tendanhmuc" class="form-label">nhập tên sản phẩm</label>
-              <input type="text" class="form-control" name="tendanhmuc" id="exampleInputEmail1" >
+              <label for="tendanhmuc" class="form-label">nhập tên danh mục</label>
+              <input type="text"  class="form-control" @error('tendanhmuc') is-invalid @enderror name="tendanhmuc" id="tendanhmuc" >
+              @error('tendanhmuc')
+              <div class="invalid-feedback">Họ và tên không được bỏ trống.</div>
+					    @enderror
             </div>
             <div class="mb-3">
               
-              <select required name="parent_id" class="form-select" aria-label="Default select example">
+              <select name="parent_id" class="form-select" aria-label="Default select example">
                 <option selected>Chọn danh mục cha</option>
                 <option value="0">Parent</option>
                 @foreach ($danhmuc as $item)

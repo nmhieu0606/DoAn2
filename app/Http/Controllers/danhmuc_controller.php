@@ -6,6 +6,7 @@ use App\Models\danhmuc;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Str;
+
 class danhmuc_controller extends Controller
 {
     
@@ -17,8 +18,8 @@ class danhmuc_controller extends Controller
     public function index()
     {
         
-        $data=danhmuc::all();
-        return view('admin.danhmuc.index',compact('data'));
+       
+        return view('admin.danhmuc.index');
     }
 
     /**
@@ -44,7 +45,6 @@ class danhmuc_controller extends Controller
             'tendanhmuc'=>'required|max:100|unique:danhmuc',
             'parent_id'=>'required|numeric'
         ]);
-
         $data=new danhmuc;
         $data->tendanhmuc=$request->tendanhmuc;
         $data->parent_id=$request->parent_id;

@@ -1,9 +1,8 @@
 @extends('layouts.admin')
 @section('main')
 <form action="" class="form-inline">
-  
   <div class="form-group ">
-    <input class="form-control" name="tukhoa" placeholder="Nhập tên danh mục">
+    <input class="form-control" name="tukhoa" placeholder="Nhập tên sản phẩm">
    </div>
   <button type="submit" class="btn btn-primary">Tìm Kiếm</button>
 </form>

@@ -99,13 +99,7 @@ class dathang_controller extends Controller
         $dathang->ngaydathang=Carbon::now();
         $dathang->tongtien=$giohang->gia;
 
-        // $dathang = dathang::create([
-        //     'khachhang_id' => $id,
-        //     'ngaydathang' => Carbon::now(),
-        //     'tinhtrang_id'=> $tinhtrang,
-        //     'tongtien' => $giohang->gia,
-        //     ]);
-      
+        
         if($dathang->save()){
             foreach($giohang->items as $sanpham_id=>$item){
                 $gia=$item['gia'];

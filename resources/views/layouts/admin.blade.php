@@ -222,6 +222,7 @@
 <script src="{{url('public/adminlte')}}/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="{{url('public/adminlte')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 <!-- overlayScrollbars -->
 <script src="{{url('public/adminlte')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->

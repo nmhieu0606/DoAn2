@@ -9,6 +9,7 @@ use App\Models\dathang_chitiet;
 use App\Models\khachhang;
 use App\Models\tinhtrang;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class donhang_controller extends Controller
 {
@@ -40,18 +41,16 @@ class donhang_controller extends Controller
     }
     public function show($id){
         
-        $data=dathang_chitiet::where('dathang_id',$id)->orderby('dathang_id','DESC')->get();
         $dh=dathang::find($id);
-        
-        $nv_id=dathang::find($id)->nhanvien_id;
-        $kh_id=dathang::find($id)->khachhang_id;
-       
-        $kh=khachhang::find($kh_id);
-       
-     
-        
         $tinhtrang=tinhtrang::all();
-        return view('admin.donhang.show',compact('data','tinhtrang','nv_id','dh','kh'));
+        if(request('pdf',false)){
+            $pdf=PDF::loadView('admin.pdf.donhang_chitiet',compact('dh','tinhtrang'));
+            return $pdf->stream('invoice.pdf');
+        }
+       
+        
+
+        return view('admin.donhang.show',compact('dh','tinhtrang'));
     }
     public function destroy($id){
         

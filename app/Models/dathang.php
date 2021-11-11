@@ -20,6 +20,9 @@ class dathang extends Model
     public function tinhtrang(){
         return $this->hasOne(tinhtrang::class,'id','tinhtrang_id');
     }
+    public function dathang_chitiet(){
+        return $this->hasMany(dathang_chitiet::class,'dathang_id','id');
+    }
     
 
 }

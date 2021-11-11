@@ -62,7 +62,7 @@ Route::group(['prefix'=>'admin','middleware'=>'adminlogin'],function(){
         'baohanh'=>'baohanh_controller',
         'chucvu'=>'chucvu_controller',
         'nhanvien'=>'nhanvien_controller',
-        'tinhtrang'=>'tinhtrang_controller'
+        'tinhtrang'=>'tinhtrang_controller',
     ]);
 });
 

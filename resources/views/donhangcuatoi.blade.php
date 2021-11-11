@@ -19,9 +19,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
-                                            
-                                       
                                         @foreach ($data as $item)
                                         <tr>
                                 

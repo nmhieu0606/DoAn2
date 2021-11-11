@@ -1,13 +1,44 @@
-@extends('layouts.admin')
-@section('main')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Đơn hàng</title>
+    <style>
+        body{
+            font-family: "DejaVu Sans";
+        }
+        table{
+            width: 100%;
+            border: 1px solid #333;
+            margin-bottom: 25px;
+            border-collapse: collapse;
+        }
+        table tr th,
+        table tr td{
+            border: 1px;
+            padding: 10px;
+            box-sizing: border-box;
+            text-align: left;
+        }
 
-<div class="card" >
+
+    </style>
+</head>
+<body>
+    
+
+
  
-    <div class="card-body">
+ 
+        <h1 style="text-align: center; color: red;">Shop Mobile</h1>
+        <h2 style="text-align: center; color: red;">Đơn hàng : {{$dh->id}}</h2>
+        <hr>
+        
         
         <table class="table table-bordered border-primary">
-            <h1 style="text-align: center; color: red;">Đơn hàng : {{$dh->id}}</h1>
-            <hr>
+           
             <tbody>
                 <tr>
                     <td width=200px>Họ và tên</td>
@@ -34,7 +65,7 @@
         <hr>
         @if (isset($dh->nhanvien_id))
             
-            <table class="table table-bordered border-primary">
+            <table >
                 <tbody>
                     <tr>
                         <td width=200px>Nhân viên giao hàng</td>
@@ -108,7 +139,8 @@
             </tbody>
         </table>
      
-    </div>
-</div>
+   
 
-@endsection
+
+</body>
+</html>

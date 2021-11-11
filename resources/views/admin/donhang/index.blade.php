@@ -36,8 +36,10 @@
               <td  >{{number_format($item->tongtien)}}</td>
               <td  >{{$item->tinhtrang->tinhtrang}}</td>
               <td  ><a class="btn btn-primary" href="{{route('donhang.show',$item->id)}}">Xem</a></td>
+              <td  ><a class="btn btn-warning" href="{{route('donhang.show',$item->id)}}?pdf=true">PDF</a></td>
+              
               <td>
-                <a onclick="return confirm('bạn có muốn xóa nó không đơn hàng {{$item->id}} không?')" href="{{route('donhang.destroy',$item->id)}}" class="btn btn-warning ">Xóa</a>
+                <a onclick="return confirm('bạn có muốn xóa nó không đơn hàng {{$item->id}} không?')" href="{{route('donhang.destroy',$item->id)}}" class="btn btn-danger ">Xóa</a>
              </td>
             </tr>
             @endforeach

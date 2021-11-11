@@ -1,6 +1,11 @@
 @extends('layouts.admin')
 @section('main')
-
+<form action="" method="GET" class="form-inline">
+  <div class="form-group ">
+    <input class="form-control mb-3" name="tukhoa" placeholder="Nhập mã đơn">
+   </div>
+  <button type="submit" class="btn btn-primary mb-3">Tìm Kiếm</button>
+</form>
 
 <div class="card" >
  

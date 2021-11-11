@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('main')
 
-<a href="#"  class="btn btn-primary mt-1">Thêm</a> 
+<a href="#"  class="btn btn-primary mb-3">Sửa</a> 
 <div class="card" >
  
     <div class="card-body">

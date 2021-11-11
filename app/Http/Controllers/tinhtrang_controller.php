@@ -14,7 +14,7 @@ class tinhtrang_controller extends Controller
      */
     public function index()
     {
-        $data=tinhtrang::all();
+        $data=tinhtrang::search()->paginate(10);
         return view('admin.tinhtrang.index',compact('data'));
     }
 
@@ -36,6 +36,11 @@ class tinhtrang_controller extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'tinhtrang'=>'required|max:100|unique:tinhtrang',
+            // 'parent_id'=>'required|numeric'
+        ]);
+        
         $data=new tinhtrang;
         $data->tinhtrang=$request->tinhtrang;
         if($data->save()){

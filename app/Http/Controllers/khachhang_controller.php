@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\khachhang;
 use Illuminate\Http\Request;
 
+
 class khachhang_controller extends Controller
 {
     /**
@@ -37,6 +38,15 @@ class khachhang_controller extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'hovaten'=>'required|max:100|unique:khachhang',
+            'sdt'=>'required|numeric',
+            'cmnd'=>'required|numeric',
+            'email'=>'required|max:100|unique:khachhang',
+            'tendangnhap'=>'required|max:100|unique:khachhang',
+            
+        ]);
+
         $data=new khachhang;
         $data->hovaten=$request->hovaten;
         $data->gioitinh=$request->gioitinh;

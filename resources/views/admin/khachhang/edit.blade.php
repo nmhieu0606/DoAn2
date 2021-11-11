@@ -23,8 +23,8 @@
             </div>
             <div class="mb-3">
 							<label for="sdt" class="form-label">SĐT</label>
-							<input  value="{{$data->sdt}}" type="text" class="form-control" id="sdt" name="sdt" required>
-							<div class="invalid-feedback">SĐT không được bỏ trống.</div>
+							<input  value="{{$data->sdt}}" type="text" class="form-control" id="sdt" name="sdt" required >
+              {{$errors->first('sdt')}}
 						</div>
             <div class="mb-3">
 							<label for="cmnd" class="form-label">CMND</label>

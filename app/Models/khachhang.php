@@ -32,6 +32,7 @@ class khachhang extends Authenticatable
         'cmnd',
         'status',
         'token',
+        'anh',
 
     ];
     public function dathang(){

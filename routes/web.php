@@ -29,7 +29,7 @@ Route::get('/shop','home_controller@shop')->name('home.shop');
 Route::get('/danhmuc/{slug}','home_controller@show')->name('home.show');
 
 Route::get('/dangnhap/index','home_controller@get_dangnhap')->name('home.getdangnhap');
-Route::get('/dangxuat/index','home_controller@dangxuat')->name('home.dangxuat');
+
 Route::post('/dangnhap/index','home_controller@post_dangnhap')->name('home.postdangnhap');
 Route::get('/chitiet/{id}','home_controller@chitiet')->name('home.chitiet');
 
@@ -51,6 +51,15 @@ Route::get('admin/dangnhap','nhanvien_controller@getdangnhap')->name('get.dangnh
 Route::post('admin/dangnhap','nhanvien_controller@postdangnhap')->name('post.dangnhap');
 Route::get('admin/dangxuat','nhanvien_controller@dangxuat')->name('dangxuat');
 Route::get('admin/error','admin_controller@error')->name('admin.error');
+
+Route::group(['prefix'=>'khachhang','middleware'=>'khlogin'],function(){
+    Route::get('/taikhoan','home_controller@taikhoan')->name('khachhang.taikhoan');
+    Route::post('/taikhoan','home_controller@update')->name('taikhoan.update');
+    Route::get('/dangxuat/index','home_controller@dangxuat')->name('khachhang.dangxuat');
+    Route::get('/doimatkhau','home_controller@doimatkhau')->name('khachhang.doimatkhau');
+    Route::post('/doimatkhau','home_controller@postdoimatkhau')->name('khachhang.postdoimatkhau');
+
+});
 
 Route::group(['prefix'=>'admin','middleware'=>'adminlogin'],function(){
     Route::get('/', 'admin_controller@index')->name('admin.index');

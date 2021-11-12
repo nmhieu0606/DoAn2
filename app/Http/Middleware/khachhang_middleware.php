@@ -27,7 +27,6 @@ class khachhang_middleware
             return $next($request);
 
         }
-        
         else{
             return redirect('/dangnhap/index')->with('no','Vui lòng đăng nhập');
         }

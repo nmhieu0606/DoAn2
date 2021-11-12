@@ -27,7 +27,7 @@
                                                 <label class="form-check-label" for="exampleCheckbox1"><span>Remember me</span></label>
                                             </div>
                                         </div>
-                                        <a href="#">Forgot password?</a>
+                                        <a href="{{route('home.quenmatkhau')}}">Quên mật khẩu?</a>
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-fill-out btn-block" name="login">Log in</button>

@@ -11,4 +11,12 @@ class baohanh extends Model
     public $timestamps = false;
     protected $table='baohanh';
     //protected $filltable=['id','tendanhmuc'];
+
+    public function scopeSearch($query){
+        if($tukhoa=request()->tukhoa){
+          $query=$query->where('thoigianbaohanh','like','%'.$tukhoa.'%');
+        }
+        return $query;
+  
+    }
 }

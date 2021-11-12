@@ -14,7 +14,7 @@ class baohanh_controller extends Controller
      */
     public function index()
     {
-        $data=baohanh::all();
+        $data=baohanh::search()->paginate(10);
         return view('admin.baohanh.index',compact('data'));
 
     }
@@ -26,6 +26,7 @@ class baohanh_controller extends Controller
      */
     public function create()
     {
+
         return view('admin.baohanh.create');
     }
 

@@ -16,7 +16,7 @@ class chucvu_controller extends Controller
      */
     public function index()
     {
-        $data=chucvu::all();
+        $data=chucvu::search()->paginate(10);
         return view('admin.chucvu.index',compact('data'));
     }
 

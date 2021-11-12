@@ -14,4 +14,12 @@ class chucvu extends Model
     public function nhanvien(){
         return $this->hasMany(nhanvien::class,'nhanvien_id','id');
     }
+    public function scopeSearch($query){
+        if($tukhoa=request()->tukhoa){
+          $query=$query->where('tenchucvu','like','%'.$tukhoa.'%');
+        }
+        return $query;
+  
+    }
+
 }

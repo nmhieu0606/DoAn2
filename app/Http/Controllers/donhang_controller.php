@@ -16,7 +16,14 @@ class donhang_controller extends Controller
     public function index(){
         $tinhtrang=tinhtrang::all();
         $data=dathang::orderby('id','DESC')->paginate(10);
+<<<<<<< HEAD
         return view('admin.donhang.index',compact('data','tinhtrang'));
+=======
+        $dhct=dathang_chitiet::search()->paginate(10);
+        $kh=khachhang::search()->paginate(5);
+        $sp=sanpham::all();
+        return view('admin.donhang.index',compact('data','sp','dhct','kh'));
+>>>>>>> 3d04f43d0b589746ab72a489aa4188f0adc3fa0d
 
     }
     public function edit($id){

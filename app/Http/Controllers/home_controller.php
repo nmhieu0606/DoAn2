@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Mail;
+use File;
+use Illuminate\Support\Facades\Hash;
 
 class home_controller extends Controller
 {
@@ -152,6 +154,74 @@ class home_controller extends Controller
 
         }
   
+    }
+
+    public function taikhoan(){
+       $data= Auth::guard('khachhang')->user();
+        return view('khachhang.index',compact('data'));
+
+    }
+    public function update(Request $request){
+        // $request->validate([
+        //     'hovaten'=>'required|string',
+        //     'ngaysinh'=>'required|date',
+        //     'cmnd'=>'required|numeric|max:10',
+        //     'diachi'=>'required|string',
+        //     'sdt'=>'required|numeric|max:11',
+        //     'email'=>'email|required',
+        // ]);
+        $id=Auth::guard('khachhang')->user()->id;
+        $data=khachhang::find($id);
+        if($request->has('file_anh')){
+            $hovaten=Str::slug($request->hovaten);
+            $file=$request->file_anh;
+            $ex=$request->file_anh->extension();
+            $file_name=time().'-'.$hovaten.'.'.$ex;
+            $file->move(public_path('khachhang'),$file_name);
+           
+            if($data->anh!=null){
+                File::delete('public/khachhang/'.$data->anh);
+            } 
+            
+            $data->anh=$file_name;
+            $data->save();
+        }
+        
+        $data->hovaten=$request->hovaten;
+        $data->ngaysinh=$request->ngaysinh;
+        $data->gioitinh=$request->gioitinh;
+        $data->diachi=$request->diachi;
+        $data->sdt=$request->sdt;
+        $data->cmnd=$request->cmnd;
+        $data->email=$request->email;
+        if($data->save()){
+            return redirect()->back()->with('yes','Cập nhật thông tin thành công');
+        }
+        
+       
+        
+    }
+    public function doimatkhau(){
+        return view('khachhang.doimatkhau');
+    }
+    public function postdoimatkhau(Request $request){
+        $id=Auth::guard('khachhang')->user()->id;
+        $kh=khachhang::find($id);
+        
+        if(Hash::check($request->password_cu,$kh->password)){
+           
+            $request->validate([
+                'password_moi'=>'required',
+                'password_xacnhan'=>'required|same:password_moi',
+            ]);
+            $kh->password= bcrypt($request->password_moi);
+            if($request->password_moi)
+            return redirect('/')->with('yes','Đổi mật khẩu thành công');
+
+        }
+        else{
+            return redirect()->back()->with('no','Mật khẩu cũ sai');
+        }
     }
     
 }

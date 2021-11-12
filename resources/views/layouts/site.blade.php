@@ -80,22 +80,45 @@
                             </form>
                         </li>
                         @if (Auth::guard('khachhang')->user())
-                        <li class="dropdown cart_dropdown">
-                            <a class="nav-link cart_trigger" href="{{route('get_dathang')}}" data-toggle="dropdown"><i class="far fa-user"></i> {{Auth::guard('khachhang')->user()->hovaten}}</a>
-                           
-                            <div class="cart_box dropdown-menu dropdown-menu-left">
-                                <ul class="cart_list">
-                                    
-                                    <li>
-                                        <a href="" class="item_remove"><i class="ion-close"></i></a>
-                                        <a href="{{route('home.dangxuat')}}">Đăng xuất</a>
-        
-                                    </li>
-                                    
+                        <!-- Example single danger button -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-silver btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img style="width: 40px; border-radius:20px;" src="{{url('public/khachhang')}}/{{Auth::guard('khachhang')->user()->anh}}" alt="">
+                                {{Auth::guard('khachhang')->user()->hovaten}}
+                                </button>
+                                <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{route('khachhang.taikhoan')}}">Thông tin</a></li>
+                                <li><a class="dropdown-item" href="{{route('khachhang.doimatkhau')}}" >Đổi mật khẩu</a></li>
+                                <li><a class="dropdown-item" href="{{route('khachhang.dangxuat')}}">Đăng xuất</a></li>
                                 </ul>
-                                
                             </div>
-                        </li>
+
+                            <!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                    ...
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+
+
+
+ 
+                      
                         @endif
                         
                         <li class="dropdown cart_dropdown">
@@ -259,6 +282,7 @@
     <script src="{{url('public/shopwise')}}/assets/js/jquery.dd.min.js"></script>
     <script src="{{url('public/shopwise')}}/assets/js/slick.min.js"></script>
     <script src="{{url('public/shopwise')}}/assets/js/jquery.elevatezoom.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7TypZFTl4Z3gVtikNOdGSfNTpnmq-ahQ&amp;callback=initMap"></script>
     <script src="{{url('public/shopwise')}}/assets/js/scripts.js"></script>
     <script src="//cdn.ckeditor.com/4.16.2/full/ckeditor.js"></script>

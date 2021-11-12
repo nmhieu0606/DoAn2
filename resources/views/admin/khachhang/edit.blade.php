@@ -3,7 +3,6 @@
     <div class="card-body">
         <form action="{{route('khachhang.update',$data->id)}}" method="POST">
             @csrf @method('PUT')
-           
             <div class="mb-3">
                 <label for="TieuDe" class="form-label">Họ và tên</label>
                 <input type="text" value="{{$data->hovaten}}" class="form-control" id="hovaten" name="hovaten" required>

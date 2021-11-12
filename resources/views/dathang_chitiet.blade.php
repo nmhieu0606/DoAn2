@@ -43,7 +43,8 @@
             <td>{{number_format($item['gia']*$item['soluong'])}}</td>
         </tr>
         @endforeach
-    </tbody>  
+    </tbody>
+</table>  
 
 <div class="heading_s1 mr-0">
     <h4>Tổng tiền :   {{number_format($giohang->gia)}}</h4>

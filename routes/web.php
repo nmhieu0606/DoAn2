@@ -18,6 +18,12 @@ use App\Http\Controllers\danhmuc_controller;
 Route::get('/','home_controller@index')->name('home.index');
 Route::get('/dangky/index','home_controller@getdangky')->name('home.getdangky');
 Route::post('/dangky/index','home_controller@postdangky')->name('home.postdangky');
+Route::get('/dangky/kichhoat/{khachhang}/{token}','home_controller@kichhoat')->name('home.kichhoat');
+
+Route::get('/quenmatkhau/index','home_controller@quenmatkhau')->name('home.quenmatkhau');
+Route::post('/quenmatkhau/index','home_controller@postquenmatkhau')->name('home.postquenmatkhau');
+Route::get('/quenmatkhau/kichhoatmatkhau/{khachhang}/{token}','home_controller@kichhoatmatkhau')->name('home.kichhoatmatkhau');
+Route::post('/quenmatkhau/laylaimatkhau/{khachhang}/{token}','home_controller@laylaimatkhau')->name('home.laylaimatkhau');
 
 Route::get('/shop','home_controller@shop')->name('home.shop');
 Route::get('/danhmuc/{slug}','home_controller@show')->name('home.show');
@@ -52,7 +58,7 @@ Route::group(['prefix'=>'admin','middleware'=>'adminlogin'],function(){
     Route::get('/donhang/show/{id}', 'donhang_controller@show')->name('donhang.show');
     Route::get('/donhang/destroy/{id}', 'donhang_controller@destroy')->name('donhang.destroy');
     Route::get('/donhang/nhandon/{id}', 'donhang_controller@nhandon')->name('donhang.nhandon');
-    Route::post('/donhang/tinhtrang/{id}', 'donhang_controller@tinhtrang')->name('donhang.tinhtrang');
+    Route::get('/donhang/tinhtrang/{id}/{tt}', 'donhang_controller@tinhtrang')->name('donhang.tinhtrang');
     Route::resources([
         'danhmuc'=>'danhmuc_controller',
         'khachhang'=>'khachhang_controller',

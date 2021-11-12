@@ -24,6 +24,15 @@ class khachhang extends Authenticatable
         'tendangnhap',
         'email',
         'password',
+        'hovaten',
+        'ngaysinh',
+        'gioitinh',
+        'diachi',
+        'sdt',
+        'cmnd',
+        'status',
+        'token',
+
     ];
     public function dathang(){
         return $this->hasMany(dathang::class,'id','khachhang_id');

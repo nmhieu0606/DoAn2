@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ShopMobile</title>
+  
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
     <link rel="stylesheet" href="{{url('public/shopwise')}}/assets/css/animate.css" />
@@ -29,7 +30,7 @@
 </head>
 <body>
     
-    <header class="header_wrap fixed-top header_with_topbar">
+    <header  class="header_wrap fixed-top header_with_topbar">
         <div class="bottom_header dark_skin main_menu_uppercase">
             <div class="container">
                 <nav class="navbar navbar-expand-lg">
@@ -60,7 +61,7 @@
                                 </div>
                             </li>
                             @if (Auth::guard('khachhang')->user())
-                            <li><a class="nav-link nav_item" href="{{route('get.donhang')}}">Đơn hàng của tôi</a></li>
+                            <li><a  style="color: black;" class="nav-link nav_item" href="{{route('get.donhang')}}">Đơn hàng của tôi</a></li>
                             @endif
                         </ul>
                     </div>
@@ -70,18 +71,15 @@
                         <li><a style="color: black;" class="nav-link nav_item" href="{{route('home.getdangky')}}">Đăng Ký</a></li>
                         @endif
                         <li>
-                           
                             <form action="" class="form-inline">
   
                                 <div class="form-group ">
-                                  <input class="form-control" name="tukhoa" placeholder="Nhập tên sản phẩm">
+                                  <input class="input-group-text" name="tukhoa" placeholder="Nhập tên sản phẩm">
                                  </div>
-                                 <button type="submit" class="btn btn-outline-primary">Tìm</button>
+                                 <button style="width: 40px; height: 40px; padding: 4px;" stype="submit" class="btn btn-outline-primary">Tìm</button>
                             </form>
                         </li>
                         @if (Auth::guard('khachhang')->user())
-                            
-                       
                         <li class="dropdown cart_dropdown">
                             <a class="nav-link cart_trigger" href="{{route('get_dathang')}}" data-toggle="dropdown"><i class="far fa-user"></i> {{Auth::guard('khachhang')->user()->hovaten}}</a>
                            
@@ -99,6 +97,7 @@
                             </div>
                         </li>
                         @endif
+                        
                         <li class="dropdown cart_dropdown">
                             <a class="nav-link cart_trigger" href="{{route('get_dathang')}}" data-toggle="dropdown"><i class="linearicons-cart"></i><span class="cart_count">{{$giohang->soluong}}</span></a>
                             <div class="cart_box dropdown-menu dropdown-menu-right">
@@ -123,6 +122,21 @@
             </div>
         </div>
     </header>
+    <div class="container">
+        @if(Session::has('yes'))
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {{Session::get('yes')}} 
+
+        </div>
+        @endif
+        @if(Session::has('no'))
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {{Session::get('no')}} 
+        </div>
+        @endif
+    </div>
    
    
                             

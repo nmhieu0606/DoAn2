@@ -61,6 +61,13 @@ Route::group(['prefix'=>'khachhang','middleware'=>'khlogin'],function(){
 
 });
 
+Route::group(['prefix'=>'ajax'],function(){
+    Route::post('/dangnhap','ajax_controller@dangnhap')->name('ajax.dangnhap');
+    Route::post('/comment/{sanpham_id}','ajax_controller@binhluan')->name('ajax.comment');
+  
+
+});
+
 Route::group(['prefix'=>'admin','middleware'=>'adminlogin'],function(){
     Route::get('/', 'admin_controller@index')->name('admin.index');
     Route::get('/donhang', 'donhang_controller@index')->name('donhang.index');

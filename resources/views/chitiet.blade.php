@@ -1,17 +1,13 @@
 @extends('layouts.site')
 @section('main')
 <div class="ajax_quick_view">
-
-   
-        
-  
-	<div class="row">
+    <div class="row">
         <div class="col-lg-6 col-md-6 mb-4 mb-md-0">
-          <div class="product-image">
+            <div class="product-image">
                 <div class="product_img_box">
-                   <img src="{{url('public/uploads')}}/{{$data->anh}}">
+                    <img src="{{url('public/uploads')}}/{{$data->anh}}">
                 </div>
-               
+                
             </div>
         </div>
         <div class="col-lg-6 col-md-6">
@@ -25,10 +21,12 @@
                             <span>35% Off</span>
                         </div> --}}
                     </div>
+                    <br>
+    
+                    <br>
+                    <div  class="pr_desc ml-0 ">
                     
-                    <div class="pr_desc">
-                    
-                   {!!$data->chitiet!!}
+                    {!!$data->chitiet!!}
                     </div>
                     <div class="product_sort_info">
                         <ul>
@@ -37,8 +35,8 @@
                             <li><i class="linearicons-bag-dollar"></i> Cash on Delivery available</li> --}}
                         </ul>
                     </div>
-                   
-                   
+                    
+                    
                 </div>
                 <hr />
                 <div class="cart_extra">
@@ -50,7 +48,7 @@
                 </div>
                 <hr />
                 <ul class="product-meta">
-                   
+                    
                     <li>Danh mục: <a href="#">{{$data->danhmuc->tendanhmuc}}</a></li>
                     
                 </ul>
@@ -65,13 +63,218 @@
                         <li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
                     </ul>
                 </div>
+
             </div>
         </div>
+        
+    </div>
+    
+</div>
+<hr>
+<div class="container">
+    <h3>Bình luận ở đây</h3>
+    @if (Auth::guard('khachhang')->check())
+  
+    <form>
+        <legend>Xin chào {{Auth::guard('khachhang')->user()->hovaten}}</legend>
+        
+        <div class="mb-3">
+            <input hidden value="{{$data->id}}" type="text">
+        
+          
+          <textarea id="comment" type="text" class="form-control " id="exampleInputEmail1" ></textarea>
+          <small id="loi-comment" class="help-blog"></small>
+        </div>
+        
+        <button id="btn-comment" type="submit" class="btn btn-primary">Gửi bình luận</button>
+    </form>
+        
+    @else
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Vui lòng đăng nhập
+    </button>
+
+
+    @endif
+        
+    
+    <hr>
+    <h3>Các bình luận</h3>
+  
+    <div id="list-comment" class="comment">
+        @foreach ($data->comment as $item)
+<div class="media">
+
+    <a href="" class="pull-left mr-2">
+        <img class="media-object" src="" alt="image">
+    </a>
+    <div class="media-body">
+        <h4 class="media-heading">{{$item->khachhang->hovaten}}</h4>
+        <p>{{$item->comment}}</p>
+        <p><a class="btn btn-sm btn-primary" href="">Trả lời</a></p>
+        @if (Auth::guard('khachhang')->check())
+        <form >
+            <h3>Bình luận ở đây</h3>
+            <div class="mb-3">
+              <textarea type="text" class="form-control " id="exampleInputEmail1" ></textarea>
+              
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Gửi bình luận</button>
+        </form>
+        @else
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Vui lòng đăng nhập
+        </button>
+        @endif
+
+        <hr>
+        @foreach ($item->child_reply as $i)
+        <div class="media">
+
+            <a href="" class="pull-left mr-2">
+                <img class="media-object" src="" alt="image">
+            </a>
+            <div class="media-body">
+                <h4 class="media-heading">{{$i->khachhang->hovaten}}</h4>
+                <p>{{$i->comment}}</p>
+                <p><a class="btn btn-sm btn-primary" href="">Trả lời</a></p>
+                <form>
+                    <h3>Bình luận ở đây</h3>
+                    <div class="mb-3">
+                        <input hidden value="{{$data->id}}" type="text">
+                    
+                      
+                      <textarea type="text" class="form-control " id="exampleInputEmail1" ></textarea>
+                      
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Gửi bình luận</button>
+                </form>
+            </div>
+        </div>
+        @endforeach
     </div>
 </div>
+@endforeach
+      
+    </div>
+
+
+</div>
+
+
+{{-- modal --}}
+<!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Đăng nhập</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div id="thongbaoloi"> 
+
+            </div>
+            <form action="" method="POST">
+                @csrf
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Tên đăng nhập</label>
+                  <input type="text" class="form-control" id="tendangnhap" >
+                
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Password</label>
+                  <input type="Password" class="form-control" id="password">
+                </div>
+                
+                <button type="submit" id="btn_login" class="btn btn-primary">Đăng nhập</button>
+              </form>
+         
+        </div>
+        
+      </div>
+    </div>
+  </div>
+ 
+     
 
 @endsection
 <script src="assets/js/scripts.js"></script>
-@section('cke')
-	<script src="{{ asset('public/js/ckeditor/ckeditor.js') }}"></script>
+
+
+@section('js')
+	<script>
+        var _csrf='{{csrf_token()}}';
+        $('#btn_login').click(function(ev){
+            ev.preventDefault();
+           
+            var login_url='{{route('ajax.dangnhap')}}'
+            var tendangnhap=$('#tendangnhap').val();
+            var password=$('#password').val();
+            $.ajax({
+                type: "POST",
+                url: login_url,
+                data: {
+                    tendangnhap:tendangnhap,
+                    password:password,
+                    _token:_csrf,
+                    },
+                success: function (response) {
+                    if(response.error){
+                        let _html_error='<div class="alert alert-danger" role="alert"><button class="close" data-bs-dismiss="alert" aria-hidden="true">&times;</button>';
+                        for(let error of response.error){
+                            _html_error+=` <li>${error}</li>`;
+                            
+
+                        }
+                        _html_error+='</div>';
+                        $('#thongbaoloi').html(_html_error);
+
+                    }
+                    else{
+                        alert('Đăng nhập thành công');
+                        location.reload();
+                    }
+                }
+            });
+            
+
+        });
+        
+        $('#btn-comment').click(function(ev){
+            ev.preventDefault();
+            let comment=$('#comment').val();
+            let _comment_url='{{route("ajax.comment",$data->id)}}';
+
+            $.ajax({
+                type: "POST",
+                url: _comment_url,
+                data: {
+                    comment:comment,
+                    _token:_csrf
+                },
+                
+                success: function (response) {
+                    if(response.error){
+                        $('#loi-comment').html(response.error);
+
+                    }
+                    else{
+                        $('#loi-comment').html('');
+                        $('#comment').val('');
+                        $('#list-comment').html(response);
+                    }
+                    
+                }
+            });
+
+
+        });
+
+    </script>
 @endsection

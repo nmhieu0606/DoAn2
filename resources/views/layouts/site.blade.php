@@ -286,6 +286,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7TypZFTl4Z3gVtikNOdGSfNTpnmq-ahQ&amp;callback=initMap"></script>
     <script src="{{url('public/shopwise')}}/assets/js/scripts.js"></script>
     <script src="//cdn.ckeditor.com/4.16.2/full/ckeditor.js"></script>
+    @yield('js')
 
 </body>
 </html>

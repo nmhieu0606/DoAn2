@@ -18,7 +18,7 @@ class danhmuc_controller extends Controller
     public function index()
     {
         
-       
+       $danhmuc=danhmuc::orderby('id', 'DESC')->paginate(4); 
         return view('admin.danhmuc.index');
     }
 
@@ -41,10 +41,15 @@ class danhmuc_controller extends Controller
      */
     public function store(Request $request)
     {
+
+        $messages = [
+            'tendanhmuc.required' => 'Tên danh mục không được bỏ trống',
+        ];
+
         $request->validate([
             'tendanhmuc'=>'required|max:100|unique:danhmuc',
             'parent_id'=>'required|numeric'
-        ]);
+        ],$messages);
         $data=new danhmuc;
         $data->tendanhmuc=$request->tendanhmuc;
         $data->parent_id=$request->parent_id;

@@ -10,4 +10,11 @@ class nhanhieu extends Model
     use HasFactory;
     protected $table='nhanhieu';
     public $timestamps = false;
+    public function scopeSearch($query){
+        if($tukhoa=request()->tukhoa){
+          $query=$query->where('nhanhieu','like','%'.$tukhoa.'%');
+        }
+        return $query;
+  
+      }
 }

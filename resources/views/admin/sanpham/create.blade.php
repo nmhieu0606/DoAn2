@@ -6,87 +6,74 @@
             @csrf
             <div class="form-group">
               <label for="tensp" class="form-label">Nhập tên sản phẩm</label>
-              <input type="text" class="form-control" name="tensp" id="tensp" required >
+              <input type="text" class="form-control" @error('tensp') is-invalid @enderror name="tensp" id="tensp"  >
+              {{$errors->first('tensp')}}
             </div>
 
             <div class="form-group">
                 <label for="anh">Hình ảnh sản phẩm <span class="text-danger font-weight-bold">*</span></label>
-                <input id="file_uploads" type="file" class="form-control @error('anh') is-invalid @enderror" name="file_uploads" value="{{ old('file_uploads') }}" required autocomplete="file_uploads" />
-                @error('file_uploads')
-                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                @enderror
+                <input id="file_uploads" type="file" class="form-control @error('anh') is-invalid @enderror" name="file_uploads" value="{{ old('file_uploads') }}"  />
+                {{$errors->first('anh')}}
+                    
+               
             </div>
 
             <div class="form-group">
                 <label for="soluong">Số lượng <span class="text-danger font-weight-bold">*</span></label>
                 <input id="soluong" type="number" min="0" class="form-control @error('soluong') is-invalid @enderror" name="soluong" />
-                @error('soluong')
-                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                @enderror
+                {{$errors->first('soluong')}}
             </div>
             <div class="form-group">
                 <label for="gianhap">Giá nhập <span class="text-danger font-weight-bold">*</span></label>
-                <input id="gianhap" type="number" min="0" class="form-control @error('gianhap') is-invalid @enderror" name="gianhap" value="{{ old('gianhap') }}" required autocomplete="gianhap" />
-                @error('gianhap')
-                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                @enderror
+                <input id="gianhap" type="number" min="0" class="form-control @error('gianhap') is-invalid @enderror" name="gianhap" value="{{ old('gianhap') }}"  />
+                {{$errors->first('gianhap')}}
             </div>
 
             <div class="form-group">
                 <label for="giaxuat">Gía xuất <span class="text-danger font-weight-bold">*</span></label>
-                <input id="giaxuat" type="number" min="0" class="form-control @error('gianhap') is-invalid @enderror" name="giaxuat" value="{{ old('giaxuat') }}" required autocomplete="giaxuat" />
-                @error('giaxuat')
-                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                @enderror
+                <input id="giaxuat" type="number" min="0" class="form-control @error('giaxuat') is-invalid @enderror" name="giaxuat" value="{{ old('giaxuat') }}"  />
+                {{$errors->first('giaxuat')}}
             </div>
 
 
             <div class="form-group">
                 <label for="nhanhieu_id"><span class="text-danger font-weight-bold">*</span></label>
-                <select id="nhanhieu_id" class="form-control custom-select @error('nhanhieu_id') is-invalid @enderror" name="nhanhieu_id" required autofocus>
+                <select id="nhanhieu_id" class="form-control custom-select @error('nhanhieu_id') is-invalid @enderror" name="nhanhieu_id" >
                     <option value="">-- Chọn loại nhãn hiệu --</option>
                     @foreach($nhanhieu as $value)
                         <option value="{{ $value->id }}">{{ $value->nhanhieu }}</option>
                     @endforeach
                 </select>
-                @error('nhanhieu_id')
-                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                @enderror
+                {{$errors->first('nhanhieu_id')}}
             </div>
 
             <div class="form-group">
                 <label for="xuatxu_id"><span class="text-danger font-weight-bold">*</span></label>
-                <select id="xuatxu_id" class="form-control custom-select @error('xuatxu_id') is-invalid @enderror" name="xuatxu_id" required autofocus>
+                <select id="xuatxu_id" class="form-control custom-select @error('xuatxu_id') is-invalid @enderror" name="xuatxu_id" >
                     <option value="">-- Chọn xuất xứ --</option>
                     @foreach($xuatxu as $value)
                         <option value="{{ $value->id }}">{{ $value->xuatxu}}</option>
                     @endforeach
                 </select>
-                @error('xuatxu_id')
-                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                @enderror
+                {{$errors->first('xuatxu_id')}}
             </div>
             <div class="form-group">
                 <label for="baohanh_id"><span class="text-danger font-weight-bold">*</span></label>
-                <select id="baohanh_id" class="form-control custom-select @error('baohanh_id') is-invalid @enderror" name="baohanh_id" required autofocus>
+                <select id="baohanh_id" class="form-control custom-select @error('baohanh_id') is-invalid @enderror" name="baohanh_id" >
                     <option value="">--Chọn thời gian bảo hành--</option>
                     @foreach($baohanh as $value)
                         <option value="{{ $value->id }}">{{ $value->thoigianbaohanh}}</option>
                     @endforeach
                 </select>
-                @error('baohanh_id')
-                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                @enderror
+                {{$errors->first('baohanh_id')}}
             </div>
             <div class="form-group">
                 <label for="danhmuc_id"><span class="text-danger font-weight-bold">*</span></label>
-                <select id="danhmuc_id" class="form-control custom-select @error('danhmuc_id') is-invalid @enderror" name="danhmuc_id" required autofocus>
+                <select id="danhmuc_id" class="form-control custom-select @error('danhmuc_id') is-invalid @enderror" name="danhmuc_id" >
                     <option value="">--Chọn danh mục sản phẩm--</option>
                     <?php showdanhmuc($danhmuc)?>
                 </select>
-                @error('baohanh_id')
-                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                @enderror
+                {{$errors->first('danhmuc_id')}}
             </div>
 
 

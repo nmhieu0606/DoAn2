@@ -7,7 +7,7 @@
             @csrf
             <div class="mb-3">
               <label for="tendanhmuc" class="form-label">Nhập tên danh mục</label>
-              <input type="text"  class="form-control" @error('tendanhmuc') is-invalid @enderror name="tendanhmuc" id="tendanhmuc" required >
+              <input type="text"  class="form-control" @error('tendanhmuc') is-invalid @enderror name="tendanhmuc" id="tendanhmuc"  >
               {{$errors->first('tendanhmuc')}}
               
             </div>
@@ -19,7 +19,6 @@
                 @foreach ($danhmuc as $item)
                 <option value="{{$item->id}}">{{$item->tendanhmuc}}</option>
                 @endforeach
-                
               </select>
               {{$errors->first('parent_id')}}
             </div>

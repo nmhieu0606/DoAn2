@@ -2,28 +2,28 @@
 @section('main')
 <form action="" method="GET" class="form-inline">
   <div class="form-group ">
-    <input class="form-control" name="tukhoa" placeholder="Nhập tên danh mục">
+    <input class="form-control mb-3" name="tukhoa" placeholder="Nhập tên khách hàng">
    </div>
-  <button type="submit" class="btn btn-primary">Tìm Kiếm</button>
+  <button type="submit" class="btn btn-primary mb-3">Tìm Kiếm</button>
 </form>
 
-<a href="{{route('khachhang.create')}}"  class="btn btn-primary mt-1">Thêm</a> 
+<a href="{{route('khachhang.create')}}"  class="btn btn-primary mb-3">Thêm</a> 
 <div class="card" >
  
     <div class="card-body">
       <table class="table">
         <thead>
           <tr>
-            <th width="10%" scope="col">ID</th>
-            <th width="70%" scope="col">Họ và tên</th>
-            <th width="10%" scope="col">giới tính</th>
-            <th width="10%" scope="col">SĐT</th>
-            <th width="10%" scope="col">CMND</th>
-            <th width="10%" scope="col">Ngày sinh</th>
-            <th width="10%" scope="col">Địa chỉ</th>
-            <th width="10%" scope="col">email</th>
-            <th width="10%" scope="col">Tên đăng nhập</th>
-            <th width="10%" scope="col">mật khẩu</th>
+            <th class="product">ID</th>
+            <th class="product">Họ và tên</th>
+            <th class="product">giới tính</th>
+            <th class="product">SĐT</th>
+            <th class="product">CMND</th>
+            <th class="product">Ngày sinh</th>
+            <th class="product">Địa chỉ</th>
+            <th class="product">email</th>
+            <th class="product">Tên đăng nhập</th>
+            <th class="product">mật khẩu</th>
           </tr>
         </thead>
         <tbody>

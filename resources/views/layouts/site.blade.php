@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ShopMobile</title>
+  
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
     <link rel="stylesheet" href="{{url('public/shopwise')}}/assets/css/animate.css" />
@@ -29,7 +30,7 @@
 </head>
 <body>
     
-    <header class="header_wrap fixed-top header_with_topbar">
+    <header  class="header_wrap fixed-top header_with_topbar">
         <div class="bottom_header dark_skin main_menu_uppercase">
             <div class="container">
                 <nav class="navbar navbar-expand-lg">
@@ -60,7 +61,7 @@
                                 </div>
                             </li>
                             @if (Auth::guard('khachhang')->user())
-                            <li><a class="nav-link nav_item" href="{{route('get.donhang')}}">Đơn hàng của tôi</a></li>
+                            <li><a  style="color: black;" class="nav-link nav_item" href="{{route('get.donhang')}}">Đơn hàng của tôi</a></li>
                             @endif
                         </ul>
                     </div>
@@ -70,35 +71,56 @@
                         <li><a style="color: black;" class="nav-link nav_item" href="{{route('home.getdangky')}}">Đăng Ký</a></li>
                         @endif
                         <li>
-                           
                             <form action="" class="form-inline">
   
                                 <div class="form-group ">
-                                  <input class="form-control" name="tukhoa" placeholder="Nhập tên sản phẩm">
+                                  <input class="input-group-text" name="tukhoa" placeholder="Nhập tên sản phẩm">
                                  </div>
-                                 <button type="submit" class="btn btn-outline-primary">Tìm</button>
+                                 <button style="width: 40px; height: 40px; padding: 4px;" stype="submit" class="btn btn-outline-primary">Tìm</button>
                             </form>
                         </li>
                         @if (Auth::guard('khachhang')->user())
-                            
-                       
-                        <li class="dropdown cart_dropdown">
-                            <a class="nav-link cart_trigger" href="{{route('get_dathang')}}" data-toggle="dropdown"><i class="far fa-user"></i> {{Auth::guard('khachhang')->user()->hovaten}}</a>
-                           
-                            <div class="cart_box dropdown-menu dropdown-menu-left">
-                                <ul class="cart_list">
-                                    
-                                    <li>
-                                        <a href="" class="item_remove"><i class="ion-close"></i></a>
-                                        <a href="{{route('home.dangxuat')}}">Đăng xuất</a>
-        
-                                    </li>
-                                    
+                        <!-- Example single danger button -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-silver btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img style="width: 40px; border-radius:20px;" src="{{url('public/khachhang')}}/{{Auth::guard('khachhang')->user()->anh}}" alt="">
+                                {{Auth::guard('khachhang')->user()->hovaten}}
+                                </button>
+                                <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{route('khachhang.taikhoan')}}">Thông tin</a></li>
+                                <li><a class="dropdown-item" href="{{route('khachhang.doimatkhau')}}" >Đổi mật khẩu</a></li>
+                                <li><a class="dropdown-item" href="{{route('khachhang.dangxuat')}}">Đăng xuất</a></li>
                                 </ul>
-                                
                             </div>
-                        </li>
+
+                            <!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                    ...
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+
+
+
+ 
+                      
                         @endif
+                        
                         <li class="dropdown cart_dropdown">
                             <a class="nav-link cart_trigger" href="{{route('get_dathang')}}" data-toggle="dropdown"><i class="linearicons-cart"></i><span class="cart_count">{{$giohang->soluong}}</span></a>
                             <div class="cart_box dropdown-menu dropdown-menu-right">
@@ -123,6 +145,21 @@
             </div>
         </div>
     </header>
+    <div class="container">
+        @if(Session::has('yes'))
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {{Session::get('yes')}} 
+
+        </div>
+        @endif
+        @if(Session::has('no'))
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {{Session::get('no')}} 
+        </div>
+        @endif
+    </div>
    
    
                             
@@ -245,9 +282,11 @@
     <script src="{{url('public/shopwise')}}/assets/js/jquery.dd.min.js"></script>
     <script src="{{url('public/shopwise')}}/assets/js/slick.min.js"></script>
     <script src="{{url('public/shopwise')}}/assets/js/jquery.elevatezoom.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7TypZFTl4Z3gVtikNOdGSfNTpnmq-ahQ&amp;callback=initMap"></script>
     <script src="{{url('public/shopwise')}}/assets/js/scripts.js"></script>
     <script src="//cdn.ckeditor.com/4.16.2/full/ckeditor.js"></script>
+    @yield('js')
 
 </body>
 </html>

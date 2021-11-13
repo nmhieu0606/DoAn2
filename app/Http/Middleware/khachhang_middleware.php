@@ -19,10 +19,16 @@ class khachhang_middleware
     public function handle(Request $request, Closure $next,$guard='khachhang')
     {
         if(Auth::guard($guard)->check()){
+            if(Auth::guard($guard)->user()->status==0){
+                Auth::guard($guard)->logout();
+                return redirect('/dangnhap/index')->with('no','Tài khoản chưa kích hoạt');
+               
+            }
             return $next($request);
+
         }
         else{
-            return redirect('/dangnhap')->with('error','Bạn cần đăng nhập');
+            return redirect('/dangnhap/index')->with('no','Vui lòng đăng nhập');
         }
         
        

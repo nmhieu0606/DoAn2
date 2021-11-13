@@ -1,7 +1,6 @@
 @extends('layouts.site')
 @section('main')
     
-
     <div class="main_content">
         <div class="section">
             <div class="container">

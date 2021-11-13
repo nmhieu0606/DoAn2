@@ -1,7 +1,5 @@
 @extends('layouts.site')
 @section('main')
-    
-
     <div class="main_content">
         <div class="login_register_wrap section">
             <div class="container">
@@ -10,27 +8,31 @@
                         <div class="login_wrap">
                             <div class="padding_eight_all bg-white">
                                 <div class="heading_s1">
-                                    <h3>Login</h3>
+                                    <h3>Đổi mật khẩu</h3>
                                 </div>
-                                <form action="{{route('home.postdangnhap')}}" method="post">
+                                <form action="{{route('khachhang.postdoimatkhau')}}" method="POST">
                                   @csrf
+                                
                                     <div class="form-group">
-                                        <input type="text" required="" class="form-control" name="tendangnhap" placeholder="Tên đăng nhập">
+                                        <input class="form-control" required type="password" name="password_cu" placeholder="Nhập mật khẩu cũ">
                                     </div>
+                                    
                                     <div class="form-group">
-                                        <input class="form-control" required="" type="password" name="password" placeholder="Mật khẩu">
+                                        <input class="form-control" required type="password" name="password_moi" placeholder="Mật khẩu mới">
+                                        {{$errors->first('password_moi')}}
                                     </div>
+                                    
+                                    <div class="form-group">
+                                        <input class="form-control" required type="password" name="password_xacnhan" placeholder="Xác nhận Mật khẩu">
+                                        {{$errors->first('password_xacnhan')}}
+                                    </div>
+
                                     <div class="login_footer form-group">
-                                        <div class="chek-form">
-                                            <div class="custome-checkbox">
-                                                <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="">
-                                                <label class="form-check-label" for="exampleCheckbox1"><span>Remember me</span></label>
-                                            </div>
-                                        </div>
                                         <a href="{{route('home.quenmatkhau')}}">Quên mật khẩu?</a>
                                     </div>
+
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-fill-out btn-block" name="login">Log in</button>
+                                        <button type="submit" class="btn btn-fill-out btn-block" >Đổi mật khẩu</button>
                                     </div>
                                 </form>
                                 <div class="different_login">

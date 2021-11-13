@@ -18,12 +18,18 @@ use App\Http\Controllers\danhmuc_controller;
 Route::get('/','home_controller@index')->name('home.index');
 Route::get('/dangky/index','home_controller@getdangky')->name('home.getdangky');
 Route::post('/dangky/index','home_controller@postdangky')->name('home.postdangky');
+Route::get('/dangky/kichhoat/{khachhang}/{token}','home_controller@kichhoat')->name('home.kichhoat');
+
+Route::get('/quenmatkhau/index','home_controller@quenmatkhau')->name('home.quenmatkhau');
+Route::post('/quenmatkhau/index','home_controller@postquenmatkhau')->name('home.postquenmatkhau');
+Route::get('/quenmatkhau/kichhoatmatkhau/{khachhang}/{token}','home_controller@kichhoatmatkhau')->name('home.kichhoatmatkhau');
+Route::post('/quenmatkhau/laylaimatkhau/{khachhang}/{token}','home_controller@laylaimatkhau')->name('home.laylaimatkhau');
 
 Route::get('/shop','home_controller@shop')->name('home.shop');
 Route::get('/danhmuc/{slug}','home_controller@show')->name('home.show');
 
 Route::get('/dangnhap/index','home_controller@get_dangnhap')->name('home.getdangnhap');
-Route::get('/dangxuat/index','home_controller@dangxuat')->name('home.dangxuat');
+
 Route::post('/dangnhap/index','home_controller@post_dangnhap')->name('home.postdangnhap');
 Route::get('/chitiet/{id}','home_controller@chitiet')->name('home.chitiet');
 
@@ -46,13 +52,29 @@ Route::post('admin/dangnhap','nhanvien_controller@postdangnhap')->name('post.dan
 Route::get('admin/dangxuat','nhanvien_controller@dangxuat')->name('dangxuat');
 Route::get('admin/error','admin_controller@error')->name('admin.error');
 
+Route::group(['prefix'=>'khachhang','middleware'=>'khlogin'],function(){
+    Route::get('/taikhoan','home_controller@taikhoan')->name('khachhang.taikhoan');
+    Route::post('/taikhoan','home_controller@update')->name('taikhoan.update');
+    Route::get('/dangxuat/index','home_controller@dangxuat')->name('khachhang.dangxuat');
+    Route::get('/doimatkhau','home_controller@doimatkhau')->name('khachhang.doimatkhau');
+    Route::post('/doimatkhau','home_controller@postdoimatkhau')->name('khachhang.postdoimatkhau');
+
+});
+
+Route::group(['prefix'=>'ajax'],function(){
+    Route::post('/dangnhap','ajax_controller@dangnhap')->name('ajax.dangnhap');
+    Route::post('/comment/{sanpham_id}','ajax_controller@binhluan')->name('ajax.comment');
+  
+
+});
+
 Route::group(['prefix'=>'admin','middleware'=>'adminlogin'],function(){
     Route::get('/', 'admin_controller@index')->name('admin.index');
     Route::get('/donhang', 'donhang_controller@index')->name('donhang.index');
     Route::get('/donhang/show/{id}', 'donhang_controller@show')->name('donhang.show');
     Route::get('/donhang/destroy/{id}', 'donhang_controller@destroy')->name('donhang.destroy');
     Route::get('/donhang/nhandon/{id}', 'donhang_controller@nhandon')->name('donhang.nhandon');
-    Route::post('/donhang/tinhtrang/{id}', 'donhang_controller@tinhtrang')->name('donhang.tinhtrang');
+    Route::get('/donhang/tinhtrang/{id}/{tt}', 'donhang_controller@tinhtrang')->name('donhang.tinhtrang');
     Route::resources([
         'danhmuc'=>'danhmuc_controller',
         'khachhang'=>'khachhang_controller',

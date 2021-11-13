@@ -14,9 +14,9 @@ use PDF;
 class donhang_controller extends Controller
 {
     public function index(){
+        $tinhtrang=tinhtrang::all();
         $data=dathang::orderby('id','DESC')->paginate(10);
-        $sp=sanpham::all();
-        return view('admin.donhang.index',compact('data','sp'));
+        return view('admin.donhang.index',compact('data','tinhtrang'));
 
     }
     public function edit($id){
@@ -31,12 +31,11 @@ class donhang_controller extends Controller
         return redirect()->back();
 
     }
-    public function tinhtrang(Request $request, $id){
+    public function tinhtrang($id,$tt){
+       
         $data=dathang::find($id);
-        $data->tinhtrang_id=$request->tinhtrang_id;
+        $data->tinhtrang_id=$tt;
         $data->save();
-        $ct=dathang_chitiet::select('sanpham_id')->where('dathang_id',$id)->get();
-        
         return redirect('admin/donhang');
     }
     public function show($id){

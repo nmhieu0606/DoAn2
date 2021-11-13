@@ -18,7 +18,7 @@ class danhmuc_controller extends Controller
     public function index()
     {
         
-       $danhmuc=danhmuc::orderby('id', 'DESC')->paginate(4); 
+       $danhmuc=danhmuc::search()->paginate(10);
         return view('admin.danhmuc.index');
     }
 

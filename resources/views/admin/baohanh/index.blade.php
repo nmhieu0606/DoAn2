@@ -1,13 +1,7 @@
 @extends('layouts.admin')
 @section('main')
-<form action="" method="GET" class="form-inline">
-  <div class="form-group ">
-    <input class="form-control" name="tukhoa" placeholder="Nhập tên danh mục">
-   </div>
-  <button type="submit" class="btn btn-primary">Tìm Kiếm</button>
-</form>
 
-<a href="{{route('baohanh.create')}}"  class="btn btn-primary mt-1">Thêm</a> 
+<a href="{{route('baohanh.create')}}"  class="btn btn-primary mb-3">Thêm</a> 
 <div class="card" >
  
     <div class="card-body">

@@ -2,12 +2,11 @@
 @section('main')
 <form action="" method="GET" class="form-inline">
   <div class="form-group ">
-    <input class="form-control" name="tukhoa" placeholder="Nhập tên danh mục">
+    <input class="form-control mb-3" name="tukhoa" placeholder="Nhập tên khách hàng">
    </div>
-  <button type="submit" class="btn btn-primary">Tìm Kiếm</button>
+  <button type="submit" class="btn btn-primary mb-3">Tìm Kiếm</button>
 </form>
-
-<a href="{{route('chucvu.create')}}"  class="btn btn-primary mt-1">Thêm</a> 
+<a href="{{route('chucvu.create')}}"  class="btn btn-primary mb-3">Thêm</a> 
 <div class="card" >
  
     <div class="card-body">

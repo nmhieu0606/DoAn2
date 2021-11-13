@@ -120,8 +120,12 @@ class dathang_controller extends Controller
                 }
                
             }
-
-           Mail::to(Auth::guard('khachhang')->user()->email)->send(new dathang_email($dathang));
+            $kh=Auth::guard('khachhang')->user();
+            Mail::send('email.donhang',compact('kh'),function($email) use($kh){
+                $email->subject('ShopMobile - Đặt hàng thành công');
+                $email->to($kh->email,$kh->hovaten);
+    
+            });
           
 
             session()->forget('giohang');

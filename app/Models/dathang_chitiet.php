@@ -18,6 +18,14 @@ class dathang_chitiet extends Model
     public function dathang(){
         return $this->hasOne(dathang::class,'id','dathang_id');
     }
+
+    public function scopeSearch($query){
+        if($tukhoa=request()->tukhoa){
+          $query=$query->where('dathang_id', 'like','%'.$tukhoa.'%');
+        }
+        return $query;
+  
+    }
     
 
 

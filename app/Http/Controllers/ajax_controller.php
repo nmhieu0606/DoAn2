@@ -58,11 +58,12 @@ class ajax_controller extends Controller
                'sanpham_id'=>$sanpham_id,
                'khachhang_id'=>$kh_id,
                'comment'=>$request->comment,
+                'reply_id'=>$request->reply_id ? $request->reply_id:0,
 
            ];
             if($comment=comment::create($data)){
-                $cm=comment::where(['sanpham_id'=>$sanpham_id,'reply_id'=>0])->get();
-               return view('list_comment',compact('cm'));
+                $cm=comment::where(['sanpham_id'=>$sanpham_id,'reply_id'=>0])->orderBy('id','DESC')->get();
+                return view('list_comment',compact('cm'));
             }
            
         }

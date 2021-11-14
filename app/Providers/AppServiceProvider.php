@@ -38,8 +38,6 @@ class AppServiceProvider extends ServiceProvider
                 'danhmuc'=>danhmuc::search()->paginate(10),
                 'giohang'=>new giohang(),
                 'sp'=>sanpham::search()->paginate(11),
-                
-               
                 'nv'=>nhanvien::all() 
             ]);
 

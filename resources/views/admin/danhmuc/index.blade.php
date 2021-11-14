@@ -47,7 +47,7 @@
     
   })
 </script>
-
+<li class="pagination justify-content-center">{{$danhmuc->appends(request()->all())->links()}}</li>
 @endsection
 <?php
 function showdanhmuc($danhmuc, $parent_id = 0, $char = '')

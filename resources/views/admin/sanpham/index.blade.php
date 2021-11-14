@@ -61,7 +61,8 @@
     </div>
 </div>
 <hr>
-<div class="">{{$data->appends(request()->all())->links()}}</div>
+
+
 @endsection
 @section('js')
 <script>
@@ -77,5 +78,5 @@
 
 
 </script>
-
+<div class="">{{$data->appends(request()->all())->links()}}</div>
 @endsection

@@ -14,7 +14,7 @@ class xuatxu_controller extends Controller
      */
     public function index()
     {
-        $data=xuatxu::all();
+        $data=xuatxu::search()->paginate(10);
         return view('admin.xuatxu.index',compact('data'));
     }
 
@@ -36,6 +36,14 @@ class xuatxu_controller extends Controller
      */
     public function store(Request $request)
     {
+
+        $messages = [
+            'xuatxu.required' => 'Tên xuất xứ không được bỏ trống',
+        ];
+
+        $request->validate([
+            'xuatxu'=>'required|max:100|unique:xuatxu',
+        ],$messages);
         $data=new xuatxu;
         $data->xuatxu=$request->xuatxu;
         if($data->save()){

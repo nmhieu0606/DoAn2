@@ -50,6 +50,29 @@ class sanpham_controller extends Controller
      */
     public function store(Request $request)
     {
+
+        $messages = [
+            'tensp.required' => 'Tên sản phẩm không được bỏ trống',
+            'soluong.required' => 'Số lượng không được bỏ trống',
+            'gianhap.required' => 'Giá nhập không được bỏ trống',
+            'giaxuat.required' => 'Giá xuất không được bỏ trống',
+            'nhanhieu_id.required' => 'Nhãn hiệu không được bỏ trống',
+            'xuatxu_id.required' => 'Xuất xứ không được bỏ trống',
+            'baohanh_id.required' => 'Bảo hành không được bỏ trống',
+            'danhmuc_id.required' => 'Danh mục không được bỏ trống',
+
+        ];
+        $request->validate([
+            'tensp'=>'required|max:100',
+            'soluong'=>'required|numeric',
+            'gianhap'=>'required|numeric',
+            'giaxuat'=>'required|numeric',
+            'nhanhieu_id'=>'required|numeric',
+            'xuatxu_id'=>'required|numeric',
+            'baohanh_id'=>'required|numeric',
+            'danhmuc_id'=>'required|numeric',
+
+        ],$messages);
         if($request->has('file_uploads')){
             $file=$request->file_uploads;
             $ex=$request->file_uploads->extension();

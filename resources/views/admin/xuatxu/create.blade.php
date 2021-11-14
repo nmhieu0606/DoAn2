@@ -6,7 +6,8 @@
             @csrf
             <div class="mb-3">
               <label for="xuatxu" class="form-label">Nhập tên xuất xứ</label>
-              <input type="text" class="form-control" name="xuatxu" id="xuatxu" required >
+              <input type="text" class="form-control" name="xuatxu" id="xuatxu">
+              {{$errors->first('xuatxu')}}
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>

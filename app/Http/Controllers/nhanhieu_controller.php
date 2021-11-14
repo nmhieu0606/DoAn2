@@ -14,7 +14,7 @@ class nhanhieu_controller extends Controller
      */
     public function index()
     {
-        $data=nhanhieu::all();
+        $data=nhanhieu::search()->paginate(10);
         return view('admin.nhanhieu.index',compact('data'));
     }
 
@@ -36,6 +36,14 @@ class nhanhieu_controller extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'nhanhieu.required' => 'Nhãn hiệu không được bỏ trống',
+            
+        ];
+
+        $request->validate([
+            'nhanhieu'=>'required|max:100|unique:nhanhieu',
+        ],$messages);
         $data=new nhanhieu;
         $data->nhanhieu=$request->nhanhieu;
         if($data->save()){

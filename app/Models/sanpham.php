@@ -34,7 +34,7 @@ class sanpham extends Model
       return $this->hasOne(danhmuc::class,'id','danhmuc_id');
     }
     public function comment(){
-      return $this->hasMany(comment::class,'sanpham_id','id')->orderby('created_at','DESC');
+      return $this->hasMany(comment::class,'sanpham_id','id')->where('reply_id',0)->orderBy('created_at','DESC');
     }
 
     public function scopeSearch($query){

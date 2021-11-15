@@ -114,8 +114,11 @@ class dathang_controller extends Controller
                     $dathang_chitiet->soluong=$soluong;
                     $dathang_chitiet->dongia=$gia*$soluong;
                     $dathang_chitiet->save();
+                   
                 }
                 else{
+                    $xoadathang=dathang::find($dathang->id);
+                    $xoadathang->delete();
                     return redirect('/giohang')->with('no','số lượng sản phẩm: '.$sp->tensp.' số lượng chỉ còn '.$sp->soluong.'');
                 }
                

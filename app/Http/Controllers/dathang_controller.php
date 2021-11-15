@@ -116,7 +116,7 @@ class dathang_controller extends Controller
                     $dathang_chitiet->save();
                 }
                 else{
-                    return redirect('/giohang')->with('error','số lượng sản phẩm quá lớn');
+                    return redirect('/giohang')->with('no','số lượng sản phẩm: '.$sp->tensp.' số lượng chỉ còn '.$sp->soluong.'');
                 }
                
             }

@@ -15,7 +15,17 @@ class sanpham extends Model
     protected $table='sanpham';
     public $timestamps = false;
     protected $fillable = [
-		'id', 'tensp', 'anh','soluong', 'chitiet', 'gianhap', 'giaxuat','nhanhieu_id','xuatxu_id', 'baohanh_id','danhmuc_id'
+		'id', 
+    'tensp', 
+    'anh',
+    'soluong', 
+    'chitiet', 
+    'gianhap', 
+    'giaxuat',
+    'nhanhieu_id',
+    'xuatxu_id', 
+    'baohanh_id',
+    'danhmuc_id'
 	];
     public function dathang_chitiet(){
     return $this->hasMany(dathang_chitiet::class,'sanpham_id','id');

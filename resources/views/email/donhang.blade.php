@@ -32,7 +32,7 @@
             
             <h2 style="color: red">Hóa đơn</h2>
             <h3>Cám ơn bạn đã đặt hàng tại shop của chúng tôi</h3>
-            <table style="width: 200px;">
+            <table >
                 <tr>
                     <td>Họ và tên người đặt hàng: </td>
                     <td>{{$kh->hovaten}}</td>

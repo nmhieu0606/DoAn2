@@ -73,10 +73,29 @@
                         <li>
                             <form action="" class="form-inline">
   
-                                <div class="form-group ">
-                                  <input class="input-group-text" name="tukhoa" placeholder="Nhập tên sản phẩm">
-                                 </div>
-                                 <button style="width: 40px; height: 40px; padding: 4px;" stype="submit" class="btn btn-outline-primary">Tìm</button>
+                               
+                               
+                               
+                                    <li class="dropdown dropdown-mega-menu">
+                                        
+                                        <a style="color: black;" class="dropdown-toggle nav-link" href="#" data-toggle="dropdown">Tìm kiếm</a>
+                                        <div class="dropdown-menu">
+                                            <input type="search" class="form-control" id="input-search" placeholder="Nhập tên sản phẩm">
+                                            <ul class="mega-menu d-lg-flex">
+                                                <li class="mega-menu-col col-lg-3">
+                                                    <ul>
+                                                        <div class="search-ajax">
+
+                                                        </div>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    
+
+                               
+                                
                             </form>
                         </li>
                         @if (Auth::guard('khachhang')->user())
@@ -93,32 +112,6 @@
                                 </ul>
                             </div>
 
-                            <!-- Button trigger modal -->
-
-  
-  <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                    ...
-                                    </div>
-                                    <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-
-
-
- 
-                      
                         @endif
                         
                         <li class="dropdown cart_dropdown">
@@ -208,7 +201,7 @@
                                 @foreach ($danhmuc as $item)
                                 <li><a href="#">{{$item->tendanhmuc}}</a></li>
                                 @endforeach
-                                
+    
                                
                             </ul>
                         </div>
@@ -286,7 +279,36 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7TypZFTl4Z3gVtikNOdGSfNTpnmq-ahQ&amp;callback=initMap"></script>
     <script src="{{url('public/shopwise')}}/assets/js/scripts.js"></script>
     <script src="//cdn.ckeditor.com/4.16.2/full/ckeditor.js"></script>
+
     @yield('js')
+    <script>
+        $('#input-search').keyup(function (e) { 
+            var _text=$(this).val();
+          if(_text!='')
+          {
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost/shopdt1/api/search-sanpham?tukhoa="+_text,
+                    success: function (response) {
+                        for (var sp of  response) {
+                            var _html='';
+                            _html+='<li><img src="http://localhost/shopdt1/public/uploads/'+sp.anh+'"><a class="dropdown-item nav-link nav_item" href="http://localhost/shopdt1/chitiet/'+sp.id+'">'+sp.tensp+'</li>';
+                        
+                        }
+                        $('.search-ajax').html(_html);
+                    }
+                });
+          }
+          else{
+            $('.search-ajax').html('');
+          }
+           
+
+           
+        });
+    </script>
 
 </body>
 </html>
+
+b

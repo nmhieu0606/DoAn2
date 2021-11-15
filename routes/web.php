@@ -75,6 +75,11 @@ Route::group(['prefix'=>'admin','middleware'=>'adminlogin'],function(){
     Route::get('/donhang/destroy/{id}', 'donhang_controller@destroy')->name('donhang.destroy');
     Route::get('/donhang/nhandon/{id}', 'donhang_controller@nhandon')->name('donhang.nhandon');
     Route::get('/donhang/tinhtrang/{id}/{tt}', 'donhang_controller@tinhtrang')->name('donhang.tinhtrang');
+
+    Route::post('/sanpham/nhap-excel','sanpham_controller@postnhap')->name('excel.nhap');
+    Route::get('/sanpham/xuat-excel','sanpham_controller@getxuat')->name('excel.xuat');
+    Route::get('/sanpham/delete/{id}','sanpham_controller@delete')->name('sanpham.delete');
+
     Route::resources([
         'danhmuc'=>'danhmuc_controller',
         'khachhang'=>'khachhang_controller',

@@ -7,6 +7,10 @@
   <button type="submit" class="btn btn-primary">Tìm Kiếm</button>
 </form>
 <a href="{{route('sanpham.create')}}"  class="btn btn-primary mt-1">Thêm</a> 
+<a href="{{route('excel.xuat')}}"  class="btn btn-warning mt-1">Xuất ra excel</a> 
+<button type="button" class="btn btn-success mt-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Nhập từ excel
+</button>
 <div class="card" >
  
     <div class="card-body">
@@ -46,7 +50,7 @@
                 <a href="{{route('sanpham.edit',$item->id)}}" class="btn btn-danger">Sửa</a> 
             </td>
             <td>
-              <a href="{{route('sanpham.destroy',$item->id)}}" class="btn btn-warning btndelete">Xóa</a>
+              <a onclick="return confirm('Bạn có muốn xóa sản phẩm {{$item->tensp}}')" href="{{route('sanpham.delete',$item->id)}}" class="btn btn-warning btndelete">Xóa</a>
            </td>
          
             </tr>
@@ -54,29 +58,44 @@
         </tbody>
       </table>
       
-      <form method="POST" action="" id="form-delete">
-        @csrf @method('DELETE')
-      <form>
+     
        
     </div>
 </div>
 <hr>
+<!-- Button trigger modal -->
 
 
-@endsection
-@section('js')
-<script>
-  $('.btndelete').click(function(ev){
-    ev.preventDefault();
-    var _href=$(this).attr('href');
-    $('form#form-delete').attr('action',_href);
-   if(confirm('bạn có chắc muốn xóa nó không?')){
-      $('form#form-delete').submit();
-   }
-    
-  })
+<!-- Modal -->
 
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form action="{{route('excel.nhap')}}" method="POST" enctype="multipart/form-data">
+      @csrf 
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <label for="file">Chọn tập tin excel</label>
+            <br>
+            <input name="file" type="file">
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Nhập</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 
-</script>
 <div class="">{{$data->appends(request()->all())->links()}}</div>
+
+
+
 @endsection
+
+
+
+

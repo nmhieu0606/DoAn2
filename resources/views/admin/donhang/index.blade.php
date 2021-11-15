@@ -42,23 +42,24 @@
               <td  >{{$item->tinhtrang->tinhtrang}}</td>
               <td  ><a class="btn btn-primary" href="{{route('donhang.show',$item->id)}}">Xem</a></td>
               <td  ><a class="btn btn-warning" href="{{route('donhang.show',$item->id)}}?pdf=true">PDF</a></td>
-              @if($item->tinhtrang_id!=5)
-              <td>
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                      Tình trạng
-                    </button>
-                    <ul class="dropdown-menu">
-                      @foreach ($tinhtrang as $tt)
-                        <li><a class="dropdown-item" href="{{route('donhang.tinhtrang',['id'=>$item->id,'tt'=>$tt->id])}}">{{$tt->tinhtrang}}</a></li>
-                      @endforeach
-                    </ul>
-                  </div>
-              </td>
-              @endif
+             
               <td>
                 <a onclick="return confirm('bạn có muốn xóa nó không đơn hàng {{$item->id}} không?')" href="{{route('donhang.destroy',$item->id)}}" class="btn btn-danger ">Xóa</a>
              </td>
+             @if($item->tinhtrang_id!=5)
+             <td>
+                 <div class="btn-group">
+                   <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                     Tình trạng
+                   </button>
+                   <ul class="dropdown-menu">
+                     @foreach ($tinhtrang as $tt)
+                       <li><a class="dropdown-item" href="{{route('donhang.tinhtrang',['id'=>$item->id,'tt'=>$tt->id])}}">{{$tt->tinhtrang}}</a></li>
+                     @endforeach
+                   </ul>
+                 </div>
+             </td>
+             @endif
             </tr>
           @endforeach
         </tbody>

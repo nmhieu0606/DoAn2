@@ -13,7 +13,9 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Mail;
 use File;
+use Validator;
 use Illuminate\Support\Facades\Hash;
+
 
 class home_controller extends Controller
 {
@@ -162,44 +164,47 @@ class home_controller extends Controller
 
     }
     public function update(Request $request){
-        // $request->validate([
-        //     'hovaten'=>'required|string',
-        //     'ngaysinh'=>'required|date',
-        //     'cmnd'=>'required|numeric|max:10',
-        //     'diachi'=>'required|string',
-        //     'sdt'=>'required|numeric|max:11',
-        //     'email'=>'email|required',
-        // ]);
         $id=Auth::guard('khachhang')->user()->id;
-        $data=khachhang::find($id);
-        if($request->has('file_anh')){
-            $hovaten=Str::slug($request->hovaten);
-            $file=$request->file_anh;
-            $ex=$request->file_anh->extension();
-            $file_name=time().'-'.$hovaten.'.'.$ex;
-            $file->move(public_path('khachhang'),$file_name);
-           
-            if($data->anh!=null){
+        $validator=Validator::make($request->all(),[
+            'hovaten'=>'required',
+            'ngaysinh'=>'date|required',
+            'gioitinh'=>'required|numeric',
+            'diachi'=>'required',
+            'sdt'=>'required|numeric',
+            'cmnd'=>'required|numeric',
+            'email'=>'required|email',
+        ],[
+            'hovaten.required'=>'không được bỏ trống họ và tên',
+            'ngaysinh.required'=>'không được bỏ trống ngày sinh',
+            'gioitinh.required'=>'không được bỏ trống giới tính',
+            'diachi.required'=>'không được bỏ trống địa chỉ',
+            'sdt.required'=>'không được bỏ trống sdt',
+            'sdt.numeric'=>'sdt phải là số',
+            'cmnd.required'=>'không được bỏ trống cmnd',
+            'cmnd.numeric'=>'cmnd phải là số',
+            'email.required'=>'không được bỏ trống email',
+            'email.numeric'=>'email phải có định dạng email',
+
+
+        ]);
+        if($validator->passes()){
+
+            if($request->file_anh!=null){
+                $file=$request->file_anh;
+                $ex=$request->file_anh->extension();
+                $file_name=time().'-'.$request->hovaten.'.'.$ex;
+                $file->move(public_path('khachhang'),$file_name);
+    
+                $data=khachhang::find($id);
                 File::delete('public/khachhang/'.$data->anh);
-            } 
-            
-            $data->anh=$file_name;
-            $data->save();
+                $request->merge(['anh'=>$file_name]);
+            }
+            if($kh=khachhang::find($id)->update($request->all())){
+                return response()->json(['data'=>$kh]);
+            }
         }
-        
-        $data->hovaten=$request->hovaten;
-        $data->ngaysinh=$request->ngaysinh;
-        $data->gioitinh=$request->gioitinh;
-        $data->diachi=$request->diachi;
-        $data->sdt=$request->sdt;
-        $data->cmnd=$request->cmnd;
-        $data->email=$request->email;
-        if($data->save()){
-            return redirect()->back()->with('yes','Cập nhật thông tin thành công');
-        }
-        
-       
-        
+        return response()->json(['error'=>$validator->errors()->all()]);
+
     }
     public function doimatkhau(){
         return view('khachhang.doimatkhau');

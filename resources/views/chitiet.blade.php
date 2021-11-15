@@ -122,23 +122,33 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+
             <div id="thongbaoloi"> 
 
             </div>
             <form action="" method="POST">
                 @csrf
-                <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">Tên đăng nhập</label>
-                  <input type="text" class="form-control" id="tendangnhap" >
-                
-                </div>
-                <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label">Password</label>
-                  <input type="Password" class="form-control" id="password">
-                </div>
-                
-                <button type="submit" id="btn_login" class="btn btn-primary">Đăng nhập</button>
-              </form>
+                 <form action="{{route('home.postdangnhap')}}" method="post">
+                                  @csrf
+                                    <div class="form-group">
+                                        <input id="tendangnhap" type="text" required="" class="form-control" name="tendangnhap" placeholder="Tên đăng nhập">
+                                    </div>
+                                    <div class="form-group">
+                                        <input id="password" class="form-control" required="" type="password" name="password" placeholder="Mật khẩu">
+                                    </div>
+                                    <div class="login_footer form-group">
+                                        <div class="chek-form">
+                                            <div class="custome-checkbox">
+                                                <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="">
+                                                <label class="form-check-label" for="exampleCheckbox1"><span>Remember me</span></label>
+                                            </div>
+                                        </div>
+                                        <a href="{{route('home.quenmatkhau')}}">Quên mật khẩu?</a>
+                                    </div>
+                                    <div class="form-group">
+                                        <button id="btn-login" type="submit" class="btn btn-fill-out btn-block" name="login">Log in</button>
+                                    </div>
+                                </form>
          
         </div>
         
@@ -156,7 +166,7 @@
 	<script>
         let _comment_url='{{route("ajax.comment",$data->id)}}';
         var _csrf='{{csrf_token()}}';
-        $('#btn_login').click(function(ev){
+        $('#btn-login').click(function(ev){
             ev.preventDefault();
            
             var login_url='{{route('ajax.dangnhap')}}'

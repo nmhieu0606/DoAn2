@@ -120,13 +120,13 @@
         </div>
 
         @if (isset($dh1))
-        <div class="row">
+        <div style="width: auto;" class="row">
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
+            <div class="small-box bg-success">
+              <div style="width: auto;" class="inner">
                 <p>Tổng doanh thu</p>
-                <h3>{{number_format($dh1->sum('tongtien'))}}.VND</h3> 
+                <h3 style="width: auto;">{{number_format($dh1->sum('tongtien'))}}.VND   </h3> 
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>

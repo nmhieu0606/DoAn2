@@ -7,11 +7,14 @@ use App\Models\nhanhieu;
 use App\Models\xuatxu;
 use App\Models\baohanh;
 use App\Models\danhmuc;
+use App\Imports\sanpham_import;
+use App\Exports\sanpham_export;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Pagination\LengthAwarePaginator;
 use File;
+use Excel;
 
 class sanpham_controller extends Controller
 {
@@ -149,6 +152,17 @@ class sanpham_controller extends Controller
      */
     public function destroy($id)
     {
+       
+    }
+    public function postnhap(Request $request){
+        Excel::import(new sanpham_import,$request->file('file'));
+        return redirect('admin/sanpham');
+    }
+    public function getxuat(){
+        return Excel::download(new sanpham_export,'danh-sach-san-pham.xlsx');
+    }
+    public function delete($id){
+       
         if( sanpham::find($id)->dathang_chitiet->count()){
             return redirect()->route('sanpham.index')->with('error','không thể xóa sản phẩm vì sản phẩm có trong đơn hàng');
         }

@@ -88,23 +88,7 @@
                     <td  >{{$item->soluong}}</td>
                     <td  >{{number_format($item->soluong*$item->sanpham->giaxuat)}}.VND</td>
                 </tr>
-               
-               
                 @endforeach
-                @if(Auth::user()->id==$dh->nhanvien->id && $dh->tinhtrang_id!=6&&$dh->tinhtrang_id!=5)
-                @foreach ($tinhtrang as $tt)
-                <form action="{{route('donhang.tinhtrang',$item->dathang_id)}}" method="POST">
-                    @csrf
-                   
-                        <tr>
-                            <td >
-                                <input name="tinhtrang_id" type="hidden" value="{{$tt->id}}">
-                                <button type="submit" class="btn btn-info">{{$tt->tinhtrang}}</button>
-                            </td>
-                        </tr>
-                </form>
-                @endforeach
-            @endif
             </tbody>
         </table>
      

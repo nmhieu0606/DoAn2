@@ -43,10 +43,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
     public function has_permisstion($route){
         $routes=$this->route();
         return in_array($route,$routes)?true:false;
     }
+    
     public function route(){
         $data=[];
         foreach($this->get_route as $role ){

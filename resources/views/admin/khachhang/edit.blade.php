@@ -13,13 +13,36 @@
               <label for="gioitinh">Giới tính <span class="text-danger font-weight-bold">*</span></label>
               <select class="custom-select form-control @error('gioitinh') is-invalid @enderror" id="gioitinh" name="gioitinh" required>
                 <option value="">-- Choose --</option>
-                <option value="0">Nam</option>
-                <option value="1" selected="selected">Nữ</option>
+                @if($data->gioitinh==0)
+                <option selected value="0">Nam</option>
+                <option value="1">Nữ</option>
+                @else
+                <option  value="0">Nam</option>
+                <option selected value="1">Nữ</option>
+                @endif
               </select>
               @error('gioitinh')
                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
               @enderror
+
             </div>
+
+            <div class="mb-3">
+              <label for="privilege">Kích hoạt <span class="text-danger font-weight-bold">*</span></label>
+              <select class="custom-select form-control @error('privilege') is-invalid @enderror" id="gioitinh" name="status" required>
+                <option  selected="selected">-- Choose --</option>
+                @if($data->status==0)
+                <option selected value="0">Không kích hoạt</option>
+                <option value="1">Kích hoạt</option>
+                @else
+                <option  value="0">Không kích hoạt</option>
+                <option selected value="1">Kích hoạt</option>
+                @endif
+               
+              </select>
+            </div>
+
+
             <div class="mb-3">
 							<label for="sdt" class="form-label">SĐT</label>
 							<input  value="{{$data->sdt}}" type="text" class="form-control" id="sdt" name="sdt" required >
@@ -53,10 +76,9 @@
 						</div>
             <div class="mb-3">
 							<label for="password" class="form-label">Mật khẩu</label>
-							<input  value="{{$data->password}}" type="text" class="form-control" id="password" name="password" required>
+							<input type="text" class="form-control" id="password" name="password" >
 							<div class="invalid-feedback">Mật khẩu không được bỏ trống.</div>
 						</div>
-
             <button type="submit" class="btn btn-primary">Lưu</button>
 
           </form>

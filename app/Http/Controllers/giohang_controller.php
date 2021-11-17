@@ -12,20 +12,45 @@ class giohang_controller extends Controller
    {
      
    }
+   public function view(){
+      return view('giohang.donhang');
+
+   }
+   
    public function themgiohang(giohang $giohang,$id){
        
         $sanpham=sanpham::find($id);
         $giohang->them($sanpham);
-        return redirect()->back();
+        return response()->json([
+           'message'=>'Sản phẩm đã được thêm vào giỏ',
+        ]);
  
    }
-     public function index(){
+      public function index(){
       return view('giohang');
    }
-     public function xoa(giohang $giohang,$id){
+      public function xoa(giohang $giohang,$id){
         
          $giohang->xoa($id);
          return redirect()->back();
+  
+      }
+      public function capnhat_tang(giohang $giohang,$id){
+        
+         $giohang->capnhat_tang($id);
+         return response()->json([
+            'message'=>'cập nhật tăng thành công',
+            'code'=>1,
+         ]);
+  
+      }
+      public function capnhat_giam(giohang $giohang,$id){
+        
+         $giohang->capnhat_giam($id);
+         return response()->json([
+            'message'=>'cập nhật giảm thành công',
+            'code'=>1,
+         ]);
   
       }
       public function xoatatca(giohang $giohang){

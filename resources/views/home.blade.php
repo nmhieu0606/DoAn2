@@ -1,7 +1,5 @@
 @extends('layouts.site')
 @section('main')
-    
-
     <div class="main_content">
         <div class="section">
             <div class="container">
@@ -32,7 +30,7 @@
                                     </div>
                                     <div class="list_product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="{{route('home.themgiohang',$item->id)}}"><i class="icon-basket-loaded"></i>Thêm</a></li>
+                                            <li class="add-to-cart "><a class="btn-themvaogio" type="button" href="{{route('home.themgiohang',$item->id)}}"><i class="icon-basket-loaded "></i>Thêm</a></li>
                                             <a href="{{route('home.chitiet',$item->id)}}" type="button" class="btn btn-outline-primary">Chi tiết</a>
                                         </ul>
                                         
@@ -56,3 +54,4 @@
         </div>
     </div>
     @endsection
+    

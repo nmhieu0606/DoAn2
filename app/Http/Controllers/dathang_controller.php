@@ -89,17 +89,14 @@ class dathang_controller extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request,giohang $giohang)
-    {
-       
-      
+    {  
+
         $id=Auth::guard('khachhang')->user()->id;
         $dathang=new dathang;
         $dathang->khachhang_id=$id;
         $dathang->tinhtrang_id=1;
         $dathang->ngaydathang=Carbon::now();
         $dathang->tongtien=$giohang->gia;
-
-        
         if($dathang->save()){
             foreach($giohang->items as $sanpham_id=>$item){
                 $gia=$item['gia'];
@@ -114,8 +111,11 @@ class dathang_controller extends Controller
                     $dathang_chitiet->soluong=$soluong;
                     $dathang_chitiet->dongia=$gia*$soluong;
                     $dathang_chitiet->save();
+                   
                 }
                 else{
+                    $xoadathang=dathang::find($dathang->id);
+                    $xoadathang->delete();
                     return redirect('/giohang')->with('no','số lượng sản phẩm: '.$sp->tensp.' số lượng chỉ còn '.$sp->soluong.'');
                 }
                

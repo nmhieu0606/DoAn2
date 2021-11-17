@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ShopMobile</title>
-  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.10/dist/sweetalert2.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
     <link rel="stylesheet" href="{{url('public/shopwise')}}/assets/css/animate.css" />
@@ -114,23 +114,8 @@
 
                         @endif
                         
-                        <li class="dropdown cart_dropdown">
-                            <a class="nav-link cart_trigger" href="{{route('get_dathang')}}" data-toggle="dropdown"><i class="linearicons-cart"></i><span class="cart_count">{{$giohang->soluong}}</span></a>
-                            <div class="cart_box dropdown-menu dropdown-menu-right">
-                                <ul class="cart_list">
-                                    @foreach ($giohang->items as $item)
-                                    <li>
-                                        <a href="{{route('giohang.xoa',$item['id'])}}" class="item_remove"><i class="ion-close"></i></a>
-                                        <a href="#"><img src="{{url('public/uploads')}}/{{$item['anh']}}" alt="cart_thumb1">{{$item['tensp']}}</a>
-                                        <span class="cart_quantity"> {{$item['soluong']}} x <span class="cart_amount"> <span class="price_symbole"></span></span>{{number_format($item['gia'])}}</span>
-                                    </li>
-                                    @endforeach
-                                </ul>
-                                <div class="cart_footer">
-                                    <p class="cart_total"><strong>Tổng tiền:</strong> <span class="cart_price"> <span class="price_symbole"></span></span>{{number_format($giohang->gia)}}.VNĐ</p>
-                                    <p class="cart_buttons"><a href="{{route('giohang.index')}}" class="btn btn-fill-out checkout">Thanh toán</a></p>
-                                </div>
-                            </div>
+                        <li id="dropdown_item" class="dropdown cart_dropdown">
+                          
                         </li>
                         
                     </ul>
@@ -279,8 +264,58 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7TypZFTl4Z3gVtikNOdGSfNTpnmq-ahQ&amp;callback=initMap"></script>
     <script src="{{url('public/shopwise')}}/assets/js/scripts.js"></script>
     <script src="//cdn.ckeditor.com/4.16.2/full/ckeditor.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @yield('js')
+    <script>
+
+
+
+         $(document).on('click','.btn-themvaogio',function(e){
+            e.preventDefault();
+           var href=$(this).attr('href');
+           $.get(href,function(res){
+            Swal.fire(
+            res.message,
+            'Tiếp tục mua hàng',
+            'success'
+            )
+                load_dropdown();
+           })
+        
+        })
+        load_dropdown();
+        load_data();
+        function load_data(){
+            $.get("{{route('giohang.view')}}",function(res){
+                $('#table_data').html(res);
+            });
+        }
+        $(document).on('click','.btn-giam',function(e){
+            e.preventDefault();
+            var href=$(this).attr('href');
+            $.get(href,function(res){
+                load_data();
+                load_dropdown();
+            });
+        })
+        $(document).on('click','.btn-tang',function(e){
+            e.preventDefault();
+            var href=$(this).attr('href');
+            $.get(href,function(res){
+                load_data();
+                load_dropdown();
+            });
+        })
+
+       function load_dropdown(){
+        $.get("{{route('home.dropdown')}}",function(res){
+            $('#dropdown_item').html(res);
+        });
+
+        
+    }
+    </script>
     <script>
         $('#input-search').keyup(function (e) { 
             var _text=$(this).val();
@@ -308,7 +343,8 @@
         });
     </script>
 
+   
+
 </body>
 </html>
 
-b

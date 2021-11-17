@@ -23,7 +23,6 @@
             <th class="product">Địa chỉ</th>
             <th class="product">email</th>
             <th class="product">Tên đăng nhập</th>
-            <th class="product">mật khẩu</th>
           </tr>
         </thead>
         <tbody>

@@ -89,17 +89,14 @@ class dathang_controller extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request,giohang $giohang)
-    {
-       
-      
+    {  
+
         $id=Auth::guard('khachhang')->user()->id;
         $dathang=new dathang;
         $dathang->khachhang_id=$id;
         $dathang->tinhtrang_id=1;
         $dathang->ngaydathang=Carbon::now();
         $dathang->tongtien=$giohang->gia;
-
-        
         if($dathang->save()){
             foreach($giohang->items as $sanpham_id=>$item){
                 $gia=$item['gia'];

@@ -16,6 +16,7 @@ use App\Http\Controllers\danhmuc_controller;
 */
 
 Route::get('/','home_controller@index')->name('home.index');
+Route::get('/dropdown','home_controller@dropdown')->name('home.dropdown');
 Route::get('/dangky/index','home_controller@getdangky')->name('home.getdangky');
 Route::post('/dangky/index','home_controller@postdangky')->name('home.postdangky');
 Route::get('/dangky/kichhoat/{khachhang}/{token}','home_controller@kichhoat')->name('home.kichhoat');
@@ -35,7 +36,9 @@ Route::get('/chitiet/{id}','home_controller@chitiet')->name('home.chitiet');
 
 Route::get('/themgiohang/{id}','giohang_controller@themgiohang')->name('home.themgiohang');
 Route::get('/giohang','giohang_controller@index')->name('giohang.index');
-Route::get('/giohang/capnhat/{id}','giohang_controller@capnhat')->name('giohang.capnhattang');
+Route::get('/giohang/view','giohang_controller@view')->name('giohang.view');
+Route::get('/giohang/capnhat/tang/{id}','giohang_controller@capnhat_tang')->name('giohang.capnhat_tang');
+Route::get('/giohang/capnhat/giam/{id}','giohang_controller@capnhat_giam')->name('giohang.capnhat_giam');
 Route::get('/giohang/xoa/{id}','giohang_controller@xoa')->name('giohang.xoa');
 Route::get('/giohang/xoatatca','giohang_controller@xoatatca')->name('giohang.xoatatca');
 

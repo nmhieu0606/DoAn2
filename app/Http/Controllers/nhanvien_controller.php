@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\chucvu;
 use App\Models\User;
-
-
+use Dotenv\Validator as DotenvValidator;
+use Illuminate\Auth\Events\Validated;
+use Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -131,8 +132,6 @@ class nhanvien_controller extends Controller
         $data->email=$request->email;
         if(!empty($request->password)) 
         $data->password =Hash::make($request->password);
-		
-       
        if($data->save()) {
            return redirect('admin/nhanvien');
        }
@@ -156,22 +155,43 @@ class nhanvien_controller extends Controller
     }
    
     public function postdangnhap(Request $request){
-      
-        
-        $arr=[
-            'tendangnhap'=>$request->tendangnhap,
-            'password'=>$request->password
-           
-        ];
-        
-        if(Auth::attempt($arr)){
+
+        $validator=Validator::make($request->all(),[
+            'tendangnhap'=>'required|exists:nhanvien',
+            'password'=>'required',
+        ],[
+            'tedangnhap.required'=>'Tên đăng nhập không được bỏ trống',
+            'tedangnhap.exists'=>'Tên đăng nhập không tồn tại',
+            'password'=>'Mật khẩu không được bỏ trống',
+
+        ]);
+        if($validator->passes()){
+            $arr=[
+                'tendangnhap'=>$request->tendangnhap,
+                'password'=>$request->password
+               
+            ];
             
-            return redirect('admin/');
+            if($data=Auth::attempt($arr)){
+                
+                return response()->json([
+                    'code'=>1,
+                ]);
+            }
+            else{
+                
+                return response()->json([
+                    'code'=>0,
+                ]);
+            }
+
         }
-        else{
-            
-            return redirect('admin/dangnhap');
-        }
+        return response()->json([
+            'code'=>0,
+            'error'=>$validator->errors()->all(),
+        ]);
+        
+       
 
         
     }

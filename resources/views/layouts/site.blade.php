@@ -60,13 +60,13 @@
                                     </ul>
                                 </div>
                             </li>
-                            @if (Auth::guard('khachhang')->user())
+                            @if (Auth::guard('khachhang')->check())
                             <li><a  style="color: black;" class="nav-link nav_item" href="{{route('get.donhang')}}">Đơn hàng của tôi</a></li>
                             @endif
                         </ul>
                     </div>
                     <ul  class="navbar-nav attr-nav align-items-center">
-                        @if (!Auth::guard('khachhang')->user())
+                        @if (!Auth::guard('khachhang')->check())
                         <li><a style="color: black;" class="nav-link nav_item" href="{{route('home.getdangnhap')}}">Đăng nhập</a></li>
                         <li><a style="color: black;" class="nav-link nav_item" href="{{route('home.getdangky')}}">Đăng Ký</a></li>
                         @endif
@@ -98,7 +98,7 @@
                                 
                             </form>
                         </li>
-                        @if (Auth::guard('khachhang')->user())
+                        @if (Auth::guard('khachhang')->check())
                         <!-- Example single danger button -->
                             <div class="btn-group">
                                 <button type="button" class="btn btn-silver btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -268,7 +268,24 @@
 
     @yield('js')
     <script>
+        $(document).on('click','.btn-get-dathang',function(e){
+            e.preventDefault();
+            var href=$(this).attr('href');
+            $.get("{{route('get.kiemtra_donhang')}}",function(res){
+               if(res.error){
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Không thể đặt hàng',
+                    html: res.error,
+                    
+                    })
+               }
+               if(res.data){
+                    window.location.replace(href);
+               }
+            });
 
+        });
 
 
          $(document).on('click','.btn-themvaogio',function(e){

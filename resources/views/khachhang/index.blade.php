@@ -179,7 +179,8 @@
 
                     }
                     else{
-                        alert('Cập nhật thành công');
+                        $('#thongtin').modal('hide');
+                        alert('Cập nhật thành công')
                         location.reload();
                     }
                    }

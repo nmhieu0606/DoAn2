@@ -46,6 +46,7 @@ Route::get('/giohang/xacnhan','dathang_controller@create')->name('get_dathang');
 Route::post('/giohang/xacnhan','dathang_controller@store')->name('post_dathang');
 Route::get('/giohang/completed','dathang_controller@completed')->name('dathang.completed');
 Route::get('/donhang','dathang_controller@getdonhang')->name('get.donhang');
+Route::get('/donhang-kiemtra','dathang_controller@kiemtra_donhang')->name('get.kiemtra_donhang');
 Route::get('/donhang_chitiet/{id}','dathang_controller@getchitiet_donhang')->name('get.chitiet_donhang');
 Route::post('/donhang_chitiet/huydonhang/{id}','dathang_controller@huydonhang')->name('get.huydonhang');
 

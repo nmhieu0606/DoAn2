@@ -69,8 +69,9 @@
                         </tbody>
                     </table>
                 </div>
-                <a href="{{route('get_dathang')}}" class="btn btn-fill-out">Thanh toán</a>
+                <a href="{{route('get_dathang')}}" class="btn btn-fill-out btn-get-dathang">Đặt hàng</a>
             </div>
         </div>
     </div>
 </div>
+

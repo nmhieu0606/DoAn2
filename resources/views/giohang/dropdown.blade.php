@@ -11,6 +11,6 @@
     </ul>
     <div class="cart_footer">
         <p class="cart_total"><strong>Tổng tiền:</strong> <span class="cart_price"> <span class="price_symbole"></span></span>{{number_format($giohang->gia)}}.VNĐ</p>
-        <p class="cart_buttons"><a href="{{route('giohang.index')}}" class="btn btn-fill-out checkout">Thanh toán</a></p>
+        <p class="cart_buttons"><a href="{{route('giohang.index')}}" class="btn btn-fill-out checkout">Giỏ hàng</a></p>
     </div>
 </div>

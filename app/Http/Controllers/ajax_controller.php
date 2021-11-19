@@ -19,7 +19,7 @@ class ajax_controller extends Controller
 
         ],[
             'tendangnhap.required'=>'Tên đăng nhập không được trống',
-            'tendangnhap.exists'=>'Tên đăng nhập sai',
+            'tendangnhap.exists'=>'Tên đăng nhập hoặc mật khẩu sai',
             'password.required'=>'Mật khẩu không được bỏ trống',
         ]);
         if($validator->passes()){

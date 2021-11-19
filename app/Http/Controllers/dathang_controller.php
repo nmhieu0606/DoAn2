@@ -44,7 +44,7 @@ class dathang_controller extends Controller
     public function kiemtra_donhang(giohang $giohang){
         if($this->kiemtra($giohang)){
             return response()->json([
-                'data'=>'dung',
+                'data'=>$giohang,
             ]);
         }
         else{      
@@ -59,7 +59,6 @@ class dathang_controller extends Controller
                 'error'=>$error,
             ]);
         } 
-        
     }
     public function getdonhang(){
         $id=Auth::guard('khachhang')->user()->id;
@@ -147,7 +146,6 @@ class dathang_controller extends Controller
             Mail::send('email.donhang',compact('kh'),function($email) use($kh){
                 $email->subject('ShopMobile - Đặt hàng thành công');
                 $email->to($kh->email,$kh->hovaten);
-    
             });
         
 

@@ -94,7 +94,7 @@ class nhanvien_controller extends Controller
      */
     public function show(nhanvien $nhanvien)
     {
-        //
+        
     }
 
     /**

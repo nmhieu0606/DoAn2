@@ -142,6 +142,46 @@
    
                             
      @yield('main')
+
+
+    
+    
+  
+  <!-- Modal -->
+    <div class="modal fade" id="form-dangnhap" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Đăng nhập</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="thongbaoloi"></div>
+                <form id="form-post-dangnhap" action="{{route('home.postdangnhap')}}" method="post">
+                    @csrf
+                      <div class="form-group">
+                          <input type="text"  class="form-control" name="tendangnhap" placeholder="Tên đăng nhập">
+                      </div>
+                      <div class="form-group">
+                          <input class="form-control"  type="password" name="password" placeholder="Mật khẩu">
+                      </div>
+                      <div class="login_footer form-group">
+                          <div class="chek-form">
+                              <div class="custome-checkbox">
+                                  <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="">
+                                  <label class="form-check-label" for="exampleCheckbox1"><span>Remember me</span></label>
+                              </div>
+                          </div>
+                          <a href="{{route('home.quenmatkhau')}}">Quên mật khẩu?</a>
+                      </div>
+                      <div class="form-group">
+                          <button type="submit" class="btn btn-fill-out btn-block" >Đăng nhập</button>
+                      </div>
+                  </form>
+            </div>
+        </div>
+        </div>
+    </div>
                            
                            
       
@@ -222,6 +262,7 @@
                 </div>
             </div>
         </div>
+
         <div class="bottom_footer border-top-tran">
             <div class="container">
                 <div class="row">
@@ -268,7 +309,30 @@
 
     @yield('js')
     <script>
-        $(document).on('click','.btn-get-dathang',function(e){
+        $('#form-post-dangnhap').on('submit',function(e){
+            e.preventDefault();
+            var data=$(this).serialize();
+            $.ajax({
+                type: "POST",
+                url: '{{route('ajax.dangnhap')}}',
+                data: data,
+                success: function (response) {
+                    if(response.error){
+                        var _html='';
+                        for(var error of response.error){
+                            _html+='<div class="alert alert-danger" role="alert">'+error+'<button data-bs-dismiss="alert" aria-hidden="true" class="close">&times</button></div>';
+                        }
+                        $('#thongbaoloi').html(_html);
+                    }
+                    if(response.data){
+                        location.reload();
+                    }
+                }
+            });
+
+           
+        })
+        $(document).on('click','#btn-get-dathang',function(e){
             e.preventDefault();
             var href=$(this).attr('href');
             $.get("{{route('get.kiemtra_donhang')}}",function(res){
@@ -277,7 +341,6 @@
                     icon: 'error',
                     title: 'Không thể đặt hàng',
                     html: res.error,
-                    
                     })
                }
                if(res.data){

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V16</title>
+	<title>Đăng nhập</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.10/dist/sweetalert2.min.css">
@@ -34,9 +34,7 @@
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('{{url('public/login')}}/images/bg.gif');">
 			<div class="wrap-login100 p-t-30 p-b-50">
-				<span class="login100-form-title p-b-41">
-					Account Login
-				</span>
+				
 				<form id="form-login" action="{{route('post.dangnhap')}}" method="POST" class="login100-form validate-form p-b-33 p-t-5">
           @csrf
 					<div class="wrap-input100 validate-input" data-validate = "Nhập Tên đăng nhập">

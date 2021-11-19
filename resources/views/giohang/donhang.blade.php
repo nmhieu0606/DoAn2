@@ -69,9 +69,14 @@
                         </tbody>
                     </table>
                 </div>
-                <a href="{{route('get_dathang')}}" class="btn btn-fill-out btn-get-dathang">Đặt hàng</a>
+                @if(Auth::guard('khachhang')->check())
+                <a href="{{route('get_dathang')}}" id="btn-get-dathang" class="btn btn-fill-out ">Đặt hàng</a>
+                @else
+                <button data-bs-toggle="modal" data-bs-target="#form-dangnhap" class="btn btn-fill-out ">Đăng nhập để đặt hàng</button>
+                @endif
             </div>
         </div>
     </div>
 </div>
 
+ 

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\khachhang;
 use App\Models\sanpham;
 use App\Models\comment;
+use App\Models\dathang;
+use App\Models\dathang_chitiet;
 
 use Validator;
 
@@ -68,6 +70,15 @@ class ajax_controller extends Controller
            
         }
         return response()->json(['error'=>$validator->errors()->first()]);
+
+    }
+    public function doanhthu(Request $request){
+        if(request()->ngaybatdau && request()->ngayketthuc){    
+            $dh1=dathang::where('tinhtrang_id',5)->whereBetween('ngaydathang',[request()->ngaybatdau,request()->ngayketthuc])->get();
+            response()->json([
+                'data'=>$dh1,
+            ]);
+        }
 
     }
 }

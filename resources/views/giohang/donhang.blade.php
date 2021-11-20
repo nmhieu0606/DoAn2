@@ -22,10 +22,9 @@
                             <td class="product-price" data-title="Price">{{number_format($item['gia'])}}</td>
                             <td class="product-quantity" data-title="Quantity">
                                 <div class="quantity">
-                                    <a href="{{route('giohang.capnhat_giam',$item['id'])}}" type="button" class="btn btn-info btn-giam">-</a>
+                                    <a href="{{route('giohang.capnhat_giam',$item['id'])}}" type="button" class="minus btn-giam">-</a>
                                     <input type="text" value="{{$item['soluong']}}" name="soluong"  class="qty">
-                                    <a href="{{route('giohang.capnhat_tang',$item['id'])}}" type="button" class="btn btn-info btn-tang">+</a>
-                                
+                                    <a href="{{route('giohang.capnhat_tang',$item['id'])}}" type="button" class="plus btn-tang">+</a>
                                 </div>
                             </td>
                             <td class="product-subtotal" data-title="Total">{{number_format($item['gia']*$item['soluong'])}}</td>

@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ShopMobile</title>
+    <link rel="stylesheet" href="{{url('public/slider')}}/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="{{url('public/slider')}}/css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css">
+	<link rel="stylesheet" href="{{url('public/slider')}}/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.10/dist/sweetalert2.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
@@ -73,9 +77,6 @@
                         <li>
                             <form action="" class="form-inline">
   
-                               
-                               
-                               
                                     <li class="dropdown dropdown-mega-menu">
                                         
                                         <a style="color: black;" class="dropdown-toggle nav-link" href="#" data-toggle="dropdown">Tìm kiếm</a>
@@ -92,10 +93,6 @@
                                             </ul>
                                         </div>
                                     </li>
-                                    
-
-                               
-                                
                             </form>
                         </li>
                         @if (Auth::guard('khachhang')->check())
@@ -306,6 +303,7 @@
     <script src="{{url('public/shopwise')}}/assets/js/scripts.js"></script>
     <script src="//cdn.ckeditor.com/4.16.2/full/ckeditor.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   
 
     @yield('js')
     <script>
@@ -403,12 +401,11 @@
           {
                 $.ajax({
                     type: "GET",
-                    url: "http://localhost/shopdt1/api/search-sanpham?tukhoa="+_text,
+                    url: "{{route('ajax-search-sanpham')}}?tukhoa="+_text,
                     success: function (response) {
                         for (var sp of  response) {
                             var _html='';
                             _html+='<li><img src="http://localhost/shopdt1/public/uploads/'+sp.anh+'"><a class="dropdown-item nav-link nav_item" href="http://localhost/shopdt1/chitiet/'+sp.id+'">'+sp.tensp+'</li>';
-                        
                         }
                         $('.search-ajax').html(_html);
                     }
@@ -417,8 +414,7 @@
           else{
             $('.search-ajax').html('');
           }
-           
-
+        
            
         });
     </script>

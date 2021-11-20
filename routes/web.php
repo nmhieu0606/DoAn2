@@ -74,6 +74,7 @@ Route::group(['prefix'=>'ajax'],function(){
 
 Route::group(['prefix'=>'admin','middleware'=>'adminlogin'],function(){
     Route::get('/', 'admin_controller@index')->name('admin.index');
+    Route::get('/danhthu/index', 'admin_controller@danhthu')->name('admin.danhthu');
     Route::get('/donhang', 'donhang_controller@index')->name('donhang.index');
     Route::get('/donhang/show/{id}', 'donhang_controller@show')->name('donhang.show');
     Route::get('/donhang/destroy/{id}', 'donhang_controller@destroy')->name('donhang.destroy');

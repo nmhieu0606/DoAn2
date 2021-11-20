@@ -22,12 +22,16 @@ class admin_controller extends Controller
        $kh=khachhang::all();
        $dh=dathang::all();
        $nv=nhanvien::all();
-       if(request()->ngaybatdau && request()->ngayketthuc){    
+       if(request()->ngaybatdau && request()->ngayketthuc){ 
+          
+
            $dh1=dathang::where('tinhtrang_id',5)->whereBetween('ngaydathang',[request()->ngaybatdau,request()->ngayketthuc])->get();
-           return view('admin.index',compact('sp','kh','dh','nv','dh1'));
+           return response()->json(['data'=>$dh1]);  
+           //return view('admin.index',compact('sp','kh','dh','nv','dh1'));
        }
        return view('admin.index',compact('sp','kh','dh','nv'));
    }
+   
     
     public function error(){
         

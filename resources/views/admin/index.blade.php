@@ -1,7 +1,8 @@
 @extends('layouts.admin')
 @section('main')
+  
       <div class="container-fluid">
-      
+       
         <div class="row">
           <div class="col-lg-3 col-6">
             <!-- small box -->
@@ -65,8 +66,10 @@
 
           <!-- ./col -->
         </div>
+        <div id="chart" style="height: 250px;"></div>
         <div class="panel panel-default">
-          <form action="" method="GET">
+          <form id="form_danhthu" action="" method="GET">
+        
             <div class="row g-3 align-items-center">
               <div class="col-auto">
                 <label for="inputPassword6" class="col-form-label">Từ ngày</label>
@@ -82,7 +85,6 @@
               </div>
               <button type="submit" class="btn btn-primary">Tìm</button>
             </div>
-           
           <form>
           <table class="table">
             <thead>
@@ -163,4 +165,32 @@
     
 
 
+  @endsection
+  @section('js')
+      <script>
+      
+         var chart= Morris.Bar({
+            element: 'chart',
+            parseTime:false,
+            data: [
+              0,0
+            ],
+            xkey: 'ngaydathang',
+            ykeys: ['id','tongtien'],
+            labels: ['id','Tổng tiền']
+          });
+       
+
+
+        $('#form_danhthu').on('submit',function(e){
+          e.preventDefault();
+          var ngay=$(this).serialize();
+          $.get("{{route('admin.index')}}?"+ngay,function(res){
+              chart.setData(res.data);
+
+          });
+        })
+
+      </script>
+      
   @endsection

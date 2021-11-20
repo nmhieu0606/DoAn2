@@ -8,11 +8,12 @@
                     <div class="col-md-6">
                         <div class="heading_s1">
                             <h4>Thông tin khách hàng</h4>
+                            <img width="200px" src="{{url('public/khachhang')}}/{{Auth::guard('khachhang')->user()->anh}}" class="rounded float-start" alt="...">
                         </div>
 
                         <form  method="post">
                           @csrf
-                          <img width="200px" src="{{url('public/khachhang')}}/{{Auth::guard('khachhang')->user()->anh}}" class="rounded float-start" alt="...">
+                         
                             <br>
                             <br>
                             <br>

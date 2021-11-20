@@ -252,23 +252,62 @@ class home_controller extends Controller
     public function postdoimatkhau(Request $request){
         $id=Auth::guard('khachhang')->user()->id;
         $kh=khachhang::find($id);
-        
-        if(Hash::check($request->password_cu,$kh->password)){
+        $error=Validator::make($request->all(),[
+            'password_cu'=>'required',
+            'password_moi'=>'required',
+            'password_xacnhan'=>'required|same:password_moi',
+        ],[
+            'password_cu.required'=>'Mật khẩu cũ không được bỏ trống',
+            'password_moi.required'=>'Mật khẩu mới không được bỏ trống',
+            'password_xacnhan.required'=>'Xác nhận Mật khẩu mới không được bỏ trống',
+            'password_xacnhan.same'=>'Xác nhận Mật khẩu không chính xác',
+        ]);
+        if($error->passes()){
+            if(Hash::check($request->password_cu,$kh->password)){
            
-            $request->validate([
-                'password_moi'=>'required',
-                'password_xacnhan'=>'required|same:password_moi',
-            ]);
-            $kh->password= bcrypt($request->password_moi);
-            if($request->password_moi)
-            return redirect('/')->with('yes','Đổi mật khẩu thành công');
+                $validator=Validator::make($request->all(),[
+                    'password_moi'=>'required',
+                    'password_xacnhan'=>'required|same:password_moi',
+                ],[
+                    'password_moi.required'=>'Mật khẩu mới không được bỏ trống',
+                    'password_xacnhan.required'=>'Xác nhận Mật khẩu mới không được bỏ trống',
+                    'password_xacnhan.same'=>'Xác nhận Mật khẩu không chính xác',
+    
+                ]);
+                if($validator->passes()){
+                    $kh->password= bcrypt($request->password_moi);
+                    $kh->save();
+                    return response()->json([
+                        'message'=>'Đổi mật khẩu thành công',
+                        'code'=>200,
+                    ]);
+    
+                }
+                return response()->json([
+                    'error'=>$validator->errors()->all(),
+                    'code'=>404,
+                ]);
+               
+              
+            }
+            else{
+                return response()->json([
+                    'error'=>'Mật khẩu cũ sai',
+                    'code'=>404,
+                ]);
+            }
 
         }
-        else{
-            return redirect()->back()->with('no','Mật khẩu cũ sai');
-        }
+        return response()->json([
+            'error'=>$error->errors()->all(),
+            'code'=>404,
+        ]);
+        
+        
     }
+
     public function dropdown(){
+
         return view('giohang.dropdown');
     }
     

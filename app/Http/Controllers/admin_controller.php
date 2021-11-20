@@ -26,7 +26,17 @@ class admin_controller extends Controller
           
 
            $dh1=dathang::where('tinhtrang_id',5)->whereBetween('ngaydathang',[request()->ngaybatdau,request()->ngayketthuc])->get();
-           return response()->json(['data'=>$dh1]);  
+           foreach($dh1 as $item)
+           {
+               $chart[]=array(
+                   'id'=>$item->id,
+                   'tongtien'=>$item->tongtien,
+                   'ngaydathang'=>$item->ngaydathang,
+                   'sum'=>$item->sum('tongtien'),
+               );
+               
+           }
+           return response()->json($chart);  
            //return view('admin.index',compact('sp','kh','dh','nv','dh1'));
        }
        return view('admin.index',compact('sp','kh','dh','nv'));

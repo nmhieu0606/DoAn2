@@ -176,8 +176,8 @@
               0,0
             ],
             xkey: 'ngaydathang',
-            ykeys: ['id','tongtien'],
-            labels: ['id','Tổng tiền']
+            ykeys: ['sum','tongtien','id'],
+            labels: ['Danh thu','Tổng tiền','id']
           });
        
 
@@ -186,7 +186,7 @@
           e.preventDefault();
           var ngay=$(this).serialize();
           $.get("{{route('admin.index')}}?"+ngay,function(res){
-              chart.setData(res.data);
+              chart.setData(res);
 
           });
         })

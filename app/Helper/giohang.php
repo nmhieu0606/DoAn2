@@ -17,7 +17,7 @@ class giohang{
         $item=[
             'id'=>$sanpham->id,
             'tensp'=>$sanpham->tensp,
-            'gia'=>$sanpham->giaxuat,
+            'gia'=>$sanpham->giasale,
             'anh'=>$sanpham->anh,
             'soluong'=>$soluong,  
         ];

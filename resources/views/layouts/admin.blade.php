@@ -251,7 +251,7 @@
     });
   })();
 </script>
-<script style="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js.map"></script>
+{{-- <script style="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js.map"></script> --}}
 @yield('js')
 @yield('cke')
 </body>

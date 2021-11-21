@@ -157,18 +157,13 @@
                 <form id="form-post-dangnhap" action="{{route('home.postdangnhap')}}" method="post">
                     @csrf
                       <div class="form-group">
-                          <input type="text"  class="form-control" name="tendangnhap" placeholder="Tên đăng nhập">
+                          <input required type="text"  class="form-control" name="tendangnhap" placeholder="Tên đăng nhập">
                       </div>
                       <div class="form-group">
-                          <input class="form-control"  type="password" name="password" placeholder="Mật khẩu">
+                          <input required class="form-control"  type="password" name="password" placeholder="Mật khẩu">
                       </div>
                       <div class="login_footer form-group">
-                          <div class="chek-form">
-                              <div class="custome-checkbox">
-                                  <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="">
-                                  <label class="form-check-label" for="exampleCheckbox1"><span>Remember me</span></label>
-                              </div>
-                          </div>
+                         
                           <a href="{{route('home.quenmatkhau')}}">Quên mật khẩu?</a>
                       </div>
                       <div class="form-group">
@@ -303,6 +298,8 @@
     <script src="{{url('public/shopwise')}}/assets/js/scripts.js"></script>
     <script src="//cdn.ckeditor.com/4.16.2/full/ckeditor.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
    
 
     @yield('js')
@@ -317,9 +314,9 @@
                 success: function (response) {
                     if(response.error){
                         var _html='';
-                        for(var error of response.error){
-                            _html+='<div class="alert alert-danger" role="alert">'+error+'<button data-bs-dismiss="alert" aria-hidden="true" class="close">&times</button></div>';
-                        }
+                       
+                            _html+='<div class="alert alert-danger" role="alert">'+response.error+'</div>';
+                        
                         $('#thongbaoloi').html(_html);
                     }
                     if(response.data){

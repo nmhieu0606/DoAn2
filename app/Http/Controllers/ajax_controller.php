@@ -16,13 +16,12 @@ class ajax_controller extends Controller
 {
     public function dangnhap(Request $request){
         $validator=Validator::make($request->all(),[
-            'tendangnhap'=>'required|exists:khachhang',
+            'tendangnhap'=>'required',
             'password'=>'required',
 
         ],[
-            'tendangnhap.required'=>'Tên đăng nhập không được trống',
-            'tendangnhap.exists'=>'Tên đăng nhập hoặc mật khẩu sai',
-            'password.required'=>'Mật khẩu không được bỏ trống',
+            'tendangnhap.required'=>'Tên đăng nhập không được trống <br>',
+            'password.required'=>'Mật khẩu không được bỏ trống <br>',
         ]);
         if($validator->passes()){
             $arr=[
@@ -39,6 +38,7 @@ class ajax_controller extends Controller
 
                 return response()->json(['data'=>Auth::guard('khachhang')->user()]);
             }
+            return response()->json(['error'=>'Tên đăng nhập hoặc mật khẩu sai']);
            
 
         }
@@ -72,13 +72,5 @@ class ajax_controller extends Controller
         return response()->json(['error'=>$validator->errors()->first()]);
 
     }
-    public function doanhthu(Request $request){
-        if(request()->ngaybatdau && request()->ngayketthuc){    
-            $dh1=dathang::where('tinhtrang_id',5)->whereBetween('ngaydathang',[request()->ngaybatdau,request()->ngayketthuc])->get();
-            response()->json([
-                'data'=>$dh1,
-            ]);
-        }
-
-    }
+   
 }

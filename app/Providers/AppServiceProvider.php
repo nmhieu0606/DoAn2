@@ -37,7 +37,8 @@ class AppServiceProvider extends ServiceProvider
             $view->with([
                 'danhmuc'=>danhmuc::search()->paginate(10),
                 'giohang'=>new giohang(),
-                'sp'=>sanpham::search()->paginate(11),
+                'sp'=>sanpham::search()->paginate(10),
+                'sanpham_i'=>sanpham::orderBy('id','DESC')->paginate(10),
                 'nv'=>nhanvien::all() 
             ]);
 

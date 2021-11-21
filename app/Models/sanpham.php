@@ -25,7 +25,9 @@ class sanpham extends Model
     'nhanhieu_id',
     'xuatxu_id', 
     'baohanh_id',
-    'danhmuc_id'
+    'danhmuc_id',
+    'sale',
+    'giasale',
 	];
     public function dathang_chitiet(){
     return $this->hasMany(dathang_chitiet::class,'sanpham_id','id');

@@ -15,11 +15,13 @@
                 <div class="product_description">
                     <h4 class="product_title"><a href="">{{$data->tensp}}</a></h4>
                     <div class="product_price">
-                        <span class="price">{{number_format($data->giaxuat)}}.VND</span>
-                        {{-- <del>$55.25</del>
+                        <span class="price">{{number_format($data->giasale)}}.VND</span>
+                        @if ($data->sale!=null) 
+                        <del>{{number_format($data->giaxuat)}}.VND</del>
                         <div class="on_sale">
-                            <span>35% Off</span>
-                        </div> --}}
+                            <span>{{$data->sale}}% Off</span>
+                        </div>
+                        @endif
                     </div>
                     <br>
     

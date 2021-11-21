@@ -52,7 +52,7 @@ class sanpham_controller extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    { 
 
         $messages = [
             'tensp.required' => 'Tên sản phẩm không được bỏ trống',
@@ -83,8 +83,23 @@ class sanpham_controller extends Controller
             $file->move(public_path('uploads'),$file_name);
           
         }
-        $request->merge(['anh'=>$file_name]);
-        if(sanpham::create($request->all())){
+        $sanpham=[
+            'tensp'=>$request->tensp,
+            'anh'=>$file_name,
+            'soluong'=>$request->soluong,
+            'gianhap'=>$request->gianhap,
+            'giaxuat'=>$request->giaxuat,
+            'sale'=>$request->sale,
+            'giasale'=>$request->sale?((100-$request->sale)/100)*$request->giaxuat:$request->giaxuat,
+            'nhanhieu_id'=>$request->nhanhieu_id,
+            'xuatxu_id'=>$request->xuatxu_id,
+            'baohanh_id'=>$request->baohanh_id,
+            'danhmuc_id'=>$request->danhmuc_id,
+            'chitiet'=>$request->chitiet,
+
+        ];
+        //$request->merge(['anh'=>$file_name]);
+        if(sanpham::create($sanpham)){
             return redirect('admin/sanpham');
         }
         
@@ -136,8 +151,22 @@ class sanpham_controller extends Controller
             File::delete('public/uploads/'.$data->anh);
             $request->merge(['anh'=>$file_name]);
         }
-        
-        if(sanpham::find($id)->update($request->all())){
+        $anhcu=sanpham::find($id);
+        $sanpham=[
+            'tensp'=>$request->tensp,
+            'anh'=>$request->has('file_uploads')?$file_name:$anhcu->anh,
+            'soluong'=>$request->soluong,
+            'gianhap'=>$request->gianhap,
+            'giaxuat'=>$request->giaxuat,
+            'sale'=>$request->sale,
+            'giasale'=>$request->sale?((100-$request->sale)/100)*$request->giaxuat:$request->giaxuat,
+            'nhanhieu_id'=>$request->nhanhieu_id,
+            'xuatxu_id'=>$request->xuatxu_id,
+            'baohanh_id'=>$request->baohanh_id,
+            'danhmuc_id'=>$request->danhmuc_id,
+            'chitiet'=>$request->chitiet,
+        ];
+        if(sanpham::find($id)->update($sanpham)){
             return redirect('admin/sanpham');
         }
         

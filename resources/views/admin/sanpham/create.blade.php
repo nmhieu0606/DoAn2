@@ -5,7 +5,7 @@
         <form action="{{route('sanpham.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-              <label for="tensp" class="form-label">Nhập tên sản phẩm</label>
+                <label for="tensp">Nhập tên sản phẩm <span class="text-danger font-weight-bold">*</span></label>
               <input type="text" class="form-control" @error('tensp') is-invalid @enderror name="tensp" id="tensp"  >
               {{$errors->first('tensp')}}
             </div>

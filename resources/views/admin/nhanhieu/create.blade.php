@@ -5,7 +5,8 @@
         <form action="{{route('nhanhieu.store')}}" method="POST">
             @csrf
             <div class="mb-3">
-              <label for="nhanhieu" class="form-label">Nhập tên nhãn hiệu</label>
+              
+              <label for="nhanhieu">Nhập tên nhãn hiệu <span class="text-danger font-weight-bold">*</label>
               <input type="text" class="form-control" name="nhanhieu" id="nhanhieu"  >
               {{$errors->first('nhanhieu')}}
             </div>

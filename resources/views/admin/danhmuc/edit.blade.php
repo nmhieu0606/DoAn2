@@ -13,6 +13,17 @@
               <input value="{{$data->tendanhmuc}}" type="text" class="form-control" name="tendanhmuc" id="tendanhmuc" >
               {{$errors->first('tendanhmuc')}}
             </div>
+
+            <div class="mb-3">
+              <select required name="parent_id" class="form-select" aria-label="Default select example">
+                <option selected>Chọn danh mục cha</option>
+                <option value="0">Parent</option>
+                @foreach ($danhmuc as $item)
+                <option value="{{$item->id}}" {{$data->parent_id==$item->id?'selected':''}}>{{$item->tendanhmuc}}</option>
+                @endforeach
+              </select>
+              {{$errors->first('parent_id')}}
+            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
     </div>

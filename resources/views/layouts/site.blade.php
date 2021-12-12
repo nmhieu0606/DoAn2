@@ -31,7 +31,40 @@
     <link rel="stylesheet" href="{{url('public/shopwise')}}/assets/css/slick-theme.css" />
     <link rel="stylesheet" href="{{url('public/shopwise')}}/assets/css/style.css" />
     <link rel="stylesheet" href="{{url('public/shopwise')}}/assets/css/responsive.css" />
+
+<style>
+    .anh-search{
+        width: 50px;
+        
+    }
+
+#slideshow {
+   overflow: hidden;
+   height: 250px;
+   /* width: 728px; */
+   width: 800px;
+   margin: 0 auto;
+   margin-top: 0px;
+ }
+.slide-wrapper {
+   width: 2912px;
+   -webkit-animation: slide 14s ease infinite;
+}
+.slide {
+   float: left;
+   height: 510px;
+   width: 728px;
+ }
+@-webkit-keyframes slide {
+   20% {margin-left: 0px;}
+   30% {margin-left: -728px;}
+   50% {margin-left: -728px;}
+   60% {margin-left: -1456px;}
+   80% {margin-left: -1456px;}
+}
+</style>
 </head>
+
 <body>
     
     <header  class="header_wrap fixed-top header_with_topbar">
@@ -54,21 +87,16 @@
                                 <div class="dropdown-menu">
                                     <ul class="mega-menu d-lg-flex">
                                         @foreach ($danhmuc as $dt)
-                                        <li class="mega-menu-col col-lg-3">
-                                           
-
-                                            <ul>  
-                                                @if($dt->child->count()!=0)
-                                                <li class="dropdown-header">{{$dt->tendanhmuc}}</li>
-                                                @endif
-                                                @foreach ($dt->child as $item)
-                                                <li><a class="dropdown-item nav-link nav_item" href="#">{{$item->tendanhmuc}}</a></li>
-                                                @endforeach
-                                            </ul>
-                                          
-
-                                            
-                                        </li>
+                                            <li class="mega-menu-col">
+                                                <ul>  
+                                                    @if($dt->child->count()!=0)
+                                                    <li class="dropdown-header">{{$dt->tendanhmuc}}</li>
+                                                    @endif
+                                                    @foreach ($dt->child as $item)
+                                                    <li><a class="dropdown-item nav-link nav_item" href="{{route('home.show',$item->slug)}}">{{$item->tendanhmuc}}</a></li>
+                                                    @endforeach
+                                                </ul>
+                                            </li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -84,28 +112,25 @@
                         <li><a style="color: black;" class="nav-link nav_item" href="{{route('home.getdangky')}}">Đăng Ký</a></li>
                         @endif
                         <li>
-                            <form action="" class="form-inline">
-  
-                                    <li class="dropdown dropdown-mega-menu">
-                                        
-                                        <a style="color: black;" class="dropdown-toggle nav-link" href="#" data-toggle="dropdown">Tìm kiếm</a>
-                                        <div class="dropdown-menu">
-                                            <input type="search" class="form-control" id="input-search" placeholder="Nhập tên sản phẩm">
-                                            <ul class="mega-menu d-lg-flex">
-                                                <li class="mega-menu-col col-lg-3">
-                                                    <ul>
-                                                        <div class="search-ajax">
 
-                                                        </div>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                            </form>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    tìm kiếm
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                  <li><input type="search" class="form-control" id="input-search" placeholder="Nhập tên sản phẩm"></li>
+                                  
+                                   <div class="search-ajax"></div>
+                                
+                                </ul>
+                            </div>
+                            
+                            <li></li>
+                                          
+                            
                         </li>
+                        <li>
                         @if (Auth::guard('khachhang')->check())
-                        <!-- Example single danger button -->
                             <div class="btn-group">
                                 <button type="button" class="btn btn-silver btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img style="width: 40px; border-radius:20px;" src="{{url('public/khachhang')}}/{{Auth::guard('khachhang')->user()->anh}}" alt="">
@@ -117,9 +142,8 @@
                                 <li><a class="dropdown-item" href="{{route('khachhang.dangxuat')}}">Đăng xuất</a></li>
                                 </ul>
                             </div>
-
                         @endif
-                        
+                        </li>
                         <li id="dropdown_item" class="dropdown cart_dropdown">
                           
                         </li>
@@ -412,7 +436,7 @@
                     success: function (response) {
                         for (var sp of  response) {
                             var _html='';
-                            _html+='<li><img src="http://localhost/shopdt1/public/uploads/'+sp.anh+'"><a class="dropdown-item nav-link nav_item" href="http://localhost/shopdt1/chitiet/'+sp.id+'">'+sp.tensp+'</li>';
+                            _html+='<li><img class="anh-search mt-3" src="http://localhost/shopdt1/public/uploads/'+sp.anh+'"><a class="dropdown-item nav-link nav_item" href="http://localhost/shopdt1/chitiet/'+sp.id+'">'+sp.tensp+'</li>';
                         }
                         $('.search-ajax').html(_html);
                     }

@@ -68,8 +68,6 @@ Route::group(['prefix'=>'khachhang','middleware'=>'khlogin'],function(){
 Route::group(['prefix'=>'ajax'],function(){
     Route::post('/dangnhap','ajax_controller@dangnhap')->name('ajax.dangnhap');
     Route::post('/comment/{sanpham_id}','ajax_controller@binhluan')->name('ajax.comment');
-  
-
 });
 
 Route::group(['prefix'=>'admin','middleware'=>'adminlogin'],function(){
@@ -95,6 +93,7 @@ Route::group(['prefix'=>'admin','middleware'=>'adminlogin'],function(){
         'chucvu'=>'chucvu_controller',
         'nhanvien'=>'nhanvien_controller',
         'tinhtrang'=>'tinhtrang_controller',
+        'slide'=>'slide_controller',
     ]);
 });
 

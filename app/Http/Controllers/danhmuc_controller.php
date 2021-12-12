@@ -111,6 +111,7 @@ class danhmuc_controller extends Controller
         
         $data->tendanhmuc=$request->tendanhmuc;
         $data->slug=Str::slug($data->tendanhmuc);
+        $data->parent_id=$request->parent_id;
         $data->save();
         return redirect('admin/danhmuc');
         

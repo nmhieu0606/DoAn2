@@ -3,7 +3,19 @@
     <div class="main_content">
         <div class="section">
             <div class="container">
-                
+                <div class="row">
+                    <div id="slideshow">
+                        <div class="slide-wrapper">
+                        @foreach ($slide as $item)
+                         
+                        @if ($item->status==1)
+                             
+                          <div class="slide"><img src="{{url('public/slide')}}/{{$item->anh}}"></div>
+                          @endif
+                        @endforeach
+                        </div>
+                    </div>
+                </div>
                 <div class="row"> 
                     <div class="product_header_left">
                         <div class="custom_select">
@@ -115,9 +127,6 @@
 
                     @endforeach
                 </div>
-
-
-
             </div>
         </div>
     </div>

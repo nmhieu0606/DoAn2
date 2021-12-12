@@ -190,6 +190,24 @@
                 </div>
               </div>
               <div class="card-body">
+                <div class="container">
+                  @if(Session::has('yes'))
+                  <div class="alert alert-success">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      {{Session::get('yes')}} 
+          
+                  </div>
+                  @endif
+                  @if(Session::has('no'))
+                  <div class="alert alert-danger">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      {{Session::get('no')}} 
+                  </div>
+                  @endif
+              </div>
+
+
+
                 @yield('main')
               </div>
               <!-- /.card-body -->

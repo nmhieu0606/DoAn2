@@ -79,7 +79,7 @@ class sanpham_controller extends Controller
         if($request->has('file_uploads')){
             $file=$request->file_uploads;
             $ex=$request->file_uploads->extension();
-            $file_name=time().'-sanpham'.'.'.$ex;
+            $file_name=time().''.$request->tensp.''.'.'.$ex;
             $file->move(public_path('uploads'),$file_name);
           
         }
@@ -144,7 +144,7 @@ class sanpham_controller extends Controller
         if($request->has('file_uploads')){
             $file=$request->file_uploads;
             $ex=$request->file_uploads->extension();
-            $file_name=time().'-sanpham'.'.'.$ex;
+            $file_name=time().''.$request->tensp.''.'.'.$ex;
             $file->move(public_path('uploads'),$file_name);
 
             $data=sanpham::find($id);
@@ -193,14 +193,14 @@ class sanpham_controller extends Controller
     public function delete($id){
        
         if( sanpham::find($id)->dathang_chitiet->count()){
-            return redirect()->route('sanpham.index')->with('error','không thể xóa sản phẩm vì sản phẩm có trong đơn hàng');
+            return redirect()->route('sanpham.index')->with('no','không thể xóa sản phẩm vì sản phẩm có trong đơn hàng');
         }
         else{
             $data=sanpham::find($id);
             $duongdan = 'public/uploads';
             File::delete($duongdan.'/'.$data->anh);
             $data->delete();
-            return redirect()->route('sanpham.index')->with('success','Xóa sản phẩm thành công');
+            return redirect()->route('sanpham.index')->with('yes','Xóa sản phẩm thành công');
         }
     }
 }

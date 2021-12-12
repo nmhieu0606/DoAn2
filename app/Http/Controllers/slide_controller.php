@@ -47,7 +47,6 @@ class slide_controller extends Controller
             $file->move(public_path('slide'),$file_name);
         }
         $slide=[
-            'ten'=>$request->ten,
             'anh'=>$file_name,
             'nhanvien_id'=>Auth::user()->id,
             'status'=>$request->status,
@@ -104,7 +103,6 @@ class slide_controller extends Controller
         }
         $anhcu=slide::find($id);
         $slide=[
-            'tensp'=>$request->tensp,
             'anh'=>$request->has('anh')?$file_name:$anhcu->anh,
             'status'=>$request->status,
             'nhanvien_id'=>Auth::user()->id,  

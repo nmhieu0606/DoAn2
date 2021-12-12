@@ -65,7 +65,7 @@
                 <select id="xuatxu_id" class="form-control custom-select @error('xuatxu_id') is-invalid @enderror" name="xuatxu_id" required autofocus>
                     <option value="">-- Chọn xuất xứ --</option>
                     @foreach($xuatxu as $value)
-                    <option value="{{ $value->id }}" {{($data->xuatxu_id== $value->id)?'selected':'' }}>{{$value->xuatxu}}</option>
+                    <option value="{{ $value->id }}" {{($data->xuatxu_id==$value->id)?'selected':'' }}>{{$value->xuatxu}}</option>
                     @endforeach
                 </select>
                 @error('xuatxu_id')

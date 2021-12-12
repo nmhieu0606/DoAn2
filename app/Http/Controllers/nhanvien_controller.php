@@ -141,7 +141,7 @@ class nhanvien_controller extends Controller
             'cmnd'=>'required|numeric|unique:nhanvien,cmnd',
             'chucvu_id'=>'required|numeric',
             'tendangnhap'=>'required|max:100|unique:nhanvien,tendangnhap',
-            'password'=>'required|max:100|unique:nhanvien',
+            'password'=>'required|max:100|unique:nhanvien,password',
             'email'=>'required|max:100|unique:nhanvien,email',
         ],$messages);
         $data=nhanvien::find($id);
@@ -173,10 +173,10 @@ class nhanvien_controller extends Controller
         $data=nhanvien::find($id);
         if($data->dathang->count()==0){
             $data->delete();
-            return redirect()->back()->with('yes','xoa thành công');
+            return redirect()->back()->with('yes','xóa thành công');
     }
     else{
-        return redirect()->back()->with('no','xoa không thành công');
+        return redirect()->back()->with('no','xóa không thành công');
     }
     }
 

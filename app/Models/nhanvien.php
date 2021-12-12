@@ -27,7 +27,7 @@ class nhanvien extends Authenticatable
         'password',
     ];
     public function dathang(){
-        return $this->hasMany(chucvu::class,'id','nhanvien_id');
+        return $this->hasMany(dathang::class,'nhanvien_id','id');
     }
     public function chucvu(){
         return $this->hasOne(chucvu::class,'id','chucvu_id');

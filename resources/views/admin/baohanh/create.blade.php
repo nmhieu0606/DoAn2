@@ -6,7 +6,7 @@
             @csrf
             <div class="mb-3">
               <label for="thoigianbaohanh" class="form-label">Nhập tên thời gian bảo hành</label>
-              <input   type="text" class="form-control" name="thoigianbaohanh" id="exampleInputEmail1" required >
+              <input   type="text" class="form-control" name="thoigianbaohanh" id="exampleInputEmail1"  >
               {{$errors->first('thoigianbaohanh')}}
 
             </div>

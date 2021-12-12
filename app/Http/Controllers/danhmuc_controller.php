@@ -44,6 +44,7 @@ class danhmuc_controller extends Controller
 
         $messages = [
             'tendanhmuc.required' => 'Tên danh mục không được bỏ trống',
+            'parent_id.required' => 'Tên danh mục không được bỏ trống',
         ];
 
         $request->validate([
@@ -97,10 +98,20 @@ class danhmuc_controller extends Controller
      */
     public function update(Request $request, $id)
     {
+        $messages = [
+            'tendanhmuc.required' => 'Tên danh mục không được bỏ trống',
+           
+        ];
+
+        $request->validate([
+            'tendanhmuc'=>'required|max:100|unique:danhmuc',
+            'parent_id'=>'required|numeric'
+        ],$messages);
         $data = danhmuc::find($id);
         
         $data->tendanhmuc=$request->tendanhmuc;
         $data->slug=Str::slug($data->tendanhmuc);
+        $data->parent_id=$request->parent_id;
         $data->save();
         return redirect('admin/danhmuc');
         
@@ -114,8 +125,14 @@ class danhmuc_controller extends Controller
      */
     public function destroy($id)
     {
-      danhmuc::find($id)->delete();
-      return redirect('admin/danhmuc');
+        $data=danhmuc::find($id);
+        if($data->sanpham->count()==0){
+            $data->delete();
+            return redirect()->back()->with('yes','xóa thành công');
+    }
+    else{
+        return redirect()->back()->with('no','xóa không thành công');
+    }
        
     }
 }

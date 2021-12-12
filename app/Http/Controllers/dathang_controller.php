@@ -13,6 +13,10 @@ use App\Helper\giohang;
 use App\Mail\dathang_email;
 use App\Models\khachhang;
 use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Offset;
+use PhpOffice\PhpSpreadsheet\Calculation\TextData\Search;
+
+use function PHPUnit\Framework\returnSelf;
 
 class dathang_controller extends Controller
 {
@@ -36,6 +40,35 @@ class dathang_controller extends Controller
     {
        
         
+    }
+    public function kiemtra_donhang(giohang $giohang){
+        if($giohang->items!=null){
+
+            if($this->kiemtra($giohang)){
+                return response()->json([
+                    'data'=>$giohang,
+                ]);
+            }
+            else{      
+                $error='';
+                foreach($giohang->items as $sanpham_id=>$item){
+                    $sp=sanpham::find($sanpham_id);
+                    if($item['soluong']>$sp->soluong){
+                        $error.='Số lượng sản phẩm '.$sp->tensp.' chỉ còn '.$sp->soluong.'<br>';
+                    }
+                }
+                return response()->json([
+                    'error'=>$error,
+                ]);
+            } 
+
+        }
+        else{
+            return response()->json([
+                'error'=>'Đơn hàng trống',
+            ]);
+        }
+       
     }
     public function getdonhang(){
         $id=Auth::guard('khachhang')->user()->id;
@@ -89,17 +122,13 @@ class dathang_controller extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request,giohang $giohang)
-    {
-       
-      
+    {  
         $id=Auth::guard('khachhang')->user()->id;
         $dathang=new dathang;
         $dathang->khachhang_id=$id;
         $dathang->tinhtrang_id=1;
         $dathang->ngaydathang=Carbon::now();
         $dathang->tongtien=$giohang->gia;
-
-        
         if($dathang->save()){
             foreach($giohang->items as $sanpham_id=>$item){
                 $gia=$item['gia'];
@@ -116,24 +145,34 @@ class dathang_controller extends Controller
                     $dathang_chitiet->save();
                 }
                 else{
+                    $xoadathang=dathang::find($dathang->id);
+                    $xoadathang->delete();
                     return redirect('/giohang')->with('no','số lượng sản phẩm: '.$sp->tensp.' số lượng chỉ còn '.$sp->soluong.'');
                 }
-               
             }
             $kh=Auth::guard('khachhang')->user();
             Mail::send('email.donhang',compact('kh'),function($email) use($kh){
                 $email->subject('ShopMobile - Đặt hàng thành công');
                 $email->to($kh->email,$kh->hovaten);
-    
             });
-          
+        
 
             session()->forget('giohang');
-            return redirect('/giohang/completed'); 
-        }
-        else
-            return redirect('/');
+            return redirect('/giohang/completed');
+        } 
 
+    }
+    public function kiemtra(giohang $giohang){
+        $tam=false;
+        foreach($giohang->items as $sanpham_id=>$item){
+            $sp=sanpham::find($sanpham_id);
+            if($item['soluong']<=$sp->soluong){
+                return $tam=true;
+            }
+            else
+                return $tam=false;
+        }
+        return $tam;
     }
 
     /**

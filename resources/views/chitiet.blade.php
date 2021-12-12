@@ -15,11 +15,13 @@
                 <div class="product_description">
                     <h4 class="product_title"><a href="">{{$data->tensp}}</a></h4>
                     <div class="product_price">
-                        <span class="price">{{number_format($data->giaxuat)}}.VND</span>
-                        {{-- <del>$55.25</del>
+                        <span class="price">{{number_format($data->giasale)}}.VND</span>
+                        @if ($data->sale!=null) 
+                        <del>{{number_format($data->giaxuat)}}.VND</del>
                         <div class="on_sale">
-                            <span>35% Off</span>
-                        </div> --}}
+                            <span>{{$data->sale}}% Off</span>
+                        </div>
+                        @endif
                     </div>
                     <br>
     
@@ -41,7 +43,7 @@
                 <hr />
                 <div class="cart_extra">
                     <div class="cart_btn">
-                        <a href="{{route('home.themgiohang',$data->id)}}" class="btn btn-fill-out btn-addtocart" type="button"><i class="icon-basket-loaded"></i>Thêm vào giỏ</a>
+                        <a href="{{route('home.themgiohang',$data->id)}}" class="btn btn-fill-out btn-addtocart btn-themvaogio" type="button"><i class="icon-basket-loaded"></i>Thêm vào giỏ</a>
                         <a class="add_compare" href="#"><i class="icon-shuffle"></i></a>
                         <a class="add_wishlist" href="#"><i class="icon-heart"></i></a>
                     </div>

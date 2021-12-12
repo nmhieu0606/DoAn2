@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\chucvu;
 use App\Models\User;
-
-
+use Dotenv\Validator as DotenvValidator;
+use Illuminate\Auth\Events\Validated;
+use Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -59,10 +60,10 @@ class nhanvien_controller extends Controller
         ];
 
         $request->validate([
-            'hovaten'=>'required|max:100|unique:nhanvien',
+            'hovaten'=>'required|max:100',
             'gioitinh'=>'required|numeric',
-            'diachi'=>'required|max:100|unique:nhanvien',
-            'sdt'=>'required|numeric|unique:nhanvien',
+            'diachi'=>'required|max:100',
+            'sdt'=>'required|numeric',
             'cmnd'=>'required|numeric|unique:nhanvien',
             'chucvu_id'=>'required|numeric',
             'tendangnhap'=>'required|max:100|unique:nhanvien',
@@ -93,7 +94,7 @@ class nhanvien_controller extends Controller
      */
     public function show(nhanvien $nhanvien)
     {
-        //
+        
     }
 
     /**
@@ -119,6 +120,30 @@ class nhanvien_controller extends Controller
      */
     public function update(Request $request, $id)
     {
+        $messages = [
+            'hovaten.required' => 'Họ và tên không được bỏ trống',
+            'gioitinh.required' => 'Giới tính không được bỏ trống',
+            'ngaysinh.required' => 'Ngày sinh không được bỏ trống',
+            'diachi.required' => 'Địa chỉ không được bỏ trống',
+            'sdt.required' => 'Số điện thoại không được bỏ trống',
+            'cmnd.required' => 'Chứng minh không được bỏ trống',
+            'chucvu_id.required' => 'Chức vụ không được bỏ trống',
+            'tendangnhap.required' => 'Tên đăng nhập không được bỏ trống',
+            'password.required' => 'Password không được bỏ trống',
+            'email.required' => 'email không được bỏ trống',
+        ];
+
+        $request->validate([
+            'hovaten'=>'required|max:100',
+            'gioitinh'=>'required|numeric',
+            'diachi'=>'required|max:100',
+            'sdt'=>'required|numeric',
+            'cmnd'=>'required|numeric|unique:nhanvien,cmnd',
+            'chucvu_id'=>'required|numeric',
+            'tendangnhap'=>'required|max:100|unique:nhanvien,tendangnhap',
+            'password'=>'required|max:100|unique:nhanvien,password',
+            'email'=>'required|max:100|unique:nhanvien,email',
+        ],$messages);
         $data=nhanvien::find($id);
         $data->hovaten=$request->hovaten;
         $data->gioitinh=$request->gioitinh;
@@ -131,8 +156,6 @@ class nhanvien_controller extends Controller
         $data->email=$request->email;
         if(!empty($request->password)) 
         $data->password =Hash::make($request->password);
-		
-       
        if($data->save()) {
            return redirect('admin/nhanvien');
        }
@@ -147,8 +170,14 @@ class nhanvien_controller extends Controller
      */
     public function destroy($id)
     {
-        if(nhanvien::find($id)->delete())
-            return redirect('admin/nhanvien');
+        $data=nhanvien::find($id);
+        if($data->dathang->count()==0){
+            $data->delete();
+            return redirect()->back()->with('yes','xóa thành công');
+    }
+    else{
+        return redirect()->back()->with('no','xóa không thành công');
+    }
     }
 
     public function getdangnhap(){
@@ -156,22 +185,43 @@ class nhanvien_controller extends Controller
     }
    
     public function postdangnhap(Request $request){
-      
-        
-        $arr=[
-            'tendangnhap'=>$request->tendangnhap,
-            'password'=>$request->password
-           
-        ];
-        
-        if(Auth::attempt($arr)){
+
+        $validator=Validator::make($request->all(),[
+            'tendangnhap'=>'required|exists:nhanvien',
+            'password'=>'required',
+        ],[
+            'tedangnhap.required'=>'Tên đăng nhập không được bỏ trống',
+            'tedangnhap.exists'=>'Tên đăng nhập không tồn tại',
+            'password'=>'Mật khẩu không được bỏ trống',
+
+        ]);
+        if($validator->passes()){
+            $arr=[
+                'tendangnhap'=>$request->tendangnhap,
+                'password'=>$request->password
+               
+            ];
             
-            return redirect('admin/');
+            if($data=Auth::attempt($arr)){
+                
+                return response()->json([
+                    'code'=>1,
+                ]);
+            }
+            else{
+                
+                return response()->json([
+                    'code'=>0,
+                ]);
+            }
+
         }
-        else{
-            
-            return redirect('admin/dangnhap');
-        }
+        return response()->json([
+            'code'=>0,
+            'error'=>$validator->errors()->all(),
+        ]);
+        
+       
 
         
     }

@@ -26,9 +26,6 @@ class adminlogin_middleware
                     return redirect()->route('admin.error',['code'=>403]);
                 }
                 return $next($request);
-               
-               
-
         }
         else
             return redirect('admin/dangnhap');

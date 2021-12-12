@@ -6,7 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ShopMobile</title>
-  
+    <link rel="stylesheet" href="{{url('public/slider')}}/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="{{url('public/slider')}}/css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css">
+	<link rel="stylesheet" href="{{url('public/slider')}}/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.10/dist/sweetalert2.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
     <link rel="stylesheet" href="{{url('public/shopwise')}}/assets/css/animate.css" />
@@ -27,7 +31,40 @@
     <link rel="stylesheet" href="{{url('public/shopwise')}}/assets/css/slick-theme.css" />
     <link rel="stylesheet" href="{{url('public/shopwise')}}/assets/css/style.css" />
     <link rel="stylesheet" href="{{url('public/shopwise')}}/assets/css/responsive.css" />
+
+<style>
+    .anh-search{
+        width: 50px;
+        
+    }
+
+#slideshow {
+   overflow: hidden;
+   height: 250px;
+   /* width: 728px; */
+   width: 800px;
+   margin: 0 auto;
+   margin-top: 0px;
+ }
+.slide-wrapper {
+   width: 2912px;
+   -webkit-animation: slide 14s ease infinite;
+}
+.slide {
+   float: left;
+   height: 510px;
+   width: 728px;
+ }
+@-webkit-keyframes slide {
+   20% {margin-left: 0px;}
+   30% {margin-left: -728px;}
+   50% {margin-left: -728px;}
+   60% {margin-left: -1456px;}
+   80% {margin-left: -1456px;}
+}
+</style>
 </head>
+
 <body>
     
     <header  class="header_wrap fixed-top header_with_topbar">
@@ -49,57 +86,51 @@
                                 <a style="color: black;" class="dropdown-toggle nav-link" href="#" data-toggle="dropdown">Danh mục sản phẩm</a>
                                 <div class="dropdown-menu">
                                     <ul class="mega-menu d-lg-flex">
-                                        <li class="mega-menu-col col-lg-3">
-                                            <ul>
-                                             @foreach ($danhmuc as $dt)
-                                                <li><a class="dropdown-item nav-link nav_item" href="{{route('home.show',$dt->slug)}}">{{$dt->tendanhmuc}}</a></li>
-                                                
-                                                @endforeach
-                                            </ul>
-                                        </li>
+                                        @foreach ($danhmuc as $dt)
+                                            <li class="mega-menu-col">
+                                                <ul>  
+                                                    @if($dt->child->count()!=0)
+                                                    <li class="dropdown-header">{{$dt->tendanhmuc}}</li>
+                                                    @endif
+                                                    @foreach ($dt->child as $item)
+                                                    <li><a class="dropdown-item nav-link nav_item" href="{{route('home.show',$item->slug)}}">{{$item->tendanhmuc}}</a></li>
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </li>
-                            @if (Auth::guard('khachhang')->user())
+                            @if (Auth::guard('khachhang')->check())
                             <li><a  style="color: black;" class="nav-link nav_item" href="{{route('get.donhang')}}">Đơn hàng của tôi</a></li>
                             @endif
                         </ul>
                     </div>
                     <ul  class="navbar-nav attr-nav align-items-center">
-                        @if (!Auth::guard('khachhang')->user())
+                        @if (!Auth::guard('khachhang')->check())
                         <li><a style="color: black;" class="nav-link nav_item" href="{{route('home.getdangnhap')}}">Đăng nhập</a></li>
                         <li><a style="color: black;" class="nav-link nav_item" href="{{route('home.getdangky')}}">Đăng Ký</a></li>
                         @endif
                         <li>
-                            <form action="" class="form-inline">
-  
-                               
-                               
-                               
-                                    <li class="dropdown dropdown-mega-menu">
-                                        
-                                        <a style="color: black;" class="dropdown-toggle nav-link" href="#" data-toggle="dropdown">Tìm kiếm</a>
-                                        <div class="dropdown-menu">
-                                            <input type="search" class="form-control" id="input-search" placeholder="Nhập tên sản phẩm">
-                                            <ul class="mega-menu d-lg-flex">
-                                                <li class="mega-menu-col col-lg-3">
-                                                    <ul>
-                                                        <div class="search-ajax">
 
-                                                        </div>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    
-
-                               
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    tìm kiếm
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                  <li><input type="search" class="form-control" id="input-search" placeholder="Nhập tên sản phẩm"></li>
+                                  
+                                   <div class="search-ajax"></div>
                                 
-                            </form>
+                                </ul>
+                            </div>
+                            
+                            <li></li>
+                                          
+                            
                         </li>
-                        @if (Auth::guard('khachhang')->user())
-                        <!-- Example single danger button -->
+                        <li>
+                        @if (Auth::guard('khachhang')->check())
                             <div class="btn-group">
                                 <button type="button" class="btn btn-silver btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img style="width: 40px; border-radius:20px;" src="{{url('public/khachhang')}}/{{Auth::guard('khachhang')->user()->anh}}" alt="">
@@ -111,26 +142,10 @@
                                 <li><a class="dropdown-item" href="{{route('khachhang.dangxuat')}}">Đăng xuất</a></li>
                                 </ul>
                             </div>
-
                         @endif
-                        
-                        <li class="dropdown cart_dropdown">
-                            <a class="nav-link cart_trigger" href="{{route('get_dathang')}}" data-toggle="dropdown"><i class="linearicons-cart"></i><span class="cart_count">{{$giohang->soluong}}</span></a>
-                            <div class="cart_box dropdown-menu dropdown-menu-right">
-                                <ul class="cart_list">
-                                    @foreach ($giohang->items as $item)
-                                    <li>
-                                        <a href="{{route('giohang.xoa',$item['id'])}}" class="item_remove"><i class="ion-close"></i></a>
-                                        <a href="#"><img src="{{url('public/uploads')}}/{{$item['anh']}}" alt="cart_thumb1">{{$item['tensp']}}</a>
-                                        <span class="cart_quantity"> {{$item['soluong']}} x <span class="cart_amount"> <span class="price_symbole"></span></span>{{number_format($item['gia'])}}</span>
-                                    </li>
-                                    @endforeach
-                                </ul>
-                                <div class="cart_footer">
-                                    <p class="cart_total"><strong>Tổng tiền:</strong> <span class="cart_price"> <span class="price_symbole"></span></span>{{number_format($giohang->gia)}}.VNĐ</p>
-                                    <p class="cart_buttons"><a href="{{route('giohang.index')}}" class="btn btn-fill-out checkout">Thanh toán</a></p>
-                                </div>
-                            </div>
+                        </li>
+                        <li id="dropdown_item" class="dropdown cart_dropdown">
+                          
                         </li>
                         
                     </ul>
@@ -157,6 +172,41 @@
    
                             
      @yield('main')
+
+
+    
+    
+  
+  <!-- Modal -->
+    <div class="modal fade" id="form-dangnhap" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Đăng nhập</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="thongbaoloi"></div>
+                <form id="form-post-dangnhap" action="{{route('home.postdangnhap')}}" method="post">
+                    @csrf
+                      <div class="form-group">
+                          <input required type="text"  class="form-control" name="tendangnhap" placeholder="Tên đăng nhập">
+                      </div>
+                      <div class="form-group">
+                          <input required class="form-control"  type="password" name="password" placeholder="Mật khẩu">
+                      </div>
+                      <div class="login_footer form-group">
+                         
+                          <a href="{{route('home.quenmatkhau')}}">Quên mật khẩu?</a>
+                      </div>
+                      <div class="form-group">
+                          <button type="submit" class="btn btn-fill-out btn-block" >Đăng nhập</button>
+                      </div>
+                  </form>
+            </div>
+        </div>
+        </div>
+    </div>
                            
                            
       
@@ -237,6 +287,7 @@
                 </div>
             </div>
         </div>
+
         <div class="bottom_footer border-top-tran">
             <div class="container">
                 <div class="row">
@@ -279,8 +330,101 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7TypZFTl4Z3gVtikNOdGSfNTpnmq-ahQ&amp;callback=initMap"></script>
     <script src="{{url('public/shopwise')}}/assets/js/scripts.js"></script>
     <script src="//cdn.ckeditor.com/4.16.2/full/ckeditor.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
     @yield('js')
+    <script>
+        $('#form-post-dangnhap').on('submit',function(e){
+            e.preventDefault();
+            var data=$(this).serialize();
+            $.ajax({
+                type: "POST",
+                url: '{{route('ajax.dangnhap')}}',
+                data: data,
+                success: function (response) {
+                    if(response.error){
+                        var _html='';
+                       
+                            _html+='<div class="alert alert-danger" role="alert">'+response.error+'</div>';
+                        
+                        $('#thongbaoloi').html(_html);
+                    }
+                    if(response.data){
+                        location.reload();
+                    }
+                }
+            });
+
+           
+        })
+        $(document).on('click','#btn-get-dathang',function(e){
+            e.preventDefault();
+            var href=$(this).attr('href');
+            $.get("{{route('get.kiemtra_donhang')}}",function(res){
+               if(res.error){
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Không thể đặt hàng',
+                    html: res.error,
+                    })
+               }
+               if(res.data){
+                    window.location.replace(href);
+               }
+            });
+
+        });
+
+
+         $(document).on('click','.btn-themvaogio',function(e){
+            e.preventDefault();
+           var href=$(this).attr('href');
+           $.get(href,function(res){
+            Swal.fire(
+            res.message,
+            'Tiếp tục mua hàng',
+            'success'
+            )
+                load_dropdown();
+           })
+        
+        })
+        load_dropdown();
+        load_data();
+        function load_data(){
+            $.get("{{route('giohang.view')}}",function(res){
+                $('#table_data').html(res);
+            });
+        }
+        $(document).on('click','.btn-giam',function(e){
+            e.preventDefault();
+            var href=$(this).attr('href');
+            $.get(href,function(res){
+                load_data();
+                load_dropdown();
+            });
+        })
+        $(document).on('click','.btn-tang',function(e){
+            e.preventDefault();
+            var href=$(this).attr('href');
+            $.get(href,function(res){
+                load_data();
+                load_dropdown();
+            });
+        })
+
+       function load_dropdown(){
+        $.get("{{route('home.dropdown')}}",function(res){
+            $('#dropdown_item').html(res);
+        });
+
+        
+    }
+    </script>
     <script>
         $('#input-search').keyup(function (e) { 
             var _text=$(this).val();
@@ -288,12 +432,11 @@
           {
                 $.ajax({
                     type: "GET",
-                    url: "http://localhost/shopdt1/api/search-sanpham?tukhoa="+_text,
+                    url: "{{route('ajax-search-sanpham')}}?tukhoa="+_text,
                     success: function (response) {
                         for (var sp of  response) {
                             var _html='';
-                            _html+='<li><img src="http://localhost/shopdt1/public/uploads/'+sp.anh+'"><a class="dropdown-item nav-link nav_item" href="http://localhost/shopdt1/chitiet/'+sp.id+'">'+sp.tensp+'</li>';
-                        
+                            _html+='<li><img class="anh-search mt-3" src="http://localhost/shopdt1/public/uploads/'+sp.anh+'"><a class="dropdown-item nav-link nav_item" href="http://localhost/shopdt1/chitiet/'+sp.id+'">'+sp.tensp+'</li>';
                         }
                         $('.search-ajax').html(_html);
                     }
@@ -302,13 +445,13 @@
           else{
             $('.search-ajax').html('');
           }
-           
-
+        
            
         });
     </script>
 
+   
+
 </body>
 </html>
 
-b

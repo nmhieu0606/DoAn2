@@ -56,6 +56,7 @@ class khachhang_controller extends Controller
         $data->diachi=$request->diachi;
         $data->email=$request->email;
         $data->tendangnhap=$request->tendangnhap;
+        $data->status=$request->status;
         $data->password=bcrypt($request->password);
 
         if($data->save()){
@@ -107,7 +108,10 @@ class khachhang_controller extends Controller
         $data->diachi=$request->diachi;
         $data->email=$request->email;
         $data->tendangnhap=$request->tendangnhap;
-        $data->password=bcrypt($request->password);
+        if($request->password!=null){
+            $data->password=bcrypt($request->password);
+        }
+        $data->status=$request->status;
         if($data->save()){
             $data=khachhang::all();
             return view('admin.khachhang.index',compact('data'));

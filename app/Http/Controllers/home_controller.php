@@ -8,6 +8,7 @@ use App\Models\sanpham;
 use App\Models\khachhang;
 use Illuminate\Support\Facades\DB;
 use App\Helper\giohang;
+use Dotenv\Validator as DotenvValidator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
@@ -40,19 +41,57 @@ class home_controller extends Controller
   
      }
      public function postdangky(Request $request){
-       
-        $token=strtoupper(Str::random(10));
-        $data=$request->only('tendangnhap','email','hovaten','ngaysinh','gioitinh','diachi','sdt','cmnd');
-        $data['password']=bcrypt($request->password);
-        $data['token']=$token;
-        $data['status']=0;
-        if($kh=khachhang::create($data)){
-            Mail::send('email.kichhoat_tk',compact('kh'),function($email) use($kh){
-                $email->subject('ShopMobile - Xác nhận tài khoản');
-                $email->to($kh->email,$kh->hovaten);
-            });
-            return redirect('/dangnhap/index')->with('yes','Bạn đã đăng ký thành công vui lòng kích hoạt tài khoản qua email');
-        }
+         
+        $validator=Validator::make($request->all(),[
+             'hovaten'=>'required',
+             'gioitinh'=>'numeric|required',
+             'cmnd'=>'required|numeric',
+             'diachi'=>'required',
+             'sdt'=>'required|numeric',
+             'email'=>'required|unique:khachhang|email',
+             'tendangnhap'=>'required|unique:khachhang',
+             'password'=>'required',
+             'password_c'=>'required|same:password',
+
+         ],[
+             'hovaten.required'=>'Họ và tên không được bỏ trống',
+             'gioitinh.required'=>'gioi tinh không được bỏ trống',
+             'cmnd.required'=>'gioi tinh không được bỏ trống',
+             'cmnd.numeric'=>'cmnd phải là số',
+             'diachi.required'=>'dia chi không được bỏ trống',
+             'sdt.required'=>'sdt không được bỏ trống',
+             'sdt.numeric'=>'sdt phải là số',
+             'email.required'=>'email không được bỏ trống',
+             'email.email'=>'Định dạng email không đúng',
+             'email.unique'=>'email đã được sử dụng',
+             'tendangnhap.required'=>'ten dang nhap không được bỏ trống',
+             'tendangnhap.unique'=>'ten dang nhap đã được sử dụng',
+             'password.required'=>'mật khẩu không được bỏ trống',
+             'password_c.required'=>'xác nhận mật khẩu không được bỏ trống',
+             'password_c.same'=>'xác nhận mật khẩu phải trùng ',
+             
+         ]);
+         if($validator->passes()){
+
+            $token=strtoupper(Str::random(10));
+            $data=$request->only('tendangnhap','email','hovaten','ngaysinh','gioitinh','diachi','sdt','cmnd');
+            $data['password']=bcrypt($request->password);
+            $data['token']=$token;
+            $data['status']=0;
+            if($kh=khachhang::create($data)){
+               
+                Mail::send('email.kichhoat_tk',compact('kh'),function($email) use($kh){
+                    $email->subject('ShopMobile - Xác nhận tài khoản');
+                    $email->to($kh->email,$kh->hovaten);
+                });
+                return response()->json([[1]]);
+                //return redirect('/dangnhap/index')->with('yes','Bạn đã đăng ký thành công vui lòng kích hoạt tài khoản qua email');
+               
+            }
+
+         }
+         return response()->json(['error'=>$validator->errors()->all()]);
+        
        
      }
      public function quenmatkhau(){
@@ -60,6 +99,7 @@ class home_controller extends Controller
          return view('quenmatkhau.index');
      }
     public function postquenmatkhau(Request $request){
+       
         $request->validate([
             'email'=>'required|exists:khachhang',
         ],[
@@ -212,21 +252,63 @@ class home_controller extends Controller
     public function postdoimatkhau(Request $request){
         $id=Auth::guard('khachhang')->user()->id;
         $kh=khachhang::find($id);
-        
-        if(Hash::check($request->password_cu,$kh->password)){
+        $error=Validator::make($request->all(),[
+            'password_cu'=>'required',
+            'password_moi'=>'required',
+            'password_xacnhan'=>'required|same:password_moi',
+        ],[
+            'password_cu.required'=>'Mật khẩu cũ không được bỏ trống',
+            'password_moi.required'=>'Mật khẩu mới không được bỏ trống',
+            'password_xacnhan.required'=>'Xác nhận Mật khẩu mới không được bỏ trống',
+            'password_xacnhan.same'=>'Xác nhận Mật khẩu không chính xác',
+        ]);
+        if($error->passes()){
+            if(Hash::check($request->password_cu,$kh->password)){
            
-            $request->validate([
-                'password_moi'=>'required',
-                'password_xacnhan'=>'required|same:password_moi',
-            ]);
-            $kh->password= bcrypt($request->password_moi);
-            if($request->password_moi)
-            return redirect('/')->with('yes','Đổi mật khẩu thành công');
+                $validator=Validator::make($request->all(),[
+                    'password_moi'=>'required',
+                    'password_xacnhan'=>'required|same:password_moi',
+                ],[
+                    'password_moi.required'=>'Mật khẩu mới không được bỏ trống',
+                    'password_xacnhan.required'=>'Xác nhận Mật khẩu mới không được bỏ trống',
+                    'password_xacnhan.same'=>'Xác nhận Mật khẩu không chính xác',
+    
+                ]);
+                if($validator->passes()){
+                    $kh->password= bcrypt($request->password_moi);
+                    $kh->save();
+                    return response()->json([
+                        'message'=>'Đổi mật khẩu thành công',
+                        'code'=>200,
+                    ]);
+    
+                }
+                return response()->json([
+                    'error'=>$validator->errors()->all(),
+                    'code'=>404,
+                ]);
+               
+              
+            }
+            else{
+                return response()->json([
+                    'error'=>'Mật khẩu cũ sai',
+                    'code'=>404,
+                ]);
+            }
 
         }
-        else{
-            return redirect()->back()->with('no','Mật khẩu cũ sai');
-        }
+        return response()->json([
+            'error'=>$error->errors()->all(),
+            'code'=>404,
+        ]);
+        
+        
+    }
+
+    public function dropdown(){
+
+        return view('giohang.dropdown');
     }
     
 }

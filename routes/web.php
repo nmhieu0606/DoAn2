@@ -16,6 +16,7 @@ use App\Http\Controllers\danhmuc_controller;
 */
 
 Route::get('/','home_controller@index')->name('home.index');
+Route::get('/dropdown','home_controller@dropdown')->name('home.dropdown');
 Route::get('/dangky/index','home_controller@getdangky')->name('home.getdangky');
 Route::post('/dangky/index','home_controller@postdangky')->name('home.postdangky');
 Route::get('/dangky/kichhoat/{khachhang}/{token}','home_controller@kichhoat')->name('home.kichhoat');
@@ -35,7 +36,9 @@ Route::get('/chitiet/{id}','home_controller@chitiet')->name('home.chitiet');
 
 Route::get('/themgiohang/{id}','giohang_controller@themgiohang')->name('home.themgiohang');
 Route::get('/giohang','giohang_controller@index')->name('giohang.index');
-Route::get('/giohang/capnhat/{id}','giohang_controller@capnhat')->name('giohang.capnhattang');
+Route::get('/giohang/view','giohang_controller@view')->name('giohang.view');
+Route::get('/giohang/capnhat/tang/{id}','giohang_controller@capnhat_tang')->name('giohang.capnhat_tang');
+Route::get('/giohang/capnhat/giam/{id}','giohang_controller@capnhat_giam')->name('giohang.capnhat_giam');
 Route::get('/giohang/xoa/{id}','giohang_controller@xoa')->name('giohang.xoa');
 Route::get('/giohang/xoatatca','giohang_controller@xoatatca')->name('giohang.xoatatca');
 
@@ -43,6 +46,7 @@ Route::get('/giohang/xacnhan','dathang_controller@create')->name('get_dathang');
 Route::post('/giohang/xacnhan','dathang_controller@store')->name('post_dathang');
 Route::get('/giohang/completed','dathang_controller@completed')->name('dathang.completed');
 Route::get('/donhang','dathang_controller@getdonhang')->name('get.donhang');
+Route::get('/donhang-kiemtra','dathang_controller@kiemtra_donhang')->name('get.kiemtra_donhang');
 Route::get('/donhang_chitiet/{id}','dathang_controller@getchitiet_donhang')->name('get.chitiet_donhang');
 Route::post('/donhang_chitiet/huydonhang/{id}','dathang_controller@huydonhang')->name('get.huydonhang');
 
@@ -64,12 +68,11 @@ Route::group(['prefix'=>'khachhang','middleware'=>'khlogin'],function(){
 Route::group(['prefix'=>'ajax'],function(){
     Route::post('/dangnhap','ajax_controller@dangnhap')->name('ajax.dangnhap');
     Route::post('/comment/{sanpham_id}','ajax_controller@binhluan')->name('ajax.comment');
-  
-
 });
 
 Route::group(['prefix'=>'admin','middleware'=>'adminlogin'],function(){
     Route::get('/', 'admin_controller@index')->name('admin.index');
+    Route::get('/danhthu/index', 'admin_controller@danhthu')->name('admin.danhthu');
     Route::get('/donhang', 'donhang_controller@index')->name('donhang.index');
     Route::get('/donhang/show/{id}', 'donhang_controller@show')->name('donhang.show');
     Route::get('/donhang/destroy/{id}', 'donhang_controller@destroy')->name('donhang.destroy');
@@ -90,6 +93,7 @@ Route::group(['prefix'=>'admin','middleware'=>'adminlogin'],function(){
         'chucvu'=>'chucvu_controller',
         'nhanvien'=>'nhanvien_controller',
         'tinhtrang'=>'tinhtrang_controller',
+        'slide'=>'slide_controller',
     ]);
 });
 

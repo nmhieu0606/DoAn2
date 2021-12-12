@@ -8,6 +8,7 @@ use App\Models\danhmuc;
 use App\Models\sanpham;
 use App\Models\dathang;
 use App\Models\khachhang;
+use App\Models\slide;
 use App\Models\nhanvien;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -37,8 +38,10 @@ class AppServiceProvider extends ServiceProvider
             $view->with([
                 'danhmuc'=>danhmuc::search()->paginate(10),
                 'giohang'=>new giohang(),
-                'sp'=>sanpham::search()->paginate(11),
-                'nv'=>nhanvien::all() 
+                'sp'=>sanpham::search()->paginate(10),
+                'sanpham_i'=>sanpham::orderBy('id','DESC')->paginate(10),
+                'nv'=>nhanvien::all(),
+                'slide'=>slide::orderBy('id','DESC')->get(),
             ]);
 
         });

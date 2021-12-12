@@ -17,7 +17,7 @@ class giohang{
         $item=[
             'id'=>$sanpham->id,
             'tensp'=>$sanpham->tensp,
-            'gia'=>$sanpham->giaxuat,
+            'gia'=>$sanpham->giasale,
             'anh'=>$sanpham->anh,
             'soluong'=>$soluong,  
         ];
@@ -44,6 +44,26 @@ class giohang{
         if($this->items[$id]){
             $this->items[$id]['soluong']=$soluong;
         }
+        session(['giohang'=>$this->items]);
+
+    }
+    public function capnhat_tang($id){
+     
+        if($this->items[$id]){
+            $this->items[$id]['soluong']+=1;
+        }
+        session(['giohang'=>$this->items]);
+
+    }
+    public function capnhat_giam($id){
+     
+        if($this->items[$id]){
+            $this->items[$id]['soluong']-=1;
+            if($this->items[$id]['soluong']==0){
+                unset($this->items[$id]);
+            }
+        }
+       
         session(['giohang'=>$this->items]);
 
     }

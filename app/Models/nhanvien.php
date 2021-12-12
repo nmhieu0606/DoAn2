@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
+use App\Models\dathang;
 
 class nhanvien extends Authenticatable
 {
@@ -25,6 +26,9 @@ class nhanvien extends Authenticatable
         'email',
         'password',
     ];
+    public function dathang(){
+        return $this->hasMany(dathang::class,'nhanvien_id','id');
+    }
     public function chucvu(){
         return $this->hasOne(chucvu::class,'id','chucvu_id');
     }

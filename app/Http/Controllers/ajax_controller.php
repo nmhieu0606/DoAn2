@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\khachhang;
 use App\Models\sanpham;
 use App\Models\comment;
+use App\Models\dathang;
+use App\Models\dathang_chitiet;
 
 use Validator;
 
@@ -14,13 +16,12 @@ class ajax_controller extends Controller
 {
     public function dangnhap(Request $request){
         $validator=Validator::make($request->all(),[
-            'tendangnhap'=>'required|exists:khachhang',
+            'tendangnhap'=>'required',
             'password'=>'required',
 
         ],[
-            'tendangnhap.required'=>'Tên đăng nhập không được trống',
-            'tendangnhap.exists'=>'Tên đăng nhập sai',
-            'password.required'=>'Mật khẩu không được bỏ trống',
+            'tendangnhap.required'=>'Tên đăng nhập không được trống <br>',
+            'password.required'=>'Mật khẩu không được bỏ trống <br>',
         ]);
         if($validator->passes()){
             $arr=[
@@ -37,6 +38,7 @@ class ajax_controller extends Controller
 
                 return response()->json(['data'=>Auth::guard('khachhang')->user()]);
             }
+            return response()->json(['error'=>'Tên đăng nhập hoặc mật khẩu sai']);
            
 
         }
@@ -70,4 +72,5 @@ class ajax_controller extends Controller
         return response()->json(['error'=>$validator->errors()->first()]);
 
     }
+   
 }

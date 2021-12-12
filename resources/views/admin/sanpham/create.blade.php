@@ -34,7 +34,11 @@
                 <input id="giaxuat" type="number" min="0" class="form-control @error('giaxuat') is-invalid @enderror" name="giaxuat" value="{{ old('giaxuat') }}"  />
                 {{$errors->first('giaxuat')}}
             </div>
-
+            <div class="form-group">
+                <label for="sale">Sale % <span class="text-danger font-weight-bold">*</span></label>
+                <input id="sale" type="number" min="0" class="form-control @error('sale') is-invalid @enderror" name="sale" value="{{ old('sale') }}"  />
+                {{$errors->first('giaxuat')}}
+            </div>
 
             <div class="form-group">
                 <label for="nhanhieu_id"><span class="text-danger font-weight-bold">*</span></label>

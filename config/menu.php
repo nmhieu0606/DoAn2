@@ -58,7 +58,11 @@
                 [
                     'label'=>'Tình trạng',
                     'route'=>'tinhtrang.index'
-                ]
+                ],
+                [
+                    'label'=>'slide',
+                    'route'=>'slide.index'
+                ],
                
             ]
         ],
@@ -89,8 +93,8 @@
             'color'=>'Info',
             'icon'=>'fas fa-file-invoice-dollar'
 
-        ]
-
+        ],
+        
 
 
     ]

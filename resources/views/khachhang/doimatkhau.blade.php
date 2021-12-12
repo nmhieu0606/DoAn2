@@ -10,21 +10,22 @@
                                 <div class="heading_s1">
                                     <h3>Đổi mật khẩu</h3>
                                 </div>
-                                <form action="{{route('khachhang.postdoimatkhau')}}" method="POST">
+                                <div id="doimatkhau-error"></div>
+                                <form id="form-doimatkhau" action="{{route('khachhang.postdoimatkhau')}}" method="POST">
                                   @csrf
                                 
                                     <div class="form-group">
-                                        <input class="form-control" required type="password" name="password_cu" placeholder="Nhập mật khẩu cũ">
+                                        <input class="form-control"  type="password" name="password_cu" placeholder="Nhập mật khẩu cũ">
                                     </div>
                                     
                                     <div class="form-group">
-                                        <input class="form-control" required type="password" name="password_moi" placeholder="Mật khẩu mới">
-                                        {{$errors->first('password_moi')}}
+                                        <input class="form-control"  type="password" name="password_moi" placeholder="Mật khẩu mới">
+                                        
                                     </div>
                                     
                                     <div class="form-group">
-                                        <input class="form-control" required type="password" name="password_xacnhan" placeholder="Xác nhận Mật khẩu">
-                                        {{$errors->first('password_xacnhan')}}
+                                        <input class="form-control"  type="password" name="password_xacnhan" placeholder="Xác nhận Mật khẩu">
+                                        
                                     </div>
 
                                     <div class="login_footer form-group">
@@ -50,4 +51,36 @@
             </div>
         </div>
     </div>
+    @endsection
+    @section('js')
+        <script>
+            $('#form-doimatkhau').on('submit',function(e){
+                e.preventDefault();
+                var action=$(this).attr('action');
+                var data=$(this).serialize();
+                
+                $.post(action,data,function(res){
+                    if(res.code==200){
+                        Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: res.message,
+                        showConfirmButton: false,
+                        timer: 2000
+                        });
+                        location.replace("{{route('home.index')}}");
+                    }
+                    else{
+                        var html='';
+                       
+                            html+='<div class="alert alert-danger" role="alert">'+res.error+'</div>';
+
+                        
+                        $('#doimatkhau-error').html(html);
+                    }
+                })
+            })
+
+        </script>
+        
     @endsection

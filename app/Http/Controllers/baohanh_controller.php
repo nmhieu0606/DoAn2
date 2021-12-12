@@ -38,9 +38,13 @@ class baohanh_controller extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'thoigianbaohanh' => ['required', 'max:255', 'unique:baohanh'],
-        ]);
+        $messages = [
+            'thoigianbaohanh.required' => 'thời gian bảo hành không được bỏ trống',
+        ];
+
+        $request->validate([
+            'thoigianbaohanh'=>'required|max:100|unique:baohanh',
+        ],$messages);
            
         $data=new baohanh;
         $data->thoigianbaohanh=$request->thoigianbaohanh;
@@ -83,6 +87,13 @@ class baohanh_controller extends Controller
      */
     public function update(Request $request, $id)
     {
+        $messages = [
+            'thoigianbaohanh.required' => 'thời gian bảo hành không được bỏ trống',
+        ];
+
+        $request->validate([
+            'thoigianbaohanh'=>'required|max:100|unique:baohanh,thoigianbaohanh',
+        ],$messages);
         $data = baohanh::find($id);
         $data->thoigianbaohanh=$request->thoigianbaohanh;
         if($data->save())
@@ -97,8 +108,13 @@ class baohanh_controller extends Controller
      */
     public function destroy($id)
     {
-       $data= baohanh::find($id)->delete();
-       if($data)
-            return redirect('admin/baohanh');
+        $data=baohanh::find($id);
+        if($data->sanpham->count()==0){
+            $data->delete();
+            return redirect()->back()->with('yes','xóa thành công');
+    }
+    else{
+        return redirect()->back()->with('no','xóa không thành công');
+    }
     }
 }

@@ -1,7 +1,8 @@
 @extends('layouts.admin')
 @section('main')
+  
       <div class="container-fluid">
-      
+       
         <div class="row">
           <div class="col-lg-3 col-6">
             <!-- small box -->
@@ -53,7 +54,6 @@
             <div class="small-box bg-danger">
               <div class="inner">
                 <h3>{{$nv->count()}}</h3>
-
                 <p>Nhân viên</p>
               </div>
               <div class="icon">
@@ -65,8 +65,11 @@
 
           <!-- ./col -->
         </div>
+        <div id="chart" style="height: 250px;"></div>
+        <div id="donut"></div>
         <div class="panel panel-default">
-          <form action="" method="GET">
+          <form id="form_danhthu" action="" method="GET">
+        
             <div class="row g-3 align-items-center">
               <div class="col-auto">
                 <label for="inputPassword6" class="col-form-label">Từ ngày</label>
@@ -82,7 +85,6 @@
               </div>
               <button type="submit" class="btn btn-primary">Tìm</button>
             </div>
-           
           <form>
           <table class="table">
             <thead>
@@ -96,9 +98,9 @@
               </tr>
             </thead>
             <tbody>
-              @if(isset($dh1))
+             
               <?php $stt=1; ?>
-              @foreach ($dh1 as $d)
+              @foreach ($dh as $d)
               <tr>
                 <th >{{$stt}}</th>
                 <td>{{$d->khachhang->hovaten}}</td>
@@ -113,11 +115,19 @@
               </tr>
               <?php $stt++; ?>
               @endforeach
-              @endif
+              
             </tbody>
           </table>
          
         </div>
+
+        <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+
+
+
 
         @if (isset($dh1))
         <div style="width: auto;" class="row">
@@ -131,10 +141,10 @@
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="{{route('sanpham.index')}}" class="small-box-footer">Chi tiết<i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{route('sanpham.index')}}"  class="small-box-footer">Chi tiết<i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          @endif
+        @endif
          
           <table class="table">
            
@@ -143,7 +153,6 @@
                 <th scope="col">ID</th>
                 <th scope="col">Tên sản phẩm</th>
                 <th scope="col">Số lượng</th>
-                <th scope="col">Handle</th>
               </tr>
             </thead>
             <tbody>
@@ -153,14 +162,48 @@
                 <th scope="row">{{$item->id}}</th>
                 <td>{{$item->tensp}}</td>
                 <td>{{$item->soluong}}</td>
-                <td>@mdo</td>
               </tr>
               @endif
               @endforeach
             </tbody>
           </table>
       </div>
-    
+  @endsection
+  @section('js')
+      <script>
+      
+       
+        // var donut=Morris.Donut({
+        //     element: 'donut',
+        //     data: [
+        //       {label: "sanpham_id", value:12},
+             
+        //     ]
+        //   });
+                
+         var chart= Morris.Bar({
+            element: 'chart',
+            parseTime:false,
+            data: [
+              0,0
+            ],
+            xkey: 'ngaydathang',
+            ykeys: ['sum','tongtien','id'],
+            labels: ['Danh thu','Tổng tiền','id']
+          });
+       
 
 
+        $('#form_danhthu').on('submit',function(e){
+          e.preventDefault();
+          var ngay=$(this).serialize();
+          $.get("{{route('admin.index')}}?"+ngay,function(res){
+             chart.setData(res.dh);
+            
+
+          });
+        })
+
+      </script>
+      
   @endsection

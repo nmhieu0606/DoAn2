@@ -36,10 +36,13 @@ class tinhtrang_controller extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'tinhtrang.required' => 'Tình trạng không được bỏ trống',
+        ];
+
         $request->validate([
-            'tinhtrang'=>'required|max:100|unique:tinhtrang',
-            // 'parent_id'=>'required|numeric'
-        ]);
+            'tinhtrang'=>'required|max:100|unique:tinhtrang,tinhtrang',
+        ],$messages);
         
         $data=new tinhtrang;
         $data->tinhtrang=$request->tinhtrang;
@@ -82,6 +85,13 @@ class tinhtrang_controller extends Controller
      */
     public function update(Request $request,  $id)
     {
+        $messages = [
+            'tinhtrang.required' => 'Tình trạng không được bỏ trống',
+        ];
+
+        $request->validate([
+            'tinhtrang'=>'required|max:100|unique:tinhtrang,tinhtrang',
+        ],$messages);
         $data = tinhtrang::find($id);
         $data->tinhtrang=$request->tinhtrang;
         $data->save();
@@ -96,7 +106,13 @@ class tinhtrang_controller extends Controller
      */
     public function destroy( $id)
     {
-        tinhtrang::find($id)->delete();
-        return redirect('admin/tinhtrang');
+        $data=tinhtrang::find($id);
+        if($data->dathang->count()==0){
+            $data->delete();
+            return redirect()->back()->with('yes','xóa thành công');
+    }
+    else{
+        return redirect()->back()->with('no','xóa không thành công');
+    }
     }
 }

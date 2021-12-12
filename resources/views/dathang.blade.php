@@ -9,7 +9,7 @@
                         <div class="heading_s1">
                             <h4>Chi tiết hóa đơn</h4>
                         </div>
-                        <form action="{{route('post_dathang')}}" method="post">
+                        <form id="form-dathang" action="{{route('post_dathang')}}" method="post">
                           @csrf
                             <div class="form-group">
                               <label for="hovaten" class="form-label">Họ và tên</label>
@@ -75,6 +75,11 @@
                 </div>
             </div>
         </div>
+      
     </div>
+@endsection
+@section('js')
+   
+    
 @endsection
  

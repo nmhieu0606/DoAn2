@@ -11,6 +11,7 @@
                
               <label for="tinhtrang" class="form-label">Nhập tên tình trạng</label>
               <input value="{{$data->tinhtrang}}" type="text" class="form-control" name="tinhtrang" id="tentinhtrang" >
+              {{$errors->first('tinhtrang')}}
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>

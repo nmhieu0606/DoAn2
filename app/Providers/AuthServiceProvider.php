@@ -29,7 +29,6 @@ class AuthServiceProvider extends ServiceProvider
         app(Gate::class)->before(function(Authorizable $auth,$route){
             if(method_exists($auth,'has_permisstion')){
                 return $auth->has_permisstion($route)? $auth->has_permisstion($route):false;
-
             }
             return false;
         });

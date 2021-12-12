@@ -11,6 +11,7 @@
                
               <label for="tendanhmuc" class="form-label">nhập tên danh mục</label>
               <input value="{{$data->tendanhmuc}}" type="text" class="form-control" name="tendanhmuc" id="tendanhmuc" >
+              {{$errors->first('tendanhmuc')}}
             </div>
 
             <div class="mb-3">

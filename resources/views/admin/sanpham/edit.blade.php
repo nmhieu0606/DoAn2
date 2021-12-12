@@ -6,7 +6,8 @@
             @csrf @method('PUT')
             <div class="form-group">
               <label for="tensp" class="form-label">Nhập tên sản phẩm</label>
-              <input type="text" value="{{$data->tensp}}" class="form-control" name="tensp" id="tensp" required >
+              <input type="text" value="{{$data->tensp}}" class="form-control" name="tensp" id="tensp" >
+              <a class="text-danger">  {{$errors->first('tensp')}}</a>
             </div>
 
             <div class="form-group">
@@ -21,30 +22,24 @@
             <div class="form-group">
                 <label for="soluong">Số lượng <span class="text-danger font-weight-bold">*</span></label>
                 <input id="soluong" value="{{$data->soluong}}" type="number" min="0" class="form-control @error('soluong') is-invalid @enderror" name="soluong" />
-                @error('soluong')
-                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                @enderror
+                <a class="text-danger">  {{$errors->first('soluong')}}</a>
             </div>
             <div class="form-group">
                 <label for="gianhap">Giá nhập <span class="text-danger font-weight-bold">*</span></label>
-                <input id="gianhap" value="{{$data->gianhap}}" type="number" min="0" class="form-control @error('gianhap') is-invalid @enderror" name="gianhap" value="{{ old('gianhap') }}" required autocomplete="gianhap" />
-                @error('gianhap')
-                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                @enderror
+                <input id="gianhap" value="{{$data->gianhap}}" type="number" min="0" class="form-control @error('gianhap') is-invalid @enderror" name="gianhap" value="{{ old('gianhap') }}"  autocomplete="gianhap" />
+                <a class="text-danger">  {{$errors->first('gianhap')}}</a>
             </div>
 
             <div class="form-group">
                 <label for="giaxuat">Gía xuất <span class="text-danger font-weight-bold">*</span></label>
-                <input id="giaxuat" value="{{$data->giaxuat}}" type="number" min="0" class="form-control @error('gianhap') is-invalid @enderror" name="giaxuat" value="{{ old('giaxuat') }}" required autocomplete="giaxuat" />
-                @error('giaxuat')
-                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                @enderror
+                <input id="giaxuat" value="{{$data->giaxuat}}" type="number" min="0" class="form-control @error('gianhap') is-invalid @enderror" name="giaxuat" value="{{ old('giaxuat') }}"  autocomplete="giaxuat" />
+                <a class="text-danger">  {{$errors->first('giaxuat')}}</a>
             </div>
 
             <div class="form-group">
                 <label for="sale">Sale % <span class="text-danger font-weight-bold">*</span></label>
                 <input id="sale" type="number" value="{{$data->sale}}" min="0" class="form-control @error('sale') is-invalid @enderror" name="sale" value="{{ old('sale') }}"  />
-                {{$errors->first('giaxuat')}}
+                {{$errors->first('sale')}}
             </div>
 
             <div class="form-group">
@@ -102,6 +97,7 @@
                 <label for="chitiet" class="form-label">Chi tiết</label>
                 <textarea  class="form-control ckeditor" name="chitiet" id="chitiet">{{$data->chitiet}}</textarea>
                 <div class="invalid-feedback"></div>
+                <a class="text-danger">  {{$errors->first('chitiet')}}</a>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>

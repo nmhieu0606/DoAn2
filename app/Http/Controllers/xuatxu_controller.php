@@ -83,6 +83,11 @@ class xuatxu_controller extends Controller
      */
     public function update(Request $request,$id)
     {
+        
+        $request->validate([
+            'xuatxu'=>'required|max:100|unique:xuatxu',
+        ]);
+
         $data=xuatxu::find($id);
         $data->xuatxu=$request->xuatxu;
         if($data->save()){
@@ -99,9 +104,13 @@ class xuatxu_controller extends Controller
      */
     public function destroy($id)
     {
-        $data=xuatxu::find($id)->delete();
-        if($data){
-            return redirect('admin/xuatxu');
+        $data=xuatxu::find($id);
+        if($data->sanpham->count()==0){
+            $data->delete();
+            return redirect()->back()->with('yes', 'Xóa thành công');
+        }
+        else{
+            return redirect()->back()->with('no', 'Xóa không thành công');
         }
     }
 }

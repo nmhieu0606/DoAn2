@@ -72,10 +72,10 @@
                     }
                     else{
                         var html='';
-                        for(var er of res.error){
-                            html+='<div class="alert alert-danger" role="alert">'+er+'</div>';
+                       
+                            html+='<div class="alert alert-danger" role="alert">'+res.error+'</div>';
 
-                        }
+                        
                         $('#doimatkhau-error').html(html);
                     }
                 })

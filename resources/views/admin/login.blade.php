@@ -28,35 +28,67 @@
 	<link rel="stylesheet" type="text/css" href="{{url('public/login')}}/css/util.css">
 	<link rel="stylesheet" type="text/css" href="{{url('public/login')}}/css/main.css">
 <!--===============================================================================================-->
+<style>
+video {
+   width: 100vw;
+   height: 100vh;
+   position: fixed;
+   top: 0;
+   left: 0;
+   object-fit: cover;
+ }
+ .noi_dung {
+   position: relative;
+   height: 100vh;
+   /* text-align: center; */
+   display: flex;
+   align-items: center;
+   justify-content: center;
+ }
+ h1 {
+   color: CornflowerBlue;
+   text-transform: uppercase;
+   letter-spacing: 1vw;
+   line-height: 1.2;
+   font-size: 3vw;
+   /* text-align: center; */
+ }
+
+</style>
 </head>
 <body>
 	
-	<div class="limiter">
-		<div class="container-login100" style="background-image: url('{{url('public/login')}}/images/bg.gif');">
-			<div class="wrap-login100 p-t-30 p-b-50">
-				
-				<form id="form-login" action="{{route('post.dangnhap')}}" method="POST" class="login100-form validate-form p-b-33 p-t-5">
-          @csrf
-					<div class="wrap-input100 validate-input" data-validate = "Nhập Tên đăng nhập">
-						<input required class="input100" type="text" name="tendangnhap" placeholder="Tên đăng nhập">
-						<span class="focus-input100" data-placeholder="&#xe82a;"></span>
-					</div>
-
-					<div class="wrap-input100 validate-input" data-validate="Nhập Mật khẩu">
-						<input required class="input100" type="password" name="password" placeholder="Mật khẩu">
-						<span class="focus-input100" data-placeholder="&#xe80f;"></span>
-					</div>
-
-					<div class="container-login100-form-btn m-t-32">
-						<button type="submit" class="login100-form-btn">
-							Login
-						</button>
-					</div>
-
-				</form>
+	<video playsinline autoplay muted loop>
+		<source src="{{url('public/video.mp4')}}" type="video/mp4">
+	</video>
+	  <header class="noi_dung">
+		<div class="limiter">
+			<div class="container-login100" >
+				<div class="wrap-login100 p-t-30 p-b-50">
+					
+					<form id="form-login" action="{{route('post.dangnhap')}}" method="POST" class="login100-form validate-form p-b-33 p-t-5">
+			  @csrf
+						<div class="wrap-input100 validate-input" data-validate = "Nhập Tên đăng nhập">
+							<input required class="input100" type="text" name="tendangnhap" placeholder="Tên đăng nhập">
+							<span class="focus-input100" data-placeholder="&#xe82a;"></span>
+						</div>
+		
+						<div class="wrap-input100 validate-input" data-validate="Nhập Mật khẩu">
+							<input required class="input100" type="password" name="password" placeholder="Mật khẩu">
+							<span class="focus-input100" data-placeholder="&#xe80f;"></span>
+						</div>
+		
+						<div class="container-login100-form-btn m-t-32">
+							<button type="submit" class="login100-form-btn">
+								Login
+							</button>
+						</div>
+		
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
+	</header>
 	
  
 	<div id="dropDownSelect1"></div>

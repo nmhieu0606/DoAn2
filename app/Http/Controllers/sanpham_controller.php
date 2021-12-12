@@ -70,10 +70,12 @@ class sanpham_controller extends Controller
             'soluong'=>'required|numeric',
             'gianhap'=>'required|numeric',
             'giaxuat'=>'required|numeric',
-            'nhanhieu_id'=>'required|numeric',
-            'xuatxu_id'=>'required|numeric',
-            'baohanh_id'=>'required|numeric',
-            'danhmuc_id'=>'required|numeric',
+            'nhanhieu_id'=>'required',
+            'xuatxu_id'=>'required',
+            'baohanh_id'=>'required',
+            'danhmuc_id'=>'required',
+            'sale'=>'required|numeric',
+            'chitiet'=>'required'
 
         ],$messages);
         if($request->has('file_uploads')){
@@ -141,6 +143,20 @@ class sanpham_controller extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'tensp'=>'required|max:100',
+            'soluong'=>'required|numeric',
+            'gianhap'=>'required|numeric',
+            'giaxuat'=>'required|numeric',
+            'nhanhieu_id'=>'required',
+            'xuatxu_id'=>'required',
+            'baohanh_id'=>'required',
+            'danhmuc_id'=>'required',
+            'sale'=>'required',
+            'chitiet'=>'required',
+
+        ]);
+
         if($request->has('file_uploads')){
             $file=$request->file_uploads;
             $ex=$request->file_uploads->extension();
@@ -179,10 +195,18 @@ class sanpham_controller extends Controller
      * @param  \App\Models\sanpham  $sanpham
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-       
-    }
+    // public function destroy($id)
+    // {
+    //     $data= dathang_chitiet::find($id);
+    //    if($data->dathang_chitiet->count()==0){
+    //        $data->delete();
+    //        return redirect()->back()->with('yes', 'Xóa thành công');
+    //    }
+    //    else{
+         
+    //     return redirect()->back()->with('no', 'Xóa không thành công');
+    //    }
+    // }
     public function postnhap(Request $request){
         Excel::import(new sanpham_import,$request->file('file'));
         return redirect('admin/sanpham');

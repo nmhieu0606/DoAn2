@@ -60,10 +60,10 @@ class nhanvien_controller extends Controller
         ];
 
         $request->validate([
-            'hovaten'=>'required|max:100|unique:nhanvien',
+            'hovaten'=>'required|max:100',
             'gioitinh'=>'required|numeric',
-            'diachi'=>'required|max:100|unique:nhanvien',
-            'sdt'=>'required|numeric|unique:nhanvien',
+            'diachi'=>'required|max:100',
+            'sdt'=>'required|numeric',
             'cmnd'=>'required|numeric|unique:nhanvien',
             'chucvu_id'=>'required|numeric',
             'tendangnhap'=>'required|max:100|unique:nhanvien',
@@ -134,10 +134,10 @@ class nhanvien_controller extends Controller
         ];
 
         $request->validate([
-            'hovaten'=>'required|max:100|unique:nhanvien',
-            'gioitinh'=>'required|numeric:nhanvien,gioitinh',
-            'diachi'=>'required|max:100|unique:nhanvien,diachi',
-            'sdt'=>'required|numeric|unique:nhanvien,sdt',
+            'hovaten'=>'required|max:100',
+            'gioitinh'=>'required|numeric',
+            'diachi'=>'required|max:100',
+            'sdt'=>'required|numeric',
             'cmnd'=>'required|numeric|unique:nhanvien,cmnd',
             'chucvu_id'=>'required|numeric',
             'tendangnhap'=>'required|max:100|unique:nhanvien,tendangnhap',

@@ -46,7 +46,7 @@
               <td>
                 <a onclick="return confirm('bạn có muốn xóa nó không đơn hàng {{$item->id}} không?')" href="{{route('donhang.destroy',$item->id)}}" class="btn btn-danger ">Xóa</a>
              </td>
-             @if($item->tinhtrang_id!=5)
+             @if($item->tinhtrang_id!=5 || Auth::user()->id==$item->nhanvien_id || Auth::user()->chucvu_id==5)
              <td>
                  <div class="btn-group">
                    <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\nhanhieu;
+use App\Models\sanpham; 
 use Illuminate\Http\Request;
 
 class nhanhieu_controller extends Controller
@@ -73,7 +74,6 @@ class nhanhieu_controller extends Controller
     public function edit($id)
     {
         $data = nhanhieu::find($id);
-        
 		return view('admin.nhanhieu.edit', compact('data'));
     }
 
@@ -86,6 +86,10 @@ class nhanhieu_controller extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'nhanhieu'=>'required|max:100',
+        ]);
+
         $data = nhanhieu::find($id);
         $data->nhanhieu=$request->nhanhieu;
         if($data->save()){
@@ -103,8 +107,14 @@ class nhanhieu_controller extends Controller
      */
     public function destroy($id)
     {
-       $data= nhanhieu::find($id)->delete();
-       if( $data)
-            return redirect('admin/nhanhieu');
+       $data= nhanhieu::find($id);
+       if($data->sanpham->count()==0){
+           $data->delete();
+           return redirect()->back()->with('yes', 'Xóa thành công');
+       }
+       else{
+        return redirect()->back()->with('no', 'Xóa không thành công');
+       }
+            
     }
 }

@@ -5,8 +5,8 @@
             @csrf @method('PUT')
             <div class="mb-3">
                 <label for="TieuDe" class="form-label">Họ và tên</label>
-                <input type="text" value="{{$data->hovaten}}" class="form-control" id="hovaten" name="hovaten" required>
-                <div class="invalid-feedback">Họ và tên không được bỏ trống.</div>
+                <input type="text" value="{{$data->hovaten}}" class="form-control" id="hovaten" name="hovaten">
+                <a class="text-danger">  {{$errors->first('hovaten')}}</a>
             </div>
 
             <div class="mb-3">
@@ -45,13 +45,13 @@
 
             <div class="mb-3">
 							<label for="sdt" class="form-label">SĐT</label>
-							<input  value="{{$data->sdt}}" type="text" class="form-control" id="sdt" name="sdt" required >
-              {{$errors->first('sdt')}}
+							<input  value="{{$data->sdt}}" type="text" class="form-control" id="sdt" name="sdt" >
+              <a class="text-danger">  {{$errors->first('sdt')}}</a>
 						</div>
             <div class="mb-3">
 							<label for="cmnd" class="form-label">CMND</label>
-							<input  value="{{$data->cmnd}}" type="text" class="form-control" id="cmnd" name="cmnd" required>
-							<div class="invalid-feedback">CMND không được bỏ trống.</div>
+							<input  value="{{$data->cmnd}}" type="text" class="form-control" id="cmnd" name="cmnd">
+              <a class="text-danger">  {{$errors->first('cmnd')}}</a>
 						</div>
             <div class="mb-3">
 							<label for="ngaysinh" class="form-label">Ngày sinh</label>
@@ -66,13 +66,13 @@
 						</div>
             <div class="mb-3">
 							<label for="email" class="form-label">Email</label>
-							<input  value="{{$data->email}}" type="email" class="form-control" id="email" name="email" required>
-							<div class="invalid-feedback">Email không được bỏ trống.</div>
+							<input  value="{{$data->email}}" type="email" class="form-control" id="email" name="email">
+              <a class="text-danger">  {{$errors->first('email')}}</a>
 						</div>
             <div class="mb-3">
 							<label for="tendangnhap" class="form-label">Tên đăng nhập</label>
-							<input  value="{{$data->tendangnhap}}" type="text" class="form-control" id="tendangnhap" name="tendangnhap" required>
-							<div class="invalid-feedback">Tên đăng nhập không được bỏ trống.</div>
+							<input  value="{{$data->tendangnhap}}" type="text" class="form-control" id="tendangnhap" name="tendangnhap">
+              <a class="text-danger">  {{$errors->first('tendangnhap')}}</a>
 						</div>
             <div class="mb-3">
 							<label for="password" class="form-label">Mật khẩu</label>

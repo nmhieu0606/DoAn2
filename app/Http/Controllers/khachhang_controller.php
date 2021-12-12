@@ -38,10 +38,11 @@ class khachhang_controller extends Controller
      */
     public function store(Request $request)
     {
+       
         $request->validate([
-            'hovaten'=>'required|max:100|unique:khachhang',
-            'sdt'=>'required|numeric',
-            'cmnd'=>'required|numeric',
+            'hovaten'=>'required|max:100',
+            'sdt'=>'required|numeric|unique:khachhang',
+            'cmnd'=>'required|numeric|unique:khachhang',
             'email'=>'required|max:100|unique:khachhang',
             'tendangnhap'=>'required|max:100|unique:khachhang',
             
@@ -98,6 +99,14 @@ class khachhang_controller extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'hovaten'=>'required|max:100',
+            'sdt'=>'required|numeric|unique:khachhang',
+            'cmnd'=>'required|numeric|unique:khachhang',
+            'email'=>'required|max:100|unique:khachhang',
+            'tendangnhap'=>'required|max:100|unique:khachhang',
+            
+        ]);
         
         $data = khachhang::find($id);
         $data->hovaten=$request->hovaten;

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\sanpham;
 
 class nhanhieu extends Model
 {
@@ -17,4 +18,8 @@ class nhanhieu extends Model
         return $query;
   
       }
+
+      public function sanpham(){
+        return $this->hasMany(sanpham::class,'nhanhieu_id','id');
+        }
 }

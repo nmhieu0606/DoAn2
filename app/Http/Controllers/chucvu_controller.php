@@ -78,13 +78,9 @@ class chucvu_controller extends Controller
         $route=[];
         $all=Route::getRoutes();
         $quyen=json_decode($data->quyen);
-        
         foreach($all as $r){
             array_push($route,$r->getName());
         }
-        
-        
-        
 		return view('admin.chucvu.edit', compact('data','route','quyen'));
     }
 

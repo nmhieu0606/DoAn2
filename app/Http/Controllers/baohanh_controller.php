@@ -97,8 +97,16 @@ class baohanh_controller extends Controller
      */
     public function destroy($id)
     {
-       $data= baohanh::find($id)->delete();
-       if($data)
-            return redirect('admin/baohanh');
+       
+       $data=baohanh::find($id);
+       if($data->sanpham->count()==0){
+            $data->delete();
+            return redirect()->back()->with('yes','Xóa thành công');
+
+       }
+       else{
+            return redirect()->back()->with('no','Xóa không thành công');
+       }
+       
     }
 }

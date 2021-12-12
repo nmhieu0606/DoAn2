@@ -11,7 +11,6 @@ class slide extends Model
     protected $table='slide';
     public $timestamps=false;
     protected $fillable=[
-        'ten',
         'anh',
         'nhanvien_id',
         'status',

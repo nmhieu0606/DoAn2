@@ -22,7 +22,6 @@
           <tr>
             <td><img style="width: 150px" src="{{url('public/slide')}}/{{$item->anh}}" alt=""></td>
             <td>{{$item->id}}</td>
-            <td>{{$item->ten}}</td>
             <td>{{$item->nhanvien->hovaten}}</td>
            @if ($item->status==0)
            <td>Ẩn</td>

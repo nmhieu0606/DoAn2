@@ -1,31 +1,35 @@
 @extends('layouts.site')
 @section('main')
+<div class="container">
+    <h4>Thông tin khách hàng</h4>
+<div class="heading_s1 mt-4">
     
+    @if (Auth::guard('khachhang')->user()->anh=='')
+    <img style="width: 200px; border-radius:20px;" src="{{url('public/khachhang/default.jpg')}}" >
+    @else
+    <img style="width: 200px; border-radius:20px;" src="{{url('public/khachhang')}}/{{Auth::guard('khachhang')->user()->anh}}" >
+    @endif
+   
+</div>
+
+</div>
     <div class="main_content">
         <div class="section">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="heading_s1">
-                            <h4>Thông tin khách hàng</h4>
-                            <img width="200px" src="{{url('public/khachhang')}}/{{Auth::guard('khachhang')->user()->anh}}" class="rounded float-start" alt="...">
-                        </div>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#thongtin">
+                            Đổi thông tin
+                        </button>
 
                         <form  method="post">
                           @csrf
                          
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
+                           
                           <div class="form-group">
                               <label for="hovaten" class="form-label">Họ và tên</label>
                                 <input disabled value="{{Auth::guard('khachhang')->user()->hovaten}}" type="text" required class="form-control" >
                             </div>
-                            
-                           
                             <div class="form-group">
                               <label for="diachi" class="form-label">Địa chỉ</label>
                                 <input disabled value="{{Auth::guard('khachhang')->user()->diachi}}" class="form-control" required type="text" >
@@ -34,25 +38,12 @@
                               <label for="sdt" class="form-label">SĐT</label>
                                 <input disabled value="{{Auth::guard('khachhang')->user()->sdt}}" class="form-control" required type="number" >
                             </div>
-                            <div class="form-group">
-                              <label for="email" class="form-label">Email</label>
-                              <input disabled value="{{Auth::guard('khachhang')->user()->email}}" class="form-control" required type="text"  >
-                            </div>
+                           
                           
                         </form>
                         
                     </div>
                     <div class="col-md-6">
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
                         <div class="form-group">
                             <label for="gioitinh" class="form-label">Giới tính: </label>
                            @if (Auth::guard('khachhang')->user()->gioitinh==0)
@@ -71,9 +62,10 @@
                             <label for="diachi" class="form-label">CMND</label>
                               <input disabled value="{{Auth::guard('khachhang')->user()->cmnd}}" class="form-control" required type="text" >
                         </div>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#thongtin">
-                            Đổi thông tin
-                        </button>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input disabled value="{{Auth::guard('khachhang')->user()->email}}" class="form-control" required type="text"  >
+                          </div>
 
                     </div>
                     <!-- Button trigger modal -->
@@ -145,7 +137,6 @@
                                   </form>
                                 
                             </div>
-                            
                         </div>
                         </div>
                     </div>

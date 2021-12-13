@@ -19,9 +19,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @if ($data->count('id')==0)
+                                            <div class="alert alert-primary" role="alert">
+                                                Đơn hàng trống
+                                            </div>
+                                        @endif
                                         @foreach ($data as $item)
+
                                         <tr>
-                                
                                             <td  >{{$item->id}}</td>
                                             <td  >{{$item->khachhang->hovaten}}</td>
                                             <td  ></td>

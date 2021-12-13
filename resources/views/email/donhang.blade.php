@@ -59,8 +59,6 @@
                 </thead>
                 <tbody>
                     @foreach ($giohang->items as $stt=> $item)
-                        
-                    
                     <tr>
                         <td>{{$stt++}}</td>
                         <td>{{$item['tensp']}}</td>

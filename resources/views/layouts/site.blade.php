@@ -134,7 +134,12 @@
                         @if (Auth::guard('khachhang')->check())
                             <div class="btn-group">
                                 <button type="button" class="btn btn-silver btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                @if (Auth::guard('khachhang')->user()->anh==null)
+                                <img style="width: 40px; border-radius:20px;" src="{{url('public/khachhang/default.jpg')}}" alt="">
+                                @else
                                 <img style="width: 40px; border-radius:20px;" src="{{url('public/khachhang')}}/{{Auth::guard('khachhang')->user()->anh}}" alt="">
+                                @endif
+                               
                                 {{Auth::guard('khachhang')->user()->hovaten}}
                                 </button>
                                 <ul class="dropdown-menu">
@@ -384,11 +389,14 @@
             e.preventDefault();
            var href=$(this).attr('href');
            $.get(href,function(res){
-            Swal.fire(
-            res.message,
-            'Tiếp tục mua hàng',
-            'success'
-            )
+                Swal.fire({
+                    position: 'center-end',
+                    icon: 'success',
+                    title: 'Thêm vào giỏ thành công',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    toast:true,
+                    });
                 load_dropdown();
            })
         

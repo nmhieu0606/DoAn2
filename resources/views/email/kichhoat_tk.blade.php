@@ -7,8 +7,5 @@
                 kích hoạt tài khoản
             </a>
         </p>
-    
     </div>
-
-
 </div>

@@ -31,6 +31,8 @@ class sanpham_export implements FromCollection,WithHeadings,WithCustomStartCell,
             'xuatxu_id', 
             'baohanh_id',
             'danhmuc_id',
+            'sale',
+            'giasale',
         ];
     }
     public function map($row): array
@@ -46,6 +48,9 @@ class sanpham_export implements FromCollection,WithHeadings,WithCustomStartCell,
             $row->xuatxu_id,
             $row->baohanh_id,
             $row->danhmuc_id,
+            $row->sale,
+            $row->giasale,
+
         ];
     }
     public function startCell(): string

@@ -25,6 +25,8 @@ class sanpham_import implements ToModel
             'xuatxu_id'=>$row[7], 
             'baohanh_id'=>$row[8],
             'danhmuc_id'=>$row[9],
+            'sale'=>$row[10],
+            'giasale'=>$row[11],
         ]);
     }
 }

@@ -46,19 +46,22 @@
               <td>
                 <a onclick="return confirm('bạn có muốn xóa nó không đơn hàng {{$item->id}} không?')" href="{{route('donhang.destroy',$item->id)}}" class="btn btn-danger ">Xóa</a>
              </td>
-             @if($item->tinhtrang_id!=5 || Auth::user()->id==$item->nhanvien_id || Auth::user()->chucvu_id==5)
-             <td>
-                 <div class="btn-group">
-                   <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                     Tình trạng
-                   </button>
-                   <ul class="dropdown-menu">
-                     @foreach ($tinhtrang as $tt)
-                       <li><a class="dropdown-item" href="{{route('donhang.tinhtrang',['id'=>$item->id,'tt'=>$tt->id])}}">{{$tt->tinhtrang}}</a></li>
-                     @endforeach
-                   </ul>
-                 </div>
-             </td>
+             @if ($item->nhanvien_id!=null|| Auth::user()->chucvu_id==5||Auth::user()->chucvu_id==4)
+
+             @if($item->tinhtrang_id!=5 && Auth::user()->id==$item->nhanvien_id || Auth::user()->chucvu_id==5||Auth::user()->chucvu_id==4)
+              <td>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                      Tình trạng
+                    </button>
+                    <ul class="dropdown-menu">
+                      @foreach ($tinhtrang as $tt)
+                        <li><a class="dropdown-item" href="{{route('donhang.tinhtrang',['id'=>$item->id,'tt'=>$tt->id])}}">{{$tt->tinhtrang}}</a></li>
+                      @endforeach
+                    </ul>
+                  </div>
+              </td>
+             @endif
              @endif
             </tr>
           @endforeach

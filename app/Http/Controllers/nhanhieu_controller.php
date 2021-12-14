@@ -86,9 +86,14 @@ class nhanhieu_controller extends Controller
      */
     public function update(Request $request, $id)
     {
+        $messages = [
+            'nhanhieu.required' => 'Nhãn hiệu không được bỏ trống',
+            
+        ];
+
         $request->validate([
-            'nhanhieu'=>'required|max:100',
-        ]);
+            'nhanhieu'=>'required|max:100|unique:nhanhieu,nhanhieu,'.$id,
+        ],$messages);
 
         $data = nhanhieu::find($id);
         $data->nhanhieu=$request->nhanhieu;

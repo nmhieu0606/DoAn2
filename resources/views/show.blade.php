@@ -39,16 +39,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <hr>
-                                <div class="">{{$sp->appends(request()->all())->links()}}</div>
-                            </div>
-                        </div>
+                       
                     </div>
                     @endif
 
                      @endforeach
+                     <div class="row">
+                        <div class="col-12">
+                            <hr>
+                            <div class="">{{$sp->appends(request()->all())->links()}}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -84,9 +84,14 @@ class xuatxu_controller extends Controller
     public function update(Request $request,$id)
     {
         
+        $messages = [
+            'xuatxu.required' => 'Tên xuất xứ không được bỏ trống',
+            'xuatxu.unique' => 'Tên xuất xứ đã tồn tại',
+        ];
+
         $request->validate([
-            'xuatxu'=>'required|max:100|unique:xuatxu',
-        ]);
+            'xuatxu'=>'required|max:100|unique:xuatxu,xuatxu,'.$id,
+        ],$messages);
 
         $data=xuatxu::find($id);
         $data->xuatxu=$request->xuatxu;

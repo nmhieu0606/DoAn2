@@ -129,8 +129,9 @@ class nhanvien_controller extends Controller
             'cmnd.required' => 'Chứng minh không được bỏ trống',
             'chucvu_id.required' => 'Chức vụ không được bỏ trống',
             'tendangnhap.required' => 'Tên đăng nhập không được bỏ trống',
-            'password.required' => 'Password không được bỏ trống',
+           
             'email.required' => 'email không được bỏ trống',
+            'email.email' => 'email phải đúng định dạng',
         ];
 
         $request->validate([
@@ -138,11 +139,11 @@ class nhanvien_controller extends Controller
             'gioitinh'=>'required|numeric',
             'diachi'=>'required|max:100',
             'sdt'=>'required|numeric',
-            'cmnd'=>'required|numeric|unique:nhanvien,cmnd',
+            'cmnd'=>'required|numeric|unique:nhanvien,cmnd,'.$id,
             'chucvu_id'=>'required|numeric',
-            'tendangnhap'=>'required|max:100|unique:nhanvien,tendangnhap',
-            'password'=>'required|max:100|unique:nhanvien,password',
-            'email'=>'required|max:100|unique:nhanvien,email',
+            'tendangnhap'=>'required|max:100|unique:nhanvien,tendangnhap,'.$id,
+            
+            'email'=>'required|email|max:100|unique:nhanvien,email,'.$id,
         ],$messages);
         $data=nhanvien::find($id);
         $data->hovaten=$request->hovaten;

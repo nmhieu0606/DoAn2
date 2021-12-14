@@ -15,7 +15,7 @@ class donhang_controller extends Controller
 {
     public function index(){
         $tinhtrang=tinhtrang::all();
-        $data=dathang::orderby('id','DESC')->paginate(10);
+        $data=dathang::search()->orderby('id','DESC')->paginate(10);
         return view('admin.donhang.index',compact('data','tinhtrang'));
 
     }
@@ -25,18 +25,30 @@ class donhang_controller extends Controller
 
     }
     public function nhandon($id){
-        $data=dathang::find($id);
-        $data->nhanvien_id=Auth::user()->id;
-        $data->save();
-        return redirect()->back();
+        
+            $data=dathang::find($id);
+      
+            $data->nhanvien_id=Auth::user()->id;
+            $data->save();
+            return redirect()->back();
+
+      
+       
 
     }
     public function tinhtrang($id,$tt){
+        
        
         $data=dathang::find($id);
-        $data->tinhtrang_id=$tt;
-        $data->save();
-        return redirect('admin/donhang');
+        if($data->nhanvien_id==Auth::user()->id ||Auth::user()->chucvu_id==4||Auth::user()->chucvu_id==5){
+            $data->tinhtrang_id=$tt;
+            $data->save();
+            return redirect('admin/donhang');
+
+        }else{
+            return redirect()->back()->with('no','Đơn hàng không phải của bạn');
+        }
+       
     }
     public function show($id){
         
@@ -46,8 +58,6 @@ class donhang_controller extends Controller
             $pdf=PDF::loadView('admin.pdf.donhang_chitiet',compact('dh','tinhtrang'));
             return $pdf->stream('invoice.pdf');
         }
-       
-        
 
         return view('admin.donhang.show',compact('dh','tinhtrang'));
     }

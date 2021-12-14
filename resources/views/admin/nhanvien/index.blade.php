@@ -43,7 +43,7 @@
             <td>{{$item->diachi}}</td>
             <td>{{$item->sdt}}</td>
             <td>{{$item->cmnd}}</td>
-            {{-- <td>{{$item->chucvu->tenchucvu}}</td> --}}
+            <td>{{$item->chucvu->tenchucvu}}</td>
             <td>{{$item->tendangnhap}}</td>
             <td>{{$item->email}}</td>
            

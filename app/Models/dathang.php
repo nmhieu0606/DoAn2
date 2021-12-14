@@ -23,6 +23,13 @@ class dathang extends Model
     public function dathang_chitiet(){
         return $this->hasMany(dathang_chitiet::class,'dathang_id','id');
     }
+    public function scopeSearch($query){
+        if($tukhoa=request()->tukhoa){
+          $query=$query->where('id','like','%'.$tukhoa.'%');
+        }
+        return $query;
+  
+    }
     
 
 }

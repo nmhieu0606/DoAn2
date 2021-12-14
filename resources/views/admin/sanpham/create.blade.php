@@ -102,7 +102,7 @@ function showdanhmuc($danhmuc, $parent_id = 0, $char = '')
     foreach ($danhmuc as $key => $item)
     {
         // Nếu là chuyên mục con thì hiển thị
-        if ($item->parent_id == $parent_id)
+        if ($item->parent_id == $parent_id )
         {
             
              echo'<option value="'.$item->id.'">'.$char.$item->tendanhmuc.'</option>';
@@ -114,7 +114,6 @@ function showdanhmuc($danhmuc, $parent_id = 0, $char = '')
         }
     }
 }
-
 
 
 ?>

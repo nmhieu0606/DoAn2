@@ -100,12 +100,13 @@ class danhmuc_controller extends Controller
     {
         $messages = [
             'tendanhmuc.required' => 'Tên danh mục không được bỏ trống',
+            'parent_id.required' => 'không được bỏ trống',
            
         ];
 
         $request->validate([
-            'tendanhmuc'=>'required|max:100|unique:danhmuc',
-            'parent_id'=>'required|numeric'
+            'tendanhmuc'=>'required|max:100|unique:danhmuc,tendanhmuc,'.$id,
+            'parent_id'=>'required'
         ],$messages);
         $data = danhmuc::find($id);
         

@@ -44,6 +44,14 @@ class chucvu_controller extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'tenchucvu.required' => 'Tình trạng không được bỏ trống',
+            'tenchucvu.unique' => 'Tình trạng đã tồn tại',
+        ];
+
+        $request->validate([
+            'tenchucvu'=>'required|max:100|unique:chucvu',
+        ],$messages);
       
         $data=new chucvu;
         $data->tenchucvu=$request->tenchucvu;
@@ -93,6 +101,14 @@ class chucvu_controller extends Controller
      */
     public function update(Request $request, $id)
     {
+        $messages = [
+            'tenchucvu.required' => 'Chức vụ không được bỏ trống',
+            'tenchucvu.unique' => 'Chức vụ đã tồn tại',
+        ];
+
+        $request->validate([
+            'tenchucvu'=>'required|max:100|unique:chucvu,tenchucvu,'.$id,
+        ],$messages);
         
         $data = chucvu::find($id);
         $data->tenchucvu=$request->tenchucvu;

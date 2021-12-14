@@ -40,6 +40,7 @@ class baohanh_controller extends Controller
     {
         $messages = [
             'thoigianbaohanh.required' => 'thời gian bảo hành không được bỏ trống',
+            'thoigianbaohanh.unique' => 'thời gian bảo hành đã tồn tại',
         ];
 
         $request->validate([
@@ -92,7 +93,7 @@ class baohanh_controller extends Controller
         ];
 
         $request->validate([
-            'thoigianbaohanh'=>'required|max:100|unique:baohanh,thoigianbaohanh',
+            'thoigianbaohanh'=>'required|max:100|unique:baohanh,thoigianbaohanh,'.$id,
         ],$messages);
         $data = baohanh::find($id);
         $data->thoigianbaohanh=$request->thoigianbaohanh;

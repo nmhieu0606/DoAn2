@@ -51,26 +51,12 @@
                                 <div class="form-group">
                                     <input id="password_c" class="form-control" required="" type="password" name="password_c" placeholder="Confirm Password">
                                 </div>
-                                <div class="login_footer form-group">
-                                    <div class="chek-form">
-                                        <div class="custome-checkbox">
-                                            <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox2" value="">
-                                            <label class="form-check-label" for="exampleCheckbox2"><span>I agree to terms &amp; Policy.</span></label>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                                 <div class="form-group">
                                     <button id="btn-dangky" type="submit" class="btn btn-fill-out btn-block" >Đăng kí</button>
                                 </div>
                             </form>
-                            <div class="different_login">
-                                <span> or</span>
-                            </div>
-                            <ul class="btn-login list_none text-center">
-                                <li><a href="#" class="btn btn-facebook"><i class="ion-social-facebook"></i>Facebook</a></li>
-                                <li><a href="#" class="btn btn-google"><i class="ion-social-googleplus"></i>Google</a></li>
-                            </ul>
-                            <div class="form-note text-center">Already have an account? <a href="login.html">Log in</a></div>
+                           
                         </div>
                     </div>
                 </div>

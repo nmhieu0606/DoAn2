@@ -38,6 +38,7 @@ class tinhtrang_controller extends Controller
     {
         $messages = [
             'tinhtrang.required' => 'Tình trạng không được bỏ trống',
+            'tinhtrang.unique' => 'Tình trạng đã tồn tại',
         ];
 
         $request->validate([
@@ -87,10 +88,11 @@ class tinhtrang_controller extends Controller
     {
         $messages = [
             'tinhtrang.required' => 'Tình trạng không được bỏ trống',
+            'tinhtrang.unique' => 'Tình trạng đã tồn tại',
         ];
 
         $request->validate([
-            'tinhtrang'=>'required|max:100|unique:tinhtrang,tinhtrang',
+            'tinhtrang'=>'required|max:100|unique:tinhtrang,tinhtrang,'.$id,
         ],$messages);
         $data = tinhtrang::find($id);
         $data->tinhtrang=$request->tinhtrang;

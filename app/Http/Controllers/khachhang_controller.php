@@ -99,7 +99,28 @@ class khachhang_controller extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        $messages = [
+            'hovaten.required' => 'Họ và tên không được bỏ trống',
+            'gioitinh.required' => 'Giới tính không được bỏ trống',
+            'ngaysinh.required' => 'Ngày sinh không được bỏ trống',
+            'diachi.required' => 'Địa chỉ không được bỏ trống',
+            'sdt.required' => 'Số điện thoại không được bỏ trống',
+            'cmnd.required' => 'Chứng minh không được bỏ trống',
+            'tendangnhap.required' => 'Tên đăng nhập không được bỏ trống',
+           
+            'email.required' => 'email không được bỏ trống',
+            'email.email' => 'email phải đúng định dạng',
+        ];
+
+        $request->validate([
+            'hovaten'=>'required|max:100',
+            'gioitinh'=>'required|numeric',
+            'diachi'=>'required|max:100',
+            'sdt'=>'required|numeric',
+            'cmnd'=>'required|numeric|unique:nhanvien,cmnd,'.$id,
+            'tendangnhap'=>'required|max:100|unique:nhanvien,tendangnhap,'.$id,
+            'email'=>'required|email|max:100|unique:nhanvien,email,'.$id,
+        ],$messages);
         
         $data = khachhang::find($id);
         $data->hovaten=$request->hovaten;

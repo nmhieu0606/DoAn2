@@ -443,8 +443,11 @@
                     url: "{{route('ajax-search-sanpham')}}?tukhoa="+_text,
                     success: function (response) {
                         for (var sp of  response) {
+                            
+                            let url=sp.id;
+                            console.log(url);
                             var _html='';
-                            _html+='<li><img class="anh-search mt-3" src="http://localhost/shopdt1/public/uploads/'+sp.anh+'"><a class="dropdown-item nav-link nav_item" href="http://localhost/shopdt1/chitiet/'+sp.id+'">'+sp.tensp+'</li>';
+                            _html+='<li><img class="anh-search mt-3" src="{{url('public/uploads')}}/'+sp.anh+'"><a class="dropdown-item nav-link nav_item" href="http://localhost/DoAn2/chitiet/'+url+'">'+sp.tensp+'</li>';
                         }
                         $('.search-ajax').html(_html);
                     }

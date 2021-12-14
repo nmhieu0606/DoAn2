@@ -72,21 +72,18 @@ class home_controller extends Controller
              
          ]);
          if($validator->passes()){
-
             $token=strtoupper(Str::random(10));
             $data=$request->only('tendangnhap','email','hovaten','ngaysinh','gioitinh','diachi','sdt','cmnd');
             $data['password']=bcrypt($request->password);
             $data['token']=$token;
             $data['status']=0;
-            if($kh=khachhang::create($data)){
-               
+            if($kh=khachhang::create($data)){   
                 Mail::send('email.kichhoat_tk',compact('kh'),function($email) use($kh){
                     $email->subject('ShopMobile - Xác nhận tài khoản');
                     $email->to($kh->email,$kh->hovaten);
                 });
                 return response()->json([[1]]);
-                //return redirect('/dangnhap/index')->with('yes','Bạn đã đăng ký thành công vui lòng kích hoạt tài khoản qua email');
-               
+                //return redirect('/dangnhap/index')->with('yes','Bạn đã đăng ký thành công vui lòng kích hoạt tài khoản qua email');  
             }
 
          }
@@ -119,11 +116,10 @@ class home_controller extends Controller
     }
 
     public function kichhoatmatkhau($kh,$token){
-
         $data=khachhang::find($kh);
         if($data->token===$token){
            
-            return view('quenmatkhau.laylaimatkhau',compact('kh','token'))->with('yes','Xác nhận thành công vui lòng đặt lại mật khẩu');
+           return view('quenmatkhau.laylaimatkhau',compact('kh','token'))->with('yes','Xác nhận thành công vui lòng đặt lại mật khẩu');
         }
         else{
             return abort(404);
@@ -150,20 +146,17 @@ class home_controller extends Controller
        }
 
     }
-     public function kichhoat($khachhang,$token){
+    public function kichhoat($khachhang,$token){
          $data=khachhang::find($khachhang);
-         if($data->token===$token){
+        if($data->token===$token){
              $data->status=1;
              $data->token=null;
              $data->save();
              return redirect('/dangnhap/index')->with('yes','Bạn đạ kích hoạt tài khoản thành công vui lòng đăng nhập');
-         }
+        }
          else{
             return redirect('/dangnhap/index')->with('no','Lỗi kích hoạt tài khoản');
-
-         }
-         
-
+        }
      }
      
     public function dangxuat(){
@@ -232,7 +225,7 @@ class home_controller extends Controller
             if($request->file_anh!=null){
                 $file=$request->file_anh;
                 $ex=$request->file_anh->extension();
-                $file_name=time().'-'.$request->hovaten.'.'.$ex;
+                $file_name=time().'-'.Str::slug($request->hovaten).'.'.$ex;
                 $file->move(public_path('khachhang'),$file_name);
     
                 $data=khachhang::find($id);

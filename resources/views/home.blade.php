@@ -7,9 +7,7 @@
                     <div id="slideshow">
                         <div class="slide-wrapper">
                         @foreach ($slide as $item)
-                         
-                        @if ($item->status==1)
-                             
+                            @if ($item->status==1)
                           <div class="slide"><img src="{{url('public/slide')}}/{{$item->anh}}"></div>
                           @endif
                         @endforeach
